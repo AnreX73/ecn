@@ -7,17 +7,35 @@
     <title>{{title}}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="shortcut icon" href="{% static 'agency/images/favicon.ico' type="image/x-icon" %}"/> -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 </head>
-<body>
-<h2>User: {{user}} </h2>
-<a href="{% url 'home' %}">HOME</a>
+<body class="container">
+
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <h3>User: {{user}} </h3>
+    </li>
+    <li class="list-group-item list-group-item-primary">
+       <a href="{% url 'home' %}">Home</a>
+    </li>
+    <li class="list-group-item list-group-item-success">
+       <a href="{% url 'about' %}">About</a>
+    </li>
+</ul>
+
 {% block content %}
 
 {% endblock content %}
-</div>
+
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}">ВЫЙТИ</a>
+{% else %}
+<a href="{% url 'login' %}">ВОЙТИ | </a>
+<a href="{% url 'register' %}">Зарегистрироваться</a>
+{% endif  %}
 
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

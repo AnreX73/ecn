@@ -49,6 +49,8 @@ MIDDLEWARE = [
 ]
 
 AUTH_USER_MODEL = 'ecn.User'
+LOGIN_REDIRECT_URL ='/'
+LOGOUT_REDIRECT_URL ='/'
 
 ROOT_URLCONF = 'agency.urls'
 
