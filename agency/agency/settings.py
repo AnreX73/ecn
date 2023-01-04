@@ -49,8 +49,8 @@ MIDDLEWARE = [
 ]
 
 AUTH_USER_MODEL = 'ecn.User'
-LOGIN_REDIRECT_URL ='/'
-LOGOUT_REDIRECT_URL ='/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 ROOT_URLCONF = 'agency.urls'
 
@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ecn',
         'USER': 'AnreX',
-        'PASSWORD': 'l010800l',
+        'PASSWORD': 'll010800ll',
         'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
