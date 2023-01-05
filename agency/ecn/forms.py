@@ -11,8 +11,8 @@ class UserCreationForm(UserCreationForm):
         label=_("Email"),
         max_length=254,
         widget=forms.EmailInput(attrs={"autocomplete": "email"}),
-
     )
+    first_name = forms.CharField(label=_("first name"), max_length=150, required=True, help_text='Как к Вам обращаться?')
 
     class Meta(UserCreationForm.Meta):
         model = User
