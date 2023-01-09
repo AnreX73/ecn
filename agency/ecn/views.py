@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views import View
 
+
 from ecn.forms import UserCreationForm
 
 
@@ -19,6 +20,14 @@ def about(request):
 
     }
     return render(request, 'ecn/about.html', context=context)
+
+
+def profile(request):
+    context = {
+        'title': 'Your page',
+
+    }
+    return render(request, 'registration/profile.html', context=context)
 
 
 class Register(View):
@@ -39,8 +48,10 @@ class Register(View):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('home')
+            return redirect('profile')
         context = {
             'form': form,
         }
         return render(request, self.template_name, context)
+
+

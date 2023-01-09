@@ -49,7 +49,7 @@ MIDDLEWARE = [
 ]
 
 AUTH_USER_MODEL = 'ecn.User'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/profile'
 LOGOUT_REDIRECT_URL = '/'
 
 ROOT_URLCONF = 'agency.urls'
