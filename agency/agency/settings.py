@@ -52,6 +52,8 @@ AUTH_USER_MODEL = 'ecn.User'
 LOGIN_REDIRECT_URL = '/profile'
 LOGOUT_REDIRECT_URL = '/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 ROOT_URLCONF = 'agency.urls'
 
 TEMPLATES = [

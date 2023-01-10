@@ -8,3 +8,6 @@ User = get_user_model()
 @admin.register(User)
 class UserAdmin(UserAdmin):
     pass
+
+
+admin.site.site_header = 'ЕЦН'

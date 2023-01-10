@@ -8,6 +8,6 @@
 <p style="color:teal; font-weight:bold;">вход выполнен</p>
 <a href="{% url 'logout' %}">ВЫЙТИ</a>
 {% else %}
-<p style="color:red; font-weight:bold;">войдите чтоб чёнить делать<a href="{% url 'login' %}"> ВОЙТИ | <a href="{% url 'register' %}"> Зарегистрироваться</a> </a></p>
+<p style="color:red; font-weight:bold;">войдите чтоб чёнить делать<a href="{% url 'user_login' %}"> ВОЙТИ | <a href="{% url 'register' %}"> Зарегистрироваться</a> </a></p>
 {% endif  %}
 {% endblock content %}

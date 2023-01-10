@@ -156,7 +156,10 @@ form button{
     box-shadow: var(--complex-shadow);
     min-width: 150px;
 }
-
+.all-form-wrapper a{
+margin-top:10px;
+color:var(--wild-text);
+}
 h2{
     font-size: 1.5rem;
   }
