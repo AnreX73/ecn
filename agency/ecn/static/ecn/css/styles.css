@@ -110,13 +110,28 @@ padding: 10px;
 max-width: 1280px;
 margin: 0 auto;
 }
+.header{
+display:flex;
+justify-content:center;
+}
+.header-item{
+margin-left:25px;
+}
+.header-item-user{
+margin-left:45px;
+}
+.header-item-user span{
+color:teal;
+}
 .all-form-wrapper{
     display:flex;
     text-align:center;
     justify-content: center;
 }
 .reg-title{
-    font-size:2rem;
+    font-size:1.5rem;
+    margin-bottom:10px;
+
 }
 .form-wrapper{
     margin-top: 10px;

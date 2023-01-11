@@ -13,18 +13,14 @@
 </head>
 <body class="container">
 
-<ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <h3>User: {{user}} </h3>
-    </li>
-    <li class="list-group-item list-group-item-primary">
-       <a href="{% url 'home' %}">Home</a>
-    </li>
-    <li class="list-group-item list-group-item-success">
-       <a href="{% url 'about' %}">About</a>
-    </li>
-</ul>
+<div class="header">
+    <div class="header-item"><h2><a href="{% url 'home' %}">Home</a> </h2></div>
+    <div class="header-item"><h2><a href="{% url 'about' %}">About</a> </h2></div>
+    <div class="header-item-user"><h2>User: <span> {{user}}</span> </h2></div>
 
+</div>
+
+<hr>
 {% block content %}
 
 {% endblock content %}

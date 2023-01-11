@@ -10,4 +10,4 @@ class UserAdmin(UserAdmin):
     pass
 
 
-admin.site.site_header = 'ЕЦН'
+
