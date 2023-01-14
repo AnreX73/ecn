@@ -3,6 +3,7 @@
 
 {% block content %}
 <h1 class="display-1">Ваша страница {{ user }}</h1>
+<p>Ваш ID {{user.id}}</p>
 {% if user.is_authenticated %}
 <p style="color:teal; font-weight:bold;">вход выполнен</p>
 <a href="{% url 'logout' %}">ВЫЙТИ</a>
