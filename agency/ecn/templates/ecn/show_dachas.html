@@ -1,0 +1,27 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+{% block content %}
+<h2 class="list-main-title">Продажа <span>{{dachas_type.title}}</span></h2>
+
+<div class="apartments-links-wrapper">
+    <div class="logo-and-title" >
+        <img src="{{dachas_type.icon.url}}" alt="{{dachas_type.title}}">
+        <span class="apartment-logo-title"><h2>{{dachas_type.title}}</h2></span>
+    </div>
+{% for unsel in unselected_links %}
+<a href="{{unsel.get_absolute_url}}"><div class="logo-and-title unselected" >
+
+    <img src="{{unsel.icon.url}}" alt="{{unsel.title}}">
+    <span class="apartment-logo-title"><h2>{{unsel.title}}</h2></span>
+
+</div></a>
+{% endfor%}
+</div>
+<div  class="apartments-container">  
+    {% show_apa  obj_list_type='outcity' obj_type=dachas_type.slug %}
+</div>
+
+
+
+{% endblock content %}

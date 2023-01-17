@@ -1,0 +1,64 @@
+
+
+<header>
+
+<a href='{% url "home" %}'><div class="header-items logo-box">  <img  src="{{logo.image.url}}" alt="{{logo.description}}" /></div> </a>
+<div class="header-items phone-box">
+     <img  src="{{phone_icon.image.url}}" alt="{{phone_icon.title}}" />
+     <div class="phones-wrapper">
+        {% for cont in contacts %}
+        <div class="header-phone">
+        {{cont.description}}
+        </div>
+        {% endfor %}
+     </div>
+
+</div>
+<div class="header-items header-nav">
+   <nav role="navigation">
+   
+      <ul>
+        <li><a href="">Продажа</a>
+         <ul>
+            {% for incity in in_city_object_type %}
+            
+            <li data-link ='{{incity.slug}}' ><a href="{{incity.get_absolute_url}}">{{incity.title}}</a></li>
+            
+            {% endfor %}
+            {% for incity in out_city_object_type %}
+            
+            <li data-link ='{{incity.slug}}'><a href="{{incity.get_absolute_url}}">{{incity.title}}</a></li>
+            
+            {% endfor %} 
+          </ul>
+
+        </li>
+        <li><a href="">Аренда</a>
+          <ul>
+            {% for incity in in_city_object_type %}
+            {% if incity.title == 'Квартиры' or incity.title == 'Комнаты' %}
+            <li data-link ='{{incity.slug}}'><a href="{{incity.get_rent_url}}">{{incity.title}}</a></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+        <li><a href='{% url "home" %}#services'>услуги</a></li>
+        {% if not user.is_authenticated %}
+        <li><a href='{% url "register" %}'>РЕГИСТРАЦИЯ</a></li>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}"><li style="color:teal;">{{ user }}</li></a>
+        {% else %}
+        <li><a href='{% url "user_login" %}'>ВХОД</a></li>
+        {% endif %}
+        
+        
+
+      </ul>
+   </nav>
+      
+  
+</div>
+
+</header>
+

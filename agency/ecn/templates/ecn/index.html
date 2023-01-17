@@ -2,12 +2,102 @@
 
 
 {% block content %}
-<h1 class="display-1">ГЛАВНАЯ</h1>
 
-{% if user.is_authenticated %}
-<p style="color:teal; font-weight:bold;">вход выполнен</p>
-<a href="{% url 'logout' %}">ВЫЙТИ</a>
-{% else %}
-<p style="color:red; font-weight:bold;">войдите чтоб чёнить делать<a href="{% url 'user_login' %}"> ВОЙТИ | <a href="{% url 'register' %}"> Зарегистрироваться</a> </a></p>
-{% endif  %}
+<div class="main-page-all-wrapper">
+
+<div class="slogan-img-wrapper">
+    <div class="main-page-slogan">{{main_page_slogan.note|safe}}</div>
+    <div class="main-page-img-wrapper">
+        <img src="{{main_page_img.image.url}}" alt="{{main_page_img.title}}">
+        <a href="#hot"><button class="custom-btn btn-5"><span style="font-weight:bold;">{{hot_title.note|safe}}</span></button> </a>
+        <a href="{% url 'searched_obj' %}"><button class="custom-btn btn-5 search_btn"><span>Поиск объекта</span></button> </a>
+
+    </div>
+
+</div>
+
+
+<hr >
+
+<h2  style="padding-top: 100px; margin-top: -100px;" class="services-title" id="services">Услуги агенства</h2>
+<div class="services-wrapper">
+   {% for service in services %}
+   <div class="service-item">
+    <div class="service-item-title">
+       {{service.title}}
+    </div>
+    <div class="service-item-content">
+       {{service.content|safe}}
+    </div>
+   </div>
+
+   {% endfor %}
+</div>
+<hr>
+<div class="hot-objects-wrapper" >
+    <h2  style="padding-top: 100px; margin-top: -100px;" class="hot-title" id="hot">{{hot_title.note|safe}}</h2>
+    <div class="hot-objects-list">
+    {% for obj in hot_city_obj %}
+    <div class="hot-object-wrapper">
+        <a href="{{obj.get_absolute_url}}">
+        <div class="hot-object">
+        {% if obj.image %}
+        <img style="max-width: 150px;" src="{{obj.image.url}}" alt="{{obj.title}}">
+        {% else %}
+        <img  style="max-width: 150px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
+        {% endif %}
+        <div class="hot-info">
+        <p class="hot-obj-title">{{obj.title}} </p>
+        <p>район {{obj.city_region}} </p>
+        <p>{{obj.object_adress}} </p>
+        <p>{{obj.rooms}} </p>
+        <p>{{obj.square}} кв.м </p>
+        <div class="hot-price-container">{{obj.price}} </div>
+        </div>
+        </div>
+    </a>
+         <a class="hot-more-link" href="{{obj.object_type.get_absolute_url}}"><p class="hot-more-link">Все {{ obj.object_type.title }} --></p></a>
+
+    </div>
+    {% endfor %}
+
+
+
+    {% for obj in hot_out_city_obj %}
+    <div class="hot-object-wrapper">
+        <a href="{{obj.get_absolute_url}}">
+        <div class="hot-object">
+          {% if obj.image %}
+        <img style="max-width: 150px;" src="{{obj.image.url}}" alt="{{obj.title}}">
+        {% else %}
+        <img  style="max-width: 150px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
+        {% endif %}
+        <div class="hot-info">
+        <p class="hot-obj-title">{{obj.title}} </p>
+        <p>{{obj.object_adress}} </p>
+        <p>до города {{obj.city_distance}} </p>
+        <p>участок {{obj.land_square}}</p>
+        <div class="hot-price-container">{{obj.price}} </div>
+        </div>
+        </div>
+    </a>
+        <a class="hot-more-link" href="{{obj.object_type.get_absolute_url}}"><p class="hot-more-link">Все {{ obj.object_type.title }} --></p></a>
+        {{obj.object_type.count}}
+
+    </div>
+    {% endfor %}
+
+    </div>
+
+</div>
+
+
+
+</div>
+
+
 {% endblock content %}
+
+
+
+

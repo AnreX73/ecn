@@ -1,0 +1,123 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+{% block content %}
+<div class="apartment-all-page-container">
+<div class="apartment-page-container">
+
+<h2 class="apartment-page-info">{{apartment.title}}</h2>
+<div class="img-price-container">
+<div class="apartment-page-info price-box">{{apartment.price}}<span class="price"> &#8399;</span></div>
+<div class="apartment-image-container">
+  <!-- Slider main container -->
+<div class="swiper object-gallery">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    {% for gal in gallery%}
+  <div class="swiper-slide"><img class="gallery-image" src="{{gal.gallery_image.url}}" alt="{{gal.note}}"></div>
+  {% empty %}
+  <div class="swiper-slide"><img class="gallery-image" src="{{no_photo.image.url}}" alt="{{no_photo.description}}"></div>
+  {% endfor%}
+
+  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  <div class="swiper-button-prev left-arrow"></div>
+  <div class="swiper-button-next right-arrow"></div>
+
+  <!-- If we need scrollbar -->
+  
+</div>
+</div>
+
+</div>
+<div class="apartment-table-wrapper">
+<table width="300" cellspacing="3" cellpadding="0">
+    <tbody>
+      <tr>
+        <th>Адрес</td>
+        <td>{{apartment.object_adress}}</td>
+      </tr>
+      <tr>
+        <th>Район</td>
+        <td>{{apartment.city_region}}</td>
+      </tr>
+      <tr>
+        <th>Метро</td>
+        <td>{{apartment.metro}}</td>
+      </tr>
+      <tr>
+        <th>До метро</td>
+        <td>{{apartment.metro_distance}}</td>
+      </tr>
+      <tr>
+        <th>Комнат</td>
+        <td>{{apartment.rooms}}</td>
+      </tr>
+      <tr>
+        <th>Площадь</td>
+        <td>{{apartment.square}}кв.м.</td>
+      </tr>
+      <tr>
+        <th>Жилая</td>
+        <td>{{apartment.live_square }}кв.м.</td>
+      </tr>
+      <tr>
+        <th>Кухня</td>
+        <td>{{apartment.kitchen}}кв.м.</td>
+      </tr>
+       <tr>
+            <th>Планировка</td>
+            <td>{{apartment.rooms_layout}}</td>
+          </tr>
+      <tr>
+        <th>Балкон</td>
+        <td>{{apartment.balcony}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table width="300"  cellspacing="3" cellpadding="0">
+    <tbody>
+        <tr>
+            <th>Этаж</td>
+            <td>{{apartment.floor}}</td>
+          </tr>
+      <tr>
+        <th>Этажность дома</td>
+        <td>{{apartment.all_floor}}</td>
+      </tr>
+      <tr>
+        <th>Санузел</td>
+        <td>{{apartment.bathroom}}</td>
+      </tr>
+      <tr>
+        <th>Лифт</td>
+        <td>{{apartment.elevator}}</td>
+      </tr>
+      <tr>
+        <th>Состояние</td>
+        <td>{{apartment.state}}</td>
+      </tr>
+      <tr>
+        <th>Материалы стен</td>
+        <td>{{apartment.construction}}</td>
+      </tr>
+      <tr>
+        <th>Год постройки / Сдачи</td>
+        <td>{{apartment.year}}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+<div class="apartment-description">
+    {{apartment.content|safe}}
+</div>
+</div>
+
+</div>
+
+{% endblock content %}

@@ -2,12 +2,25 @@
 
 
 {% block content %}
-<h1 class="display-1">Ваша страница {{ user }}</h1>
-<p>Ваш ID {{user.id}}</p>
-{% if user.is_authenticated %}
-<p style="color:teal; font-weight:bold;">вход выполнен</p>
-<a href="{% url 'logout' %}">ВЫЙТИ</a>
+<div class="all-profile-wrapper">
+<h1 class="reg-title" >Велкам на Вашу страницу ! {{ user }} <span style="color:teal; font-weight:bold;">вход выполнен</span></h1>
+<div class="profile-wrapper">
+<p>Ваш ID {{user_id}}</p>
+{% if user_in %}
+<a href="{% url 'logout' %}">ВЫЙТИ | </a>
 {% else %}
-<p style="color:red; font-weight:bold;">войдите чтоб чёнить делать<a href="{% url 'user_login' %}"> ВОЙТИ | <a href="{% url 'register' %}"> Зарегистрироваться</a> </a></p>
+<p style="color:red; font-weight:bold;">войдите чтоб чёнить делать<a href="{% url 'user_login' %}"> ВОЙТИ | <a href="{% url 'register' %}"> Зарегистрироваться</a> </p>
 {% endif  %}
+<a href="{% url 'add_object' %}">Добавить объект</a>
+</div>
+</div>
+
+{% for u in user_city_objects %}
+{{ u.title }}
+{% endfor %}
+
+{% for u in user_out_city_objects %}
+{{ u.title }}
+{% endfor %}
+
 {% endblock content %}
