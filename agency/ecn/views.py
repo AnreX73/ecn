@@ -3,8 +3,10 @@ from django.contrib.auth.views import LoginView, PasswordResetView, PasswordRese
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
+from django.contrib.auth.decorators import login_required
 
 from ecn.models import *
+from ecn.slugify import words_to_slug
 
 from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm
 
@@ -84,12 +86,8 @@ def searched_obj(request):
     if request.method == 'POST':
         form = InCitySearchForm(request.POST)
         if form.is_valid():
-            
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
             selected_items = InCityObject.objects.filter(**obj_dic).filter(is_published=True)
-
-            print(selected_items)
-           
 
     else:
         selected_items = InCityObject.objects.filter(sale_or_rent='s')
@@ -105,14 +103,14 @@ def searched_obj(request):
 
 
 def profile(request):
-    user = request.user
+    user_good = request.user
     context = {
         'title': 'Your page',
-        'user': user.first_name,
-        'user_id': user.id,
-        'user_in': user.is_authenticated,
-        'user_city_objects': InCityObject.objects.filter(estate_agent__id=user.id),
-        'user_out_city_objects': OutCityObject.objects.filter(estate_agent=user.id)
+        'user': user_good.first_name,
+        'user_id': user_good.id,
+        'user_in': user_good.is_authenticated,
+        'user_city_objects': InCityObject.objects.filter(estate_agent__id=user_good.id),
+        'user_out_city_objects': OutCityObject.objects.filter(estate_agent=user_good.id)
 
     }
     return render(request, 'registration/profile.html', context=context)
@@ -160,10 +158,35 @@ class UserPasswordResetDone(PasswordResetDoneView):
     template_name = 'registration/user_password_reset_done.html'
 
 
+@login_required(login_url='/register/')
 def add_object(request):
-    form = InCityAddForm
-    context = {
-        'form': form
+    if request.method == 'POST':
+        form = InCityAddForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            slug = words_to_slug(title)
+            is_published = False
+            is_hot = False
+            form.cleaned_data.update(
+                {'slug': slug, 'is_published': is_published, 'is_hot': is_hot})
+            print(form.cleaned_data)
 
+    else:
+        form = InCityAddForm
+
+    context = {
+        'form': form,
     }
+
     return render(request, 'registration/add_object.html', context=context)
+
+# class ArticleCommentFormView(View):
+#
+#     def post(self, request, *args, **kwargs):
+#         form = ArticleCommentForm(request.POST) # Получаем данные формы из запроса
+#         if form.is_valid(): # Проверяем данных формы на корректность
+#             comment = form.save(commit=False) # Получаем заполненную модель
+#             # Дополнительно обрабатываем модель
+#             comment.author = request.user
+#             comment.article = request.article
+#             comment.save()

@@ -10,11 +10,11 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
-
+# тип объекта в городе
 class InCityObjectType(models.Model):
     title = models.CharField(max_length=100, verbose_name='Тип объекта')
     slug = models.SlugField(unique=True, max_length=100, db_index=True, verbose_name='URL')
-    icon = models.ImageField(upload_to="images", blank=True, verbose_name='иконка(картинка) для типа объекта')
+    icon = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='иконка(картинка) для типа объекта')
     in_main_page = models.BooleanField(default=True, verbose_name='в меню на главной странице')
 
     def __str__(self):
@@ -160,7 +160,7 @@ class InCityObject(models.Model):
     estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='агент по недвижимости',
                                      help_text='специалист по объекту', related_name='realtor')
     price = models.CharField(max_length=255, verbose_name='Цена')
-    image = models.ImageField(upload_to="images", blank=True, verbose_name='Основное изображение')
+    image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Основное изображение')
     sale_or_rent = models.CharField(max_length=25, choices=SALE_OR_RENT, default='s', verbose_name='Продажа или аренда')
     is_hot = models.BooleanField(default=False, verbose_name='горячий вариант', help_text='если хотите видеть на '
                                                                                           'главной странице')
@@ -207,7 +207,7 @@ class InCityObject(models.Model):
 class OutCityObjectType(models.Model):
     title = models.CharField(max_length=100, verbose_name='Тип загородного объекта')
     slug = models.SlugField(unique=True, max_length=100, db_index=True, verbose_name='URL')
-    icon = models.ImageField(upload_to="images", blank=True, verbose_name='иконка(картинка) для типа объекта')
+    icon = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='иконка(картинка) для типа объекта')
     in_main_page = models.BooleanField(default=True, verbose_name='в меню на главной странице')
 
     def __str__(self):
@@ -411,7 +411,7 @@ class OutCityObject(models.Model):
     estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='агент по недвижимости',
                                      help_text='специалист по объекту', related_name='estate_agent')
     price = models.CharField(max_length=255, verbose_name='Цена')
-    image = models.ImageField(upload_to="images", blank=True, verbose_name='Основное изображение')
+    image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Основное изображение')
     is_hot = models.BooleanField(default=False, verbose_name='горячий вариант')
     object_type = models.ForeignKey(OutCityObjectType, on_delete=models.PROTECT, verbose_name='тип объекта',
                                     related_name='obj_type')
@@ -458,7 +458,7 @@ class OutCityObject(models.Model):
 
 # Графические объекты и прочее на сайте
 class Graphics(models.Model):
-    image = models.ImageField(upload_to="images", blank=True, verbose_name='изображение')
+    image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='изображение')
     description = models.CharField(max_length=55, verbose_name='описание изображения')
     note = RichTextField(blank=True, verbose_name='примечание')
     is_published = models.BooleanField(default=True, verbose_name='Публикация')
@@ -489,7 +489,7 @@ class Post(models.Model):
 # Галереи фото квартир
 class Gallery(models.Model):
     galleryLink = models.ForeignKey(InCityObject, on_delete=models.PROTECT, verbose_name='Ссылка на объект')
-    gallery_image = models.ImageField(upload_to="images", blank=True, verbose_name='Фото')
+    gallery_image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Фото')
     note = models.CharField(blank=True, max_length=100, verbose_name='примечание')
     is_published = models.BooleanField(default=True, verbose_name='Публикация')
 
@@ -501,10 +501,10 @@ class Gallery(models.Model):
         verbose_name_plural = 'фото объекта'
         ordering = ['galleryLink']
 
-
+# Галерея фото загородной недвижимости
 class Gallery2(models.Model):
     galleryLink2 = models.ForeignKey(OutCityObject, on_delete=models.PROTECT, verbose_name='Ссылка на объект')
-    gallery_image2 = models.ImageField(upload_to="images", blank=True, verbose_name='Фото')
+    gallery_image2 = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Фото')
     note2 = models.CharField(blank=True, max_length=100, verbose_name='примечание')
     is_published = models.BooleanField(default=True, verbose_name='Публикация')
 
@@ -520,7 +520,7 @@ class Gallery2(models.Model):
 # Контактная информация
 class Contacts(models.Model):
     title = models.CharField(max_length=55, verbose_name='название')
-    image = models.ImageField(upload_to="images", blank=True, verbose_name='Изображение')
+    image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Изображение')
     description = models.CharField(max_length=255, blank=True, verbose_name='описание если есть')
     extra_description = models.TextField(blank=True, verbose_name='описание дополнительное')
     is_published = models.BooleanField(default=True, verbose_name='Публикация')

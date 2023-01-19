@@ -62,4 +62,4 @@ class InCitySearchForm(forms.ModelForm):
 class InCityAddForm(forms.ModelForm):
     class Meta:
         model = InCityObject
-        exclude = ('slug', 'estate_agent', 'is_published', 'is_hot')
+        exclude = ('slug', 'is_published', 'is_hot')
