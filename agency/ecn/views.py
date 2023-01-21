@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.messages.views import SuccessMessageMixin
 
 from ecn.models import *
 from ecn.slugify import words_to_slug
@@ -108,6 +108,8 @@ def profile(request):
     context = {
         'title': 'Your page',
         'user': user_good.first_name,
+        'user_nick': user_good.username,
+        'date_joined': user_good.date_joined,
         'user_id': user_good.id,
         'user_in': user_good.is_authenticated,
         'user_city_objects': InCityObject.objects.filter(estate_agent__id=user_good.id),
@@ -142,9 +144,10 @@ class Register(View):
         return render(request, self.template_name, context)
 
 
-class UserLogin(LoginView):
+class UserLogin(SuccessMessageMixin, LoginView):
     template_name = 'registration/user_login.html'
     form_class = UserLoginForm
+    success_message = 'Вы авторизованы!'
 
 
 class UserPasswordReset(PasswordResetView):
@@ -162,16 +165,18 @@ class UserPasswordResetDone(PasswordResetDoneView):
 @login_required(login_url='/register/')
 def add_object(request):
     if request.method == 'POST':
-        form = InCityAddForm(request.POST)
+        form = InCityAddForm(request.POST, request.FILES)
         if form.is_valid():
             title = form.cleaned_data.get('title')
             new_slug = words_to_slug(title)
             comment = form.save(commit=False)
             comment.is_published = True
             comment.slug = new_slug
-            comment.is_hot= True
+            comment.is_hot = True
             comment.save()
-          
+
+            return redirect('profile')
+
     else:
         form = InCityAddForm(initial=dict(estate_agent=request.user))
 
@@ -180,5 +185,3 @@ def add_object(request):
     }
 
     return render(request, 'registration/add_object.html', context=context)
-
-

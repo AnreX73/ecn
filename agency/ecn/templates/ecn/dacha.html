@@ -7,18 +7,18 @@
 
 <h2 class="apartment-page-info">{{dacha.title}}</h2>
 <div class="img-price-container">
-<div class="apartment-page-info price-box">{{dacha.price}}<span class="price"> &#8399;</span></div>
+<div class="apartment-page-info price-box">{{dacha.price}}<span class="price"> </span></div>
 <div class="apartment-image-container">
   <!-- Slider main container -->
 <div class="swiper object-gallery">
   <!-- Additional required wrapper -->
   <div class="swiper-wrapper">
     <!-- Slides -->
-    {% for gal in gallery%}
+    {% for gal in gallery %}
   <div class="swiper-slide"><img class="gallery-image" src="{{gal.gallery_image2.url}}" alt="{{gal.note}}"></div>
   {% empty %}
   <div class="swiper-slide"><img class="gallery-image" src="{{no_photo.image.url}}" alt="{{no_photo.description}}"></div>
-  {% endfor %}
+  {% endfor%}
 
   </div>
   <!-- If we need pagination -->

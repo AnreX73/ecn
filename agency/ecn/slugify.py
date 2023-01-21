@@ -1,4 +1,4 @@
-NAME = 'slugify'
+from random import randint
 
 
 def words_to_slug(words):
@@ -21,6 +21,11 @@ def words_to_slug(words):
             slug += w
     while slug.count('--'):
         slug = slug.replace('--', '-')
+    suffix1 = chr(randint(97,122))
+    suffix2 = chr(randint(97,122))
+    slug = slug + suffix1 + suffix2
     return slug
+
+
 
 

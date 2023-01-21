@@ -3,9 +3,9 @@
 
 {% block content %}
 <div class="all-profile-wrapper">
-<h1 class="reg-title" >Велкам на Вашу страницу ! {{ user }} <span style="color:teal; font-weight:bold;">вход выполнен</span></h1>
+<h1 class="reg-title" >Велкам на Вашу страницу , {{ user }} !</h1>
 <div class="profile-wrapper">
-<p>Ваш ID {{user_id}}</p>
+<p>Ваше имя пользователя: {{ user_nick }} Ваш id: {{user_id}} Зарегистрированы {{ date_joined }}</p>
 {% if user_in %}
 <a href="{% url 'logout' %}">ВЫЙТИ | </a>
 {% else %}

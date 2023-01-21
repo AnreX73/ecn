@@ -214,6 +214,9 @@ h2{
   .price {
     font-family: 'PT Sans', serif;
     }
+  .price:after {
+      content: "\20BD";
+  }
   /*общая оболочка*/
   .all_content_wrapper{
     padding: 5px;
