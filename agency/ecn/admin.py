@@ -110,11 +110,11 @@ class GalleryAdmin(admin.TabularInline):
 class InCityObjectAdmin(admin.ModelAdmin):
     inlines = [GalleryAdmin]
     list_display = (
-        'sale_or_rent', 'title', 'rooms', 'gethtmlPhoto', 'city_region', 'price', 'object_type', 'is_published')
+        'sale_or_rent', 'title', 'estate_agent', 'gethtmlPhoto', 'city_region', 'price', 'object_type', 'is_published')
     list_display_links = ('sale_or_rent', 'title')
     search_fields = ('title', 'rooms', 'city_region',)
     list_editable = ('is_published',)
-    list_filter = ('is_published', 'time_create')
+    list_filter = ('is_published', 'time_create','estate_agent')
     prepopulated_fields = {'slug': ('title',)}
     save_on_top = True
 

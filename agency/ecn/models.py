@@ -156,8 +156,8 @@ class InCityObject(models.Model):
         ('r', 'Аренда')
     )
     title = models.CharField(max_length=255, verbose_name='Заголовок')
-    slug = models.SlugField(unique=True, max_length=150, db_index=True, verbose_name='URL')
-    estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='агент по недвижимости',
+    slug = models.SlugField(unique=True, max_length=150, db_index=True,blank=True, verbose_name='URL')
+    estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, default=1,blank=True, verbose_name='агент по недвижимости',
                                      help_text='специалист по объекту', related_name='realtor')
     price = models.CharField(max_length=255, verbose_name='Цена')
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Основное изображение')

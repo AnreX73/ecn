@@ -60,6 +60,19 @@ class InCitySearchForm(forms.ModelForm):
 
 
 class InCityAddForm(forms.ModelForm):
+   
+    slug = forms.CharField(widget=forms.HiddenInput(attrs={'class':'hidden-input'}),label='')
+    is_hot = forms.CharField(widget=forms.HiddenInput(attrs={'class':'hidden-input'}),label='')
+    is_published = forms.CharField(widget=forms.HiddenInput(attrs={'class':'hidden-input'}),label='')
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['slug'].required = False
+        self.fields['is_hot'].required = False
+        self.fields['is_published'].required = False
+        
+    
     class Meta:
         model = InCityObject
-        exclude = ('slug', 'is_published', 'is_hot')
+        fields = ('__all__')

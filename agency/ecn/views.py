@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.decorators import login_required
 
+
 from ecn.models import *
 from ecn.slugify import words_to_slug
 
@@ -164,15 +165,15 @@ def add_object(request):
         form = InCityAddForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data.get('title')
-            slug = words_to_slug(title)
-            is_published = False
-            is_hot = False
-            form.cleaned_data.update(
-                {'slug': slug, 'is_published': is_published, 'is_hot': is_hot})
-            print(form.cleaned_data)
-
+            new_slug = words_to_slug(title)
+            comment = form.save(commit=False)
+            comment.is_published = True
+            comment.slug = new_slug
+            comment.is_hot= True
+            comment.save()
+          
     else:
-        form = InCityAddForm
+        form = InCityAddForm(initial=dict(estate_agent=request.user))
 
     context = {
         'form': form,
@@ -180,13 +181,4 @@ def add_object(request):
 
     return render(request, 'registration/add_object.html', context=context)
 
-# class ArticleCommentFormView(View):
-#
-#     def post(self, request, *args, **kwargs):
-#         form = ArticleCommentForm(request.POST) # Получаем данные формы из запроса
-#         if form.is_valid(): # Проверяем данных формы на корректность
-#             comment = form.save(commit=False) # Получаем заполненную модель
-#             # Дополнительно обрабатываем модель
-#             comment.author = request.user
-#             comment.article = request.article
-#             comment.save()
+
