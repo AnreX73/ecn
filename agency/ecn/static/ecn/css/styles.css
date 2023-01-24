@@ -122,20 +122,60 @@ margin-left:45px;
 .header-item-user span{
 color:teal;
 }
-.all-form-wrapper, .all-profile-wrapper{
+.all-form-wrapper{
     display:flex;
     text-align:center;
     justify-content: center;
 }
+# страница пользователя
 .all-profile-wrapper{
+  display:flex;
   flex-direction: column;
 }
+.user-info{
+margin-top:1.5rem;
+}
+.profile-links-wrapper{
+  display:grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 15px;
+}
+
+.logout-link{
+  justify-self:flex-end;
+}
+
+.update-profile-link::before{
+  content: "\1F839";
+  color: teal;
+  font-size: 2.5rem;
+  vertical-align: middle;
+}
+
+.logout-link::after{
+  content: "\27A7";
+  color: var(--wild-text);
+  font-size: 1.5rem;
+  vertical-align: middle;
+}
+.logout-link, .update-profile-link{
+  background:none;
+  transition: 400ms ease all;
+}
+.logout-link:hover, .update-profile-link:hover{
+ background: rgb(0, 128, 128,0.2);
+ padding: 5px 10px;
+ border-radius:4px;
+transition: 200ms ease all;
+}
+
+
 .reg-title{
     font-size:1.5rem;
     margin-bottom:10px;
 
 }
-.form-wrapper{
+.form-wrapper, .profile-wrapper{
     margin-top: 10px;
     margin-bottom: 15px;
     font-size:1.2rem;
@@ -146,6 +186,10 @@ color:teal;
     border-radius: 8px;
     box-shadow: var(--complex-shadow);
 }
+.user-info{
+  text-align: left;
+}
+
 .add-form-wrapper{
     display:grid;
     grid-template-columns: repeat(2,1fr);

@@ -7,8 +7,12 @@ from django.urls import reverse
 class User(AbstractUser):
     phone_number = models.CharField(max_length=12, blank=True, verbose_name='телефон для связи')
 
+    def get_absolute_url(self):
+        return reverse('profile', kwargs={'user_id': self.id})
+
     def __str__(self):
         return self.username
+
 
 # тип объекта в городе
 class InCityObjectType(models.Model):
@@ -156,8 +160,9 @@ class InCityObject(models.Model):
         ('r', 'Аренда')
     )
     title = models.CharField(max_length=255, verbose_name='Заголовок')
-    slug = models.SlugField(unique=True, max_length=150, db_index=True,blank=True, verbose_name='URL')
-    estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, default=1,blank=True, verbose_name='агент по недвижимости',
+    slug = models.SlugField(unique=True, max_length=150, db_index=True, blank=True, verbose_name='URL')
+    estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, default=1, blank=True,
+                                     verbose_name='агент по недвижимости',
                                      help_text='специалист по объекту', related_name='realtor')
     price = models.CharField(max_length=255, verbose_name='Цена')
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Основное изображение')
@@ -501,6 +506,7 @@ class Gallery(models.Model):
         verbose_name_plural = 'фото объекта'
         ordering = ['galleryLink']
 
+
 # Галерея фото загородной недвижимости
 class Gallery2(models.Model):
     galleryLink2 = models.ForeignKey(OutCityObject, on_delete=models.PROTECT, verbose_name='Ссылка на объект')
@@ -532,6 +538,3 @@ class Contacts(models.Model):
         verbose_name = 'контактную информацию'
         verbose_name_plural = 'Контакты'
         ordering = ['id']
-
-
-

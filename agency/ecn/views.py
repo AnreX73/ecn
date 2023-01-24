@@ -103,6 +103,7 @@ def searched_obj(request):
     return render(request, 'ecn/searched_obj.html', context=context)
 
 
+@login_required(login_url='/register/')
 def profile(request):
     user_good = request.user
     context = {
@@ -110,10 +111,11 @@ def profile(request):
         'user': user_good.first_name,
         'user_nick': user_good.username,
         'date_joined': user_good.date_joined,
-        'user_id': user_good.id,
+        'user_phone': user_good.phone_number,
+        'user_email': user_good.email,
         'user_in': user_good.is_authenticated,
         'user_city_objects': InCityObject.objects.filter(estate_agent__id=user_good.id),
-        'user_out_city_objects': OutCityObject.objects.filter(estate_agent=user_good.id)
+        'user_out_city_objects': OutCityObject.objects.filter(estate_agent__id=user_good.id)
 
     }
     return render(request, 'registration/profile.html', context=context)
@@ -185,3 +187,27 @@ def add_object(request):
     }
 
     return render(request, 'registration/add_object.html', context=context)
+
+# @login_required(login_url='/register/')
+# def update_object(request):
+#     if request.method == 'POST':
+#         form = InCityAddForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             title = form.cleaned_data.get('title')
+#             new_slug = words_to_slug(title)
+#             comment = form.save(commit=False)
+#             comment.is_published = True
+#             comment.slug = new_slug
+#             comment.is_hot = True
+#             comment.save()
+#
+#             return redirect('profile')
+#
+#     else:
+#         form = InCityAddForm(request.POST, request.FILES)
+#
+#     context = {
+#         'form': form,
+#     }
+#
+#     return render(request, 'registration/update_object.html', context=context)

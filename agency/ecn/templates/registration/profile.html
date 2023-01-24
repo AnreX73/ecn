@@ -4,23 +4,31 @@
 {% block content %}
 <div class="all-profile-wrapper">
 <h1 class="reg-title" >Велкам на Вашу страницу , {{ user }} !</h1>
-<div class="profile-wrapper">
-<p>Ваше имя пользователя: {{ user_nick }} Ваш id: {{user_id}} Зарегистрированы {{ date_joined }}</p>
-{% if user_in %}
-<a href="{% url 'logout' %}">ВЫЙТИ | </a>
-{% else %}
-<p style="color:red; font-weight:bold;">войдите чтоб чёнить делать<a href="{% url 'user_login' %}"> ВОЙТИ | <a href="{% url 'register' %}"> Зарегистрироваться</a> </p>
-{% endif  %}
-<a href="{% url 'add_object' %}">Добавить объект</a>
+<div class="profile-wrapper ">
+<p class="user-info">Ваше аккаунт: {{ user_nick }} </p>
+<p class="user-info">Зарегистрирован: {{ date_joined }}</p>
+<p class="user-info">Телефон для связи: {{ user_phone }}</p>
+<p class="user-info">Электронная почта: {{ user_email }}</p>
+<hr>
+<div class="profile-links-wrapper">
+<a class="update-profile-link" href="{% url 'logout' %}">РЕДАКТИРОВАТЬ ДАННЫЕ  </a>
+<a class="logout-link" href="{% url 'logout' %}">ВЫЙТИ  </a>
 </div>
+
+
+
+</div>
+<a href="{% url 'add_object' %}">Добавить объект</a>
 </div>
 
 {% for u in user_city_objects %}
-{{ u.title }}
+<a href="{{u.get_absolute_url}}"> {{ u.title }} </a>
+
+
 {% endfor %}
 
 {% for u in user_out_city_objects %}
-{{ u.title }}
+<a href="{{u.get_absolute_url}}"> {{ u.title }} </a>
 {% endfor %}
 
 {% endblock content %}

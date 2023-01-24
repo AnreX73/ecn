@@ -21,6 +21,7 @@ urlpatterns += [
     path('user_password_reset_done/', UserPasswordResetDone.as_view(), name='user_password_reset_done'),
     path('profile/', profile, name='profile'),
     path('add_object/', add_object, name='add_object'),
-   
+    # path('update_object/', update_object, name='update_object'),
+
 
 ]
