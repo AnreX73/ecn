@@ -5,11 +5,13 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from ecn.models import *
 from ecn.slugify import words_to_slug
 
-from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm
+from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm,ChangeUserlnfoForm
 
 
 def index(request):
@@ -188,26 +190,18 @@ def add_object(request):
 
     return render(request, 'registration/add_object.html', context=context)
 
-# @login_required(login_url='/register/')
-# def update_object(request):
-#     if request.method == 'POST':
-#         form = InCityAddForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             title = form.cleaned_data.get('title')
-#             new_slug = words_to_slug(title)
-#             comment = form.save(commit=False)
-#             comment.is_published = True
-#             comment.slug = new_slug
-#             comment.is_hot = True
-#             comment.save()
-#
-#             return redirect('profile')
-#
-#     else:
-#         form = InCityAddForm(request.POST, request.FILES)
-#
-#     context = {
-#         'form': form,
-#     }
-#
-#     return render(request, 'registration/update_object.html', context=context)
+class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = User
+    template_name ='registration/update_user_info.html'
+    form_class = ChangeUserlnfoForm
+    success_url = reverse_lazy ('profile')
+    success_message = 'Данные пользователя изменены'
+
+    def setup(self, request, *args, **kwargs):
+        self.user_id = request.user.pk
+        return super().setup(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.user_id)

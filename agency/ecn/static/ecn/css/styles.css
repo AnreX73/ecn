@@ -127,7 +127,7 @@ color:teal;
     text-align:center;
     justify-content: center;
 }
-# страница пользователя
+/*страница пользователя */
 .all-profile-wrapper{
   display:flex;
   flex-direction: column;
@@ -138,6 +138,7 @@ margin-top:1.5rem;
 .profile-links-wrapper{
   display:grid;
   grid-template-columns: repeat(2,1fr);
+  align-items:center;
   gap: 15px;
 }
 
@@ -158,11 +159,12 @@ margin-top:1.5rem;
   font-size: 1.5rem;
   vertical-align: middle;
 }
-.logout-link, .update-profile-link{
+.logout-link, .update-profile-link, .add-object-link{
+  font-size:1.2rem;
   background:none;
   transition: 400ms ease all;
 }
-.logout-link:hover, .update-profile-link:hover{
+.logout-link:hover, .update-profile-link:hover, .add-object-link:hover{
  background: rgb(0, 128, 128,0.2);
  padding: 5px 10px;
  border-radius:4px;
@@ -220,6 +222,11 @@ padding: 5px;
 border: 1px dotted teal;
 border-radius: 4px;
 min-width: 250px;
+}
+.form-input-hidden{
+
+border: 1px dotted red;
+
 }
 
 .form-errors{
