@@ -60,29 +60,30 @@ class InCitySearchForm(forms.ModelForm):
 
 
 class InCityAddForm(forms.ModelForm):
-   
-    slug = forms.CharField(widget=forms.HiddenInput(attrs={'class':'form-input-hidden'}),label='')
-    is_hot = forms.CharField(widget=forms.HiddenInput(attrs={'class':'form-input-hidden'}),label='')
-    is_published = forms.CharField(widget=forms.HiddenInput(attrs={'class':'form-input-hidden'}),label='')
-    # estate_agent = forms.CharField(widget=forms.ModelChoiceField(attrs={'class':'form-input-hidden'}),label='')
-
+    slug = forms.CharField(widget=forms.HiddenInput, label='')
+    is_hot = forms.CharField(widget=forms.HiddenInput, label='')
+    is_published = forms.CharField(widget=forms.HiddenInput, label='')
+    estate_agent = forms.ModelChoiceField(queryset=User.objects.all(),
+                                          widget=forms.HiddenInput, label='')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['slug'].required = False
         self.fields['is_hot'].required = False
         self.fields['is_published'].required = False
-        
-        
-    
+
     class Meta:
         model = InCityObject
-        fields = ('title','price','image','sale_or_rent','object_type','object_adress','city_region','metro','metro_distance','rooms','square','live_square','kitchen','rooms_layout','balcony','floor','all_floor','bathroom','elevator','state','construction','year','content','slug','is_hot','is_published','estate_agent')
+        fields = ('title', 'price', 'image', 'sale_or_rent', 'object_type', 'object_adress', 'city_region', 'metro',
+                  'metro_distance', 'rooms', 'square', 'live_square', 'kitchen', 'rooms_layout', 'balcony', 'floor',
+                  'all_floor', 'bathroom', 'elevator', 'state', 'construction', 'year', 'content', 'slug', 'is_hot',
+                  'is_published', 'estate_agent')
 
 
-class ChangeUserlnfoForm (forms.ModelForm):
+class ChangeUserlnfoForm(forms.ModelForm):
     phone_number = forms.CharField(label='телефон для связи', max_length=15, required=True,
                                    widget=forms.TextInput(attrs={'class': 'form-input'}), )
+
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ('username', 'email', 'first_name', 'phone_number')
@@ -90,7 +91,5 @@ class ChangeUserlnfoForm (forms.ModelForm):
             'username': forms.TextInput(attrs={'class': 'form-input'}),
             'email': forms.EmailInput(attrs={'class': 'form-input'}),
             'first_name': forms.TextInput(attrs={'class': 'form-input'}),
-            
 
         }
-

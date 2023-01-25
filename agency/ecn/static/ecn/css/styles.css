@@ -195,10 +195,10 @@ transition: 200ms ease all;
 .add-form-wrapper{
     display:grid;
     grid-template-columns: repeat(2,1fr);
-    row-gap:5px;
+    row-gap:2px;
     column-gap:25px;
     margin-top: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-size:1.2rem;
     max-width: 960px;
     text-align: center;
