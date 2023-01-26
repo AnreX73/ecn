@@ -81,7 +81,7 @@ class InCityAddForm(forms.ModelForm):
 
 
 class ChangeUserlnfoForm(forms.ModelForm):
-    phone_number = forms.CharField(label='телефон для связи', max_length=15, required=True,
+    phone_number = forms.CharField(label='телефон для связи', max_length=30, required=True,
                                    widget=forms.TextInput(attrs={'class': 'form-input'}), )
 
     class Meta(UserCreationForm.Meta):

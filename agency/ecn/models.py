@@ -5,7 +5,7 @@ from django.urls import reverse
 
 
 class User(AbstractUser):
-    phone_number = models.CharField(max_length=12, blank=True, verbose_name='телефон для связи')
+    phone_number = models.CharField(max_length=30, blank=True, verbose_name='телефон для связи')
 
     def get_absolute_url(self):
         return reverse('profile', kwargs={'user_id': self.id})
