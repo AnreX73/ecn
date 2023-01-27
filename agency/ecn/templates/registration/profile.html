@@ -16,15 +16,16 @@
         </div>
     </div>
 
-    <a class="add-object-link" href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a>
-</div>
-
+ 
 {% for u in user_city_objects %}
-    <a href="{{u.get_absolute_url}}"> {{ u.title }} </a>
+<a href="{% url 'object_edit' u.slug %}"> {{ u.title }} </a>
 {% endfor %}
 
 {% for u in user_out_city_objects %}
-    <a href="{{u.get_absolute_url}}"> {{ u.title }} </a>
+<a href="{{u.get_absolute_url}}"> {{ u.title }} </a>
 {% endfor %}
+<a class="add-object-link" href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a>  
+
+</div>
 
 {% endblock content %}

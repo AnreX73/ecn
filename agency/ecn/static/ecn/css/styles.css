@@ -131,16 +131,20 @@ color:teal;
 .all-profile-wrapper{
   display:flex;
   flex-direction: column;
+  text-align: center;
 }
-.user-info{
-margin-top:1.5rem;
-}
+
 .profile-links-wrapper{
   display:grid;
   grid-template-columns: repeat(2,1fr);
   align-items:center;
   gap: 15px;
 }
+
+.user-info{
+  margin-top:2rem;
+  text-align: left;
+  }
 
 .logout-link{
   justify-self:flex-end;
@@ -156,27 +160,27 @@ margin-top:1.5rem;
 .logout-link::after{
   content: "\27A7";
   color: var(--wild-text);
-  font-size: 1.5rem;
+  font-size: 2.0rem;
   vertical-align: middle;
 }
 .logout-link, .update-profile-link, .add-object-link{
   font-size:1.2rem;
   background:none;
   transition: 400ms ease all;
+  min-width: 150px;
 }
 .logout-link:hover, .update-profile-link:hover, .add-object-link:hover{
- background: rgb(0, 128, 128,0.2);
- padding: 5px 10px;
- border-radius:4px;
+background: rgb(0, 128, 128,0.2);
+padding: 5px 10px 2px;
 transition: 200ms ease all;
 }
 
-
+/*заголовки для всех страниц пользователя */
 .reg-title{
     font-size:1.5rem;
     margin-bottom:10px;
-
 }
+/*контейнер формы */
 .form-wrapper, .profile-wrapper{
     margin-top: 10px;
     margin-bottom: 15px;
@@ -188,10 +192,8 @@ transition: 200ms ease all;
     border-radius: 8px;
     box-shadow: var(--complex-shadow);
 }
-.user-info{
-  text-align: left;
-}
 
+/*контейнер добавления объекта*/
 .add-form-wrapper{
     display:grid;
     grid-template-columns: repeat(2,1fr);
@@ -208,25 +210,20 @@ transition: 200ms ease all;
     box-shadow: var(--complex-shadow);
 }
 
-
+/* Контейнер Поля формы с лейблом*/
 .form-fields{
     display:grid;
     grid-template-columns: repeat(2,1fr);
     align-items:center;
     justify-items: left;
 }
-
+/*Поля форм */
 .form-input, .add-form-wrapper input, .add-form-wrapper select, .add-form-wrapper textarea{
 margin: 5px;
 padding: 5px;
 border: 1px dotted teal;
 border-radius: 4px;
 min-width: 250px;
-}
-.form-input-hidden{
-
-border: 1px dotted red;
-
 }
 
 .form-errors{

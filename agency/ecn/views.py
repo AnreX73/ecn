@@ -11,7 +11,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from ecn.models import *
 from ecn.slugify import words_to_slug
 
-from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm,ChangeUserlnfoForm
+from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm, \
+    ChangeUserlnfoForm
 
 
 def index(request):
@@ -190,11 +191,12 @@ def add_object(request):
 
     return render(request, 'registration/add_object.html', context=context)
 
+
 class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = User
-    template_name ='registration/update_user_info.html'
+    template_name = 'registration/update_user_info.html'
     form_class = ChangeUserlnfoForm
-    success_url = reverse_lazy ('profile')
+    success_url = reverse_lazy('profile')
     success_message = 'Данные пользователя изменены'
 
     def setup(self, request, *args, **kwargs):
@@ -205,3 +207,9 @@ class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         if not queryset:
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
+
+
+class ObjectUpdateView(LoginRequiredMixin, UpdateView):  # Новый класс
+    model = InCityObject
+    template_name = 'registration/add_object.html'
+    form_class = InCityAddForm

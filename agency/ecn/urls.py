@@ -22,6 +22,6 @@ urlpatterns += [
     path('profile/', profile, name='profile'),
     path('add_object/', add_object, name='add_object'),
     path('update_user_info/', UpdateUserInfo.as_view(), name='update_user_info'),
-
+    path('profile/<slug:slug>/', ObjectUpdateView.as_view(), name='object_edit'),
 
 ]
