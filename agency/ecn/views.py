@@ -211,5 +211,5 @@ class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 class ObjectUpdateView(LoginRequiredMixin, UpdateView):  # Новый класс
     model = InCityObject
-    template_name = 'registration/add_object.html'
+    template_name = 'registration/update_object.html'
     form_class = InCityAddForm
