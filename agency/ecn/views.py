@@ -213,3 +213,5 @@ class ObjectUpdateView(LoginRequiredMixin, UpdateView):  # Новый класс
     model = InCityObject
     template_name = 'registration/update_object.html'
     form_class = InCityAddForm
+
+   

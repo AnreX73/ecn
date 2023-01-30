@@ -133,6 +133,10 @@ color:teal;
   flex-direction: column;
   text-align: center;
 }
+.user-info{
+  margin-top:2rem;
+  text-align: left;
+  }
 
 .profile-links-wrapper{
   display:grid;
@@ -140,12 +144,7 @@ color:teal;
   align-items:center;
   gap: 15px;
 }
-
-.user-info{
-  margin-top:2rem;
-  text-align: left;
-  }
-
+  
 .logout-link{
   justify-self:flex-end;
 }
@@ -164,15 +163,16 @@ color:teal;
   vertical-align: middle;
 }
 .logout-link, .update-profile-link, .add-object-link{
-  font-size:1.2rem;
+  font-size:1.1rem;
   background:none;
   transition: 400ms ease all;
-  min-width: 150px;
+  min-width: 150px; 
 }
 .logout-link:hover, .update-profile-link:hover, .add-object-link:hover{
 background: rgb(0, 128, 128,0.2);
 padding: 5px 10px 2px;
 transition: 200ms ease all;
+border-radius: 4px;
 }
 
 /*заголовки для всех страниц пользователя */
@@ -201,7 +201,7 @@ transition: 200ms ease all;
     column-gap:25px;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-size:1.2rem;
+    font-size:1.1rem;
     max-width: 960px;
     text-align: center;
     border: 1px dotted teal;
@@ -220,10 +220,12 @@ transition: 200ms ease all;
 /*Поля форм */
 .form-input, .add-form-wrapper input, .add-form-wrapper select, .add-form-wrapper textarea{
 margin: 5px;
-padding: 5px;
+padding: 2px 5px;
 border: 1px dotted teal;
 border-radius: 4px;
-min-width: 250px;
+min-width: 200px;
+font-family: 'Oswald', sans-serif;
+font-size:1.1rem;
 }
 
 .form-errors{
