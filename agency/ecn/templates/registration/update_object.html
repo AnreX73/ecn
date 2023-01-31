@@ -13,10 +13,15 @@
       <h1 class="reg-title">Изменить данные</h1>
         <div class="form-errors">{{ forms.non_fields_errors }}</div>
     <div class="add-form-wrapper">
-     {% for f in form %}
+      <div class="form-title-choice">
+        <div class="form-fields"><label class="form-label" for="{{form.title.id_for_label}}">{{form.title.label}} </label>  {{ form.title }}<span class="form-errors">{{ f.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.sale_or_rent.id_for_label}}">{{form.sale_or_rent.label}} </label>  {{ form.sale_or_rent}}<span class="form-errors">{{ f.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.price.id_for_label}}">{{form.price.label}} </label>  {{ form.price}}<span class="form-errors">{{ f.errors }}</span> </div>
+      </div>
+     <!-- {% for f in form %}
             <div class="form-fields"><label class="form-label" for="{{f.id_for_label}}">{{f.label}} </label>  {{ f }}<span class="form-errors">{{ f.errors }}</span> </div>
 
-    {% endfor %}
+    {% endfor %} -->
    
     </div>
     <button type="submit" >Внести изменения</button>
