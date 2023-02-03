@@ -12,7 +12,7 @@ from ecn.models import *
 from ecn.slugify import words_to_slug
 
 from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm, \
-    ChangeUserlnfoForm
+    ChangeUserlnfoForm, InCityUpdateForm
 
 
 def index(request):
@@ -212,6 +212,6 @@ class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 class ObjectUpdateView(LoginRequiredMixin, UpdateView):  # Новый класс
     model = InCityObject
     template_name = 'registration/update_object.html'
-    form_class = InCityAddForm
+    form_class = InCityUpdateForm
 
    

@@ -232,6 +232,8 @@ border-radius: 4px;
     align-items:center;
     justify-items: left;
 }
+
+
 /*Поля форм */
 .form-input, .add-form-wrapper input, .add-form-wrapper select, .add-form-wrapper textarea{
 margin: 4px;

@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
 from django import forms
+from django.core import validators
 from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
 
@@ -67,6 +68,10 @@ class InCityAddForm(forms.ModelForm):
     estate_agent = forms.ModelChoiceField(queryset=User.objects.all(),
                                           widget=forms.HiddenInput, label='')
     content = forms.CharField(widget=CKEditorWidget, label='Текстовое описание')
+    image = forms.ImageField(label='Основное фото',
+                             validators=[validators.FileExtensionValidator(allowed_extensions=('gif', 'jpg', 'png'))],
+                             error_messages={'invalid_extension': 'Этот формат не поддерживается'},
+                             widget=forms.widgets.FileInput)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -80,6 +85,15 @@ class InCityAddForm(forms.ModelForm):
                   'metro_distance', 'rooms', 'square', 'live_square', 'kitchen', 'rooms_layout', 'balcony', 'floor',
                   'all_floor', 'bathroom', 'elevator', 'state', 'construction', 'year', 'content', 'slug', 'is_hot',
                   'is_published', 'estate_agent')
+
+
+
+class InCityUpdateForm(InCityAddForm):
+    image = forms.ImageField(label='Изменить основное фото',
+                             validators=[validators.FileExtensionValidator(allowed_extensions=('gif', 'jpg', 'png'))],
+                             error_messages={'invalid_extension': 'Этот формат не поддерживается'},
+                             widget=forms.widgets.FileInput)
+
 
 
 class ChangeUserlnfoForm(forms.ModelForm):
