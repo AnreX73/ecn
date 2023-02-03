@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup',
     'ckeditor',
     'ckeditor_uploader',
     'ecn.apps.EcnConfig',
@@ -144,3 +145,10 @@ INTERNAL_IPS = [
 ]
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+'default': {
+'toolbar': 'Full',
+'width': 'auto',
+'height':'60%'
+},
+}

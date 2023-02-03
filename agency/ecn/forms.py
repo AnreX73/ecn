@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from ckeditor.widgets import CKEditorWidget
 
 from ecn.models import InCityObject
 
@@ -65,6 +66,7 @@ class InCityAddForm(forms.ModelForm):
     is_published = forms.CharField(widget=forms.HiddenInput, label='')
     estate_agent = forms.ModelChoiceField(queryset=User.objects.all(),
                                           widget=forms.HiddenInput, label='')
+    content = forms.CharField(widget=CKEditorWidget, label='Текстовое описание')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

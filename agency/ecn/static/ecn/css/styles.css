@@ -196,7 +196,7 @@ border-radius: 4px;
 /*контейнер добавления объекта*/
 .add-form-wrapper{
     display:grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: 3fr 2fr;
     row-gap:2px;
     column-gap:25px;
     margin-top: 10px;
@@ -209,6 +209,21 @@ border-radius: 4px;
     border-radius: 4px;
     box-shadow: var(--complex-shadow);
 }
+.form-short-field, .form-big-field{
+  border: 1px dotted teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-top:10px ;
+}
+
+.object-form-title{
+  font-size:1.3rem;
+  margin-bottom:5px;
+}
+.form-text-wrapper {
+  display:grid;
+  grid-template-columns: 1fr;
+}
 
 /* Контейнер Поля формы с лейблом*/
 .form-fields{
@@ -219,13 +234,13 @@ border-radius: 4px;
 }
 /*Поля форм */
 .form-input, .add-form-wrapper input, .add-form-wrapper select, .add-form-wrapper textarea{
-margin: 5px;
-padding: 2px 5px;
+margin: 4px;
+padding: 2px 3px;
 border: 1px dotted teal;
 border-radius: 4px;
 min-width: 200px;
 font-family: 'Oswald', sans-serif;
-font-size:1.1rem;
+font-size:1rem;
 }
 
 .form-errors{
@@ -919,9 +934,10 @@ h2{
     height: 100px;
     color: #fff;
     border-radius: 50%;
-    padding: 10px 25px;
+    padding: 15px 25px;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
+    font-size: 1.1rem;
     background: transparent;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -979,6 +995,7 @@ h2{
     transition:800ms ease all;
   }
   .search_btn{
+    font-size: 0.8rem;
     left: 150px;
     font-weight:bold;
     background: teal;
@@ -991,5 +1008,8 @@ h2{
   .search_btn:after{
   background: teal;
   }
-
+.out_city_searh{
+  left: 290px;
+  
+}
 
