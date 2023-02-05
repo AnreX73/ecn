@@ -108,17 +108,11 @@ def searched_obj(request):
 
 @login_required(login_url='/register/')
 def profile(request):
-    user_good = request.user
+    user = request.user
     context = {
-        'title': 'Your page',
-        'user': user_good.first_name,
-        'user_nick': user_good.username,
-        'date_joined': user_good.date_joined,
-        'user_phone': user_good.phone_number,
-        'user_email': user_good.email,
-        'user_in': user_good.is_authenticated,
-        'user_city_objects': InCityObject.objects.filter(estate_agent__id=user_good.id),
-        'user_out_city_objects': OutCityObject.objects.filter(estate_agent__id=user_good.id)
+        'user':user,
+        'user_city_objects': InCityObject.objects.filter(estate_agent__id=user.id),
+        'user_out_city_objects': OutCityObject.objects.filter(estate_agent__id=user.id)
 
     }
     return render(request, 'registration/profile.html', context=context)

@@ -129,9 +129,9 @@ color:teal;
 }
 /*страница пользователя */
 .all-profile-wrapper{
-  display:flex;
-  flex-direction: column;
-  text-align: center;
+  display:grid;
+  grid-template-columns: repeat(2,1fr);
+  justify-items: center;
 }
 .user-info{
   margin-top:2rem;
@@ -173,6 +173,18 @@ background: rgb(0, 128, 128,0.2);
 padding: 5px 10px 2px;
 transition: 200ms ease all;
 border-radius: 4px;
+}
+.profile-objects-container{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}
+.profile-objects-wrapper{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+  
 }
 
 /*заголовки для всех страниц пользователя */
@@ -770,6 +782,9 @@ h2{
     text-align: justify;
     font-size: 1.2rem;
     line-height:1.2;
+  }
+  .agent{
+    color: teal;
   }
   .price-box{
     background:var(--wild-text);

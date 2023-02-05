@@ -2,13 +2,15 @@
 
 
 {% block content %}
+<h1 class="reg-title" >Это  Ваша страница , {{ user.first_name }} !</h1>
 <div class="all-profile-wrapper">
-<h1 class="reg-title" >Велкам на Вашу страницу , {{ user }} !</h1>
+
     <div class="profile-wrapper ">
-        <p class="user-info">Ваше аккаунт: {{ user_nick }} </p>
-        <p class="user-info">Зарегистрирован: {{ date_joined }}</p>
-        <p class="user-info">Телефон для связи: {{ user_phone }}</p>
-        <p class="user-info">Электронная почта: {{ user_email }}</p>
+        <h1 class="reg-title" >Ваши регистрационные данные</h1>
+        <p class="user-info">Ваше аккаунт: {{ user.username}} </p>
+        <p class="user-info">Зарегистрирован: {{ user.date_joined }}</p>
+        <p class="user-info">Телефон для связи: {{ user.phone_number }}</p>
+        <p class="user-info">Электронная почта: {{ user.email }}</p>
             <hr>
         <div class="profile-links-wrapper">
             <a class="update-profile-link" href="{% url 'update_user_info' %}"> РЕДАКТИРОВАТЬ ДАННЫЕ</a>
@@ -16,16 +18,43 @@
         </div>
     </div>
 
- 
-{% for u in user_city_objects %}
-<a href="{% url 'object_edit' u.slug %}"> {{ u.title }} </a>
+ <div class="profile-objects-container">
+    <h1 class="reg-title" >Ваши объявления</h1>
+
+    <div class="profile-objects-wrapper">
+{% for obj in user_city_objects %}
+  <div class="hot-object-wrapper">
+        <a href="{% url 'object_edit' obj.slug  %}">
+        <div class="hot-object">
+        {% if obj.image %}
+        <img style="max-width: 150px;" src="{{obj.image.url}}" alt="{{obj.title}}">
+        {% else %}
+        <img  style="max-width: 150px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
+        {% endif %}
+        <div class="hot-info">
+        <p class="hot-obj-title">{{obj.title}} </p>
+        <p>район {{obj.city_region}} </p>
+        <p>{{obj.object_adress}} </p>
+        <p>{{obj.rooms}} </p>
+        <p>{{obj.square}} кв.м </p>
+        <div class="hot-price-container">{{obj.price}} <span class="price"> </span></div>
+        </div>
+        </div>
+    </a>
+
+
+    </div>
 {% endfor %}
 
 {% for u in user_out_city_objects %}
+
 <a href="{{u.get_absolute_url}}"> {{ u.title }} </a>
 {% endfor %}
-<a class="add-object-link" href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a>  
+</div>
 
+
+</div>
+<a class="add-object-link" href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a>  
 </div>
 
 {% endblock content %}

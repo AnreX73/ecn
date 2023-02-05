@@ -34,7 +34,7 @@
 </div>
 
 </div>
-<div class="agent">Специалист {{apartment.estate_agent.first_name}}</div>
+<div class="agent">Специалист: {{apartment.estate_agent.first_name}}</div>
 <div class="agent">тел.  {{apartment.estate_agent.phone_number}}</div>
 <div class="apartment-table-wrapper">
 <table width="300" cellspacing="3" cellpadding="0">
@@ -71,10 +71,7 @@
         <th>Кухня</td>
         <td>{{apartment.kitchen}}кв.м.</td>
       </tr>
-       <tr>
-            <th>Планировка</td>
-            <td>{{apartment.rooms_layout}}</td>
-          </tr>
+      
       <tr>
         <th>Балкон</td>
         <td>{{apartment.balcony}}</td>
@@ -83,6 +80,10 @@
   </table>
   <table width="300"  cellspacing="3" cellpadding="0">
     <tbody>
+      <tr>
+        <th>Планировка</td>
+        <td>{{apartment.rooms_layout}}</td>
+      </tr>
         <tr>
             <th>Этаж</td>
             <td>{{apartment.floor}}</td>
