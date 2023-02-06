@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha',
     'django_cleanup',
     'ckeditor',
     'ckeditor_uploader',
@@ -85,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ecn',
         'USER': 'AnreX',
-        'PASSWORD': 'll010800ll',
+        'PASSWORD': 'l010800l',
         'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
@@ -152,3 +153,4 @@ CKEDITOR_CONFIGS = {
 'height':'60%'
 },
 }
+CAPTCHA_BACKGROUND_COLOR = 'rgb(238, 255, 255)'

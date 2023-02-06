@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from ecn.models import *
@@ -171,7 +171,7 @@ def add_object(request):
             comment = form.save(commit=False)
             comment.is_published = True
             comment.slug = new_slug
-            comment.is_hot = True
+            comment.is_hot = False
             comment.save()
 
             return redirect('profile')
@@ -207,5 +207,17 @@ class ObjectUpdateView(LoginRequiredMixin, UpdateView):  # Новый класс
     model = InCityObject
     template_name = 'registration/update_object.html'
     form_class = InCityUpdateForm
+
+class ObjectDeleteView(DeleteView):
+    model = InCityObject
+    template_name = 'registration/object_confirm_delete.html'
+    success_url = '/profile/'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context ['incityobjects'] = InCityObject.objects.all ()
+        context ['no_photo'] = Graphics.objects.get(description='нет фото')
+        return context
+
 
    

@@ -24,7 +24,7 @@
     <div class="profile-objects-wrapper">
 {% for obj in user_city_objects %}
   <div class="hot-object-wrapper">
-        <a href="{% url 'object_edit' obj.slug  %}">
+        <a href="{{obj.get_absolute_url}}">
         <div class="hot-object">
         {% if obj.image %}
         <img style="max-width: 150px;" src="{{obj.image.url}}" alt="{{obj.title}}">
@@ -37,14 +37,22 @@
         <p>{{obj.object_adress}} </p>
         <p>{{obj.rooms}} </p>
         <p>{{obj.square}} кв.м </p>
+        {% if obj.is_hot == True %}
         <div class="hot-price-container">{{obj.price}} <span class="price"> </span></div>
+        {% else %}
+        <div class="hot-price-container not-hot-price">{{obj.price}} <span class="price"> </span></div>
+        {% endif %}
         </div>
         </div>
     </a>
-
-
+        <div class="profile-object-links-wrapper">
+        <a href="{% url 'object_edit' obj.slug %}">редактировать</a>
+        <a href="{% url 'object_delete' obj.slug %}">удалить</a>
+        <a href="{% url 'object_edit' obj.slug %}">добавить фото</a>
+        </div>
     </div>
 {% endfor %}
+<a class="add-object-link" href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a>  
 
 {% for u in user_out_city_objects %}
 
@@ -54,7 +62,7 @@
 
 
 </div>
-<a class="add-object-link" href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a>  
+
 </div>
 
 {% endblock content %}

@@ -167,12 +167,16 @@ color:teal;
   background:none;
   transition: 400ms ease all;
   min-width: 150px; 
+  max-width: 250px; 
 }
-.logout-link:hover, .update-profile-link:hover, .add-object-link:hover{
+.logout-link:hover, .update-profile-link:hover , .add-object-link:hover{
 background: rgb(0, 128, 128,0.2);
 padding: 5px 10px 2px;
 transition: 200ms ease all;
 border-radius: 4px;
+}
+.add-object-link:hover{
+  padding:  10px;
 }
 .profile-objects-container{
   display: flex;
@@ -185,6 +189,24 @@ border-radius: 4px;
   grid-template-columns: repeat(2,1fr);
   gap: 10px;
   
+}
+.profile-object-links-wrapper{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  justify-items: center;
+  padding: 10px;
+}
+.profile-object-links-wrapper > a{
+  padding: 6px 8px;
+  border-radius:4px;
+  border: 1px dotted teal;
+  min-width: 100px;
+}
+.profile-object-links-wrapper > a:hover{
+  color: var(--wild-text);
+  box-shadow: var(--complex-shadow);
+  transition: 200ms;
 }
 
 /*заголовки для всех страниц пользователя */
@@ -266,9 +288,36 @@ form button{
     background: var(--light-teal);
     border: 1px dotted teal;
     border-radius: 4px;
-    box-shadow: var(--complex-shadow);
     min-width: 150px;
 }
+.obj-on-delete-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btn-alert{
+  background: var(--wild-text);
+  color: white;
+  border: 1px solid white;
+}
+.btn-escape{
+  margin-top: 10px;
+  padding: 6px 8px;
+  background: var(--light-teal);
+  border: 1px dotted teal;
+  border-radius: 4px;
+  width: 150px;
+  text-align: center;
+
+}
+form button:hover, .btn-escape:hover{
+  box-shadow: var(--complex-shadow);
+
+}
+.obj-on-delete{
+  max-width: 300px;
+}
+
 .all-form-wrapper a{
 margin-top:10px;
 color:var(--wild-text);
@@ -542,6 +591,7 @@ h2{
   /*hot объекты на главной*/
   .hot-objects-wrapper{
     margin-top:0.5rem;
+   
   }
   .hot-objects-list{
     display: grid;
@@ -580,6 +630,9 @@ h2{
     left: 0;
     top: 0;
     border: 1px solid white;
+    }
+    .not-hot-price{
+      background:teal;
     }
   .hot-info{
     text-align:left;

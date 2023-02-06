@@ -493,7 +493,7 @@ class Post(models.Model):
 
 # Галереи фото квартир
 class Gallery(models.Model):
-    galleryLink = models.ForeignKey(InCityObject, on_delete=models.PROTECT, verbose_name='Ссылка на объект')
+    galleryLink = models.ForeignKey(InCityObject, on_delete=models.CASCADE, verbose_name='Ссылка на объект')
     gallery_image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Фото')
     note = models.CharField(blank=True, max_length=100, verbose_name='примечание')
     is_published = models.BooleanField(default=True, verbose_name='Публикация')
@@ -509,7 +509,7 @@ class Gallery(models.Model):
 
 # Галерея фото загородной недвижимости
 class Gallery2(models.Model):
-    galleryLink2 = models.ForeignKey(OutCityObject, on_delete=models.PROTECT, verbose_name='Ссылка на объект')
+    galleryLink2 = models.ForeignKey(OutCityObject, on_delete=models.CASCADE, verbose_name='Ссылка на объект')
     gallery_image2 = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Фото')
     note2 = models.CharField(blank=True, max_length=100, verbose_name='примечание')
     is_published = models.BooleanField(default=True, verbose_name='Публикация')

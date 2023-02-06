@@ -22,6 +22,7 @@ from agency import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ecn.urls')),
+    path('captcha/', include('captcha.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
