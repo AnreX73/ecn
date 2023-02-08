@@ -23,23 +23,8 @@
 
 
  <div class="searched-wrapper">
-{% for o in selected_items%}
-<a href="{{o.get_absolute_url}}">
-    <div class="searched-obj-wrapper">
-        <div class="searched-obj-price">{{o.price}}</div>
-        <div class="searched-obj">{{o.title}}</div>
-        {% if o.image %}
-        <img src="{{o.image.url}}" alt="{{o.title}}">
-        {% else %}
-        <img src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
-        {% endif %}
-        <div class="searched-obj">{{o.object_adress}}</div>
-        <div class="searched-obj">{{o.object_type}}</div>
-        <div class="searched-obj">{{o.square}} кв.м</div>
-        <div class="searched-obj">{{o.rooms}} </div>
-        
-    </div>
-</a>
+{% for obj in selected_items %}
+{% include 'ecn/inclusion/object_card.html' %}
 {% empty %}
 <div class="non-searched"><h2>Нет объектов</h2></div>
 {% endfor%}

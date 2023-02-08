@@ -16,6 +16,7 @@
             <a class="update-profile-link" href="{% url 'update_user_info' %}"> РЕДАКТИРОВАТЬ ДАННЫЕ</a>
             <a class="logout-link" href="{% url 'logout' %}">ВЫЙТИ  </a>
         </div>
+       
     </div>
 
  <div class="profile-objects-container">
@@ -24,27 +25,7 @@
     <div class="profile-objects-wrapper">
 {% for obj in user_city_objects %}
   <div class="hot-object-wrapper">
-        <a href="{{obj.get_absolute_url}}">
-        <div class="hot-object">
-        {% if obj.image %}
-        <img style="max-width: 150px;" src="{{obj.image.url}}" alt="{{obj.title}}">
-        {% else %}
-        <img  style="max-width: 150px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
-        {% endif %}
-        <div class="hot-info">
-        <p class="hot-obj-title">{{obj.title}} </p>
-        <p>район {{obj.city_region}} </p>
-        <p>{{obj.object_adress}} </p>
-        <p>{{obj.rooms}} </p>
-        <p>{{obj.square}} кв.м </p>
-        {% if obj.is_hot == True %}
-        <div class="hot-price-container">{{obj.price}} <span class="price"> </span></div>
-        {% else %}
-        <div class="hot-price-container not-hot-price">{{obj.price}} <span class="price"> </span></div>
-        {% endif %}
-        </div>
-        </div>
-    </a>
+    {% include 'ecn/inclusion/object_card.html'%}
         <div class="profile-object-links-wrapper">
         <a href="{% url 'object_edit' obj.slug %}">редактировать</a>
         <a href="{% url 'object_delete' obj.slug %}">удалить</a>
@@ -52,14 +33,17 @@
         </div>
     </div>
 {% endfor %}
-<a class="add-object-link" href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a>  
+ 
 
 {% for u in user_out_city_objects %}
 
 <a href="{{u.get_absolute_url}}"> {{ u.title }} </a>
 {% endfor %}
 </div>
-
+<hr>
+<div class="add-object-link">
+<a  href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a> 
+</div>
 
 </div>
 

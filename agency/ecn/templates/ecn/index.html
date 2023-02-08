@@ -40,23 +40,7 @@
     <div class="hot-objects-list">
     {% for obj in hot_city_obj %}
     <div class="hot-object-wrapper">
-        <a href="{{obj.get_absolute_url}}">
-        <div class="hot-object">
-        {% if obj.image %}
-        <img style="max-width: 150px;" src="{{obj.image.url}}" alt="{{obj.title}}">
-        {% else %}
-        <img  style="max-width: 150px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
-        {% endif %}
-        <div class="hot-info">
-        <p class="hot-obj-title">{{obj.title}} </p>
-        <p>район {{obj.city_region}} </p>
-        <p>{{obj.object_adress}} </p>
-        <p>{{obj.rooms}} </p>
-        <p>{{obj.square}} кв.м </p>
-        <div class="hot-price-container">{{obj.price}} <span class="price"> </span></div>
-        </div>
-        </div>
-    </a>
+        {% include 'ecn/inclusion/object_card.html'%}
          <a class="hot-more-link" href="{{obj.object_type.get_absolute_url}}"><p class="hot-more-link">Все {{ obj.object_type.title }} --></p></a>
 
     </div>

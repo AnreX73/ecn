@@ -24,6 +24,7 @@ class UserCreationForm(UserCreationForm):
                                    widget=forms.TextInput(attrs={'class': 'form-input'}), )
     password1 = forms.CharField(label=_("password"), widget=forms.PasswordInput(attrs={'class': 'form-input'}), )
     password2 = forms.CharField(label='повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}), )
+    captcha = CaptchaField(label='Введите текст с картинки')
 
     class Meta(UserCreationForm.Meta):
         model = User

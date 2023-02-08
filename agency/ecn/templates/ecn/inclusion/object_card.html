@@ -1,7 +1,6 @@
 
-    {% for obj in objects %}
-    <div class="object-card-wrapper">
-        <a href="{{obj.get_absolute_url}}">
+    
+    <a href="{{obj.get_absolute_url}}">
         <div class="instance-object">
         {% if obj.image %}
         <img style="max-width: 150px;" src="{{obj.image.url}}" alt="{{obj.title}}">
@@ -22,10 +21,5 @@
         </div>
         </div>
     </a>  
-    {% if show_link %}
-    <a class="hot-more-link" href="{{obj.object_type.get_absolute_url}}"><p class="hot-more-link">Все {{ obj.object_type.title }} --></p></a>  
-    {% endif %}
-    </div>
-    {% empty %}
-    <div class="non-searched"><h2>Нет объектов</h2></div>
-    {% endfor %}
+    
+   

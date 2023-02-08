@@ -6,27 +6,7 @@
 <div class="obj-on-delete-wrapper">
 <h1 class="reg-title">Удалить объект</h1>
 <div class="hot-object-wrapper obj-on-delete">
-        <a href="{{incityobject.get_absolute_url}}">
-        <div class="hot-object">
-        {% if incityobject.image %}
-        <img style="max-width: 150px;" src="{{incityobject.image.url}}" alt="{{obj.title}}">
-        {% else %}
-        <img  style="max-width: 150px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
-        {% endif %}
-        <div class="hot-info">
-        <p class="hot-obj-title">{{incityobject.title}} </p>
-        <p>район {{incityobject.city_region}} </p>
-        <p>{{incityobject.object_adress}} </p>
-        <p>{{incityobject.rooms}} </p>
-        <p>{{incityobject.square}} кв.м </p>
-        {% if incityobject.is_hot == True %}
-        <div class="hot-price-container">{{incityobject.price}} <span class="price"> </span></div>
-        {% else %}
-        <div class="hot-price-container not-hot-price">{{incityobject.price}} <span class="price"> </span></div>
-        {% endif %}
-        </div>
-        </div>
-    </a>
+    {% include 'ecn/inclusion/object_card.html' with obj=incityobject %}
        
     </div>
 <form method='post'>
