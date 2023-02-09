@@ -332,7 +332,9 @@ form button:hover, .btn-escape:hover{
 .obj-on-delete{
   max-width: 350px;
 }
-
+#id_captcha_1{
+  border: 1px dotted teal;
+}
 .all-form-wrapper a{
 margin-top:10px;
 color:var(--wild-text);
@@ -665,6 +667,16 @@ h2{
   .hot-more-link:hover{
     color: var(--wild-text);
     transition: 300ms ease-in-out all;
+  }
+  .rent-container{
+    background:var(--wild-text);
+    color:white;
+    padding:5px;
+    position:absolute;
+    border-radius:4px;
+    left: 0;
+    top: 100px;
+    border: 1px solid white;
   }
 
   hr{

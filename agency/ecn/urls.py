@@ -20,10 +20,11 @@ urlpatterns += [
     path('user_password_reset/', UserPasswordReset.as_view(), name='user_password_reset'),
     path('user_password_reset_done/', UserPasswordResetDone.as_view(), name='user_password_reset_done'),
     path('profile/<slug:slug>/', ObjectUpdateView.as_view(), name='object_edit'),
+    path('profile/dacha/<slug:slug>/', DachaUpdateView.as_view(), name='dacha_edit'),
     path('profile/<slug:slug>/delete/', ObjectDeleteView.as_view(), name='object_delete'),
+    path('profile/dacha/<slug:slug>/delete/', DachaDeleteView.as_view(), name='dacha_delete'),
     path('profile/', profile, name='profile'),
     path('add_object/', add_object, name='add_object'),
+    path('add_dacha/', add_dacha, name='add_dacha'),
     path('update_user_info/', UpdateUserInfo.as_view(), name='update_user_info'),
-   
-
 ]

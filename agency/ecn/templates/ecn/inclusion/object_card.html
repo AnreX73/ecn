@@ -1,5 +1,3 @@
-
-    
     <a href="{{obj.get_absolute_url}}">
         <div class="instance-object">
         {% if obj.image %}
@@ -17,6 +15,9 @@
         <div class="hot-price-container">{{obj.price}} <span class="price"> </span></div>
         {% else %}
         <div class="hot-price-container not-hot-price">{{obj.price}} <span class="price"> </span></div>
+        {% endif %}
+        {% if obj.sale_or_rent == 'r' %}
+        <div class="rent-container">{{obj.get_sale_or_rent_display}} </div>
         {% endif %}
         </div>
         </div>

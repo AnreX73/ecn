@@ -12,7 +12,7 @@ from ecn.models import *
 from ecn.slugify import words_to_slug
 
 from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm, \
-    ChangeUserlnfoForm, InCityUpdateForm
+    ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm
 
 
 def index(request):
@@ -110,10 +110,9 @@ def searched_obj(request):
 def profile(request):
     user = request.user
     context = {
-        'user':user,
+        'user': user,
         'user_city_objects': InCityObject.objects.filter(estate_agent__id=user.id),
         'user_out_city_objects': OutCityObject.objects.filter(estate_agent__id=user.id)
-
     }
     return render(request, 'registration/profile.html', context=context)
 
@@ -186,6 +185,61 @@ def add_object(request):
     return render(request, 'registration/add_object.html', context=context)
 
 
+@login_required(login_url='/register/')
+def add_dacha(request):
+    if request.method == 'POST':
+        form = OutCityAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            new_slug = words_to_slug(title)
+            comment = form.save(commit=False)
+            comment.is_published = True
+            comment.slug = new_slug
+            comment.is_hot = False
+            comment.save()
+
+            return redirect('profile')
+
+    else:
+        form = OutCityAddForm(initial=dict(estate_agent=request.user))
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'registration/add_dacha.html', context=context)
+
+
+class ObjectUpdateView(LoginRequiredMixin, UpdateView):
+    model = InCityObject
+    template_name = 'registration/update_object.html'
+    form_class = InCityUpdateForm
+
+
+class DachaUpdateView(LoginRequiredMixin, UpdateView):
+    model = OutCityObject
+    template_name = 'registration/update_dacha.html'
+    form_class = OutCityUpdateForm
+
+
+class ObjectDeleteView(DeleteView):
+    model = InCityObject
+    template_name = 'registration/object_confirm_delete.html'
+    success_url = '/profile/'
+
+
+class DachaDeleteView(DeleteView):
+    model = OutCityObject
+    template_name = 'registration/dacha_confirm_delete.html'
+    success_url = '/profile/'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['incityobjects'] = InCityObject.objects.all()
+        context['no_photo'] = Graphics.objects.get(description='нет фото')
+        return context
+
+
 class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = User
     template_name = 'registration/update_user_info.html'
@@ -201,23 +255,3 @@ class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         if not queryset:
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
-
-
-class ObjectUpdateView(LoginRequiredMixin, UpdateView):  # Новый класс
-    model = InCityObject
-    template_name = 'registration/update_object.html'
-    form_class = InCityUpdateForm
-
-class ObjectDeleteView(DeleteView):
-    model = InCityObject
-    template_name = 'registration/object_confirm_delete.html'
-    success_url = '/profile/'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context ['incityobjects'] = InCityObject.objects.all ()
-        context ['no_photo'] = Graphics.objects.get(description='нет фото')
-        return context
-
-
-   

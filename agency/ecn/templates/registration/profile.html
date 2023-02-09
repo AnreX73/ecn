@@ -35,14 +35,26 @@
 {% endfor %}
  
 
-{% for u in user_out_city_objects %}
+{% for obj in user_out_city_objects %}
 
-<a href="{{u.get_absolute_url}}"> {{ u.title }} </a>
+<div class="hot-object-wrapper">
+    {% include 'ecn/inclusion/dacha_card.html'%}
+    <div class="profile-object-links-wrapper">
+        <a href="{% url 'dacha_edit' obj.slug %}">редактировать</a>
+        <a href="{% url 'dacha_delete' obj.slug %}">удалить</a>
+        <a href="{% url 'dacha_edit' obj.slug %}">добавить фото</a>
+        </div>
+       {{obj.object_type.title}}
+    </div>
+
 {% endfor %}
 </div>
 <hr>
 <div class="add-object-link">
 <a  href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a> 
+</div>
+<div class="add-object-link">
+    <a  href="{% url 'add_dacha' %}">ДОБАВИТЬ загородный объект</a> 
 </div>
 
 </div>

@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
 from captcha.fields import CaptchaField
 
-from ecn.models import InCityObject
+from ecn.models import InCityObject, OutCityObject
 
 User = get_user_model()
 
@@ -35,10 +35,25 @@ class UserCreationForm(UserCreationForm):
         }
 
 
+class ChangeUserlnfoForm(forms.ModelForm):
+    phone_number = forms.CharField(label='телефон для связи', max_length=30, required=True,
+                                   widget=forms.TextInput(attrs={'class': 'form-input'}), )
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ('username', 'email', 'first_name', 'phone_number')
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-input'}),
+            'email': forms.EmailInput(attrs={'class': 'form-input'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-input'}),
+
+        }
+
+
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-input'}), )
     password = forms.CharField(label=_("password"), widget=forms.PasswordInput(attrs={'class': 'form-input'}), )
-    captcha = CaptchaField(label = 'Введите текст с картинки')
+    captcha = CaptchaField(label='Введите текст с картинки')
 
 
 class UserPasswordResetForm(PasswordResetForm):
@@ -84,11 +99,7 @@ class InCityAddForm(forms.ModelForm):
 
     class Meta:
         model = InCityObject
-        fields = ('title', 'price', 'image', 'sale_or_rent', 'object_type', 'object_adress', 'city_region', 'metro',
-                  'metro_distance', 'rooms', 'square', 'live_square', 'kitchen', 'rooms_layout', 'balcony', 'floor',
-                  'all_floor', 'bathroom', 'elevator', 'state', 'construction', 'year', 'content', 'slug', 'is_hot',
-                  'is_published', 'estate_agent')
-
+        fields = ('__all__')
 
 
 class InCityUpdateForm(InCityAddForm):
@@ -98,17 +109,16 @@ class InCityUpdateForm(InCityAddForm):
                              widget=forms.widgets.FileInput)
 
 
+class OutCityAddForm(InCityAddForm):
+    land_square = forms.CharField(label='Участок в сотках')
 
-class ChangeUserlnfoForm(forms.ModelForm):
-    phone_number = forms.CharField(label='телефон для связи', max_length=30, required=True,
-                                   widget=forms.TextInput(attrs={'class': 'form-input'}), )
+    class Meta:
+        model = OutCityObject
+        fields = ('__all__')
 
-    class Meta(UserCreationForm.Meta):
-        model = User
-        fields = ('username', 'email', 'first_name', 'phone_number')
-        widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-input'}),
-            'email': forms.EmailInput(attrs={'class': 'form-input'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-input'}),
 
-        }
+class OutCityUpdateForm(OutCityAddForm):
+    image = forms.ImageField(label='Изменить основное фото',
+                             validators=[validators.FileExtensionValidator(allowed_extensions=('gif', 'jpg', 'png'))],
+                             error_messages={'invalid_extension': 'Этот формат не поддерживается'},
+                             widget=forms.widgets.FileInput)
