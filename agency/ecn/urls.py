@@ -21,6 +21,7 @@ urlpatterns += [
     path('user_password_reset_done/', UserPasswordResetDone.as_view(), name='user_password_reset_done'),
     path('profile/<slug:slug>/', ObjectUpdateView.as_view(), name='object_edit'),
     path('profile/dacha/<slug:slug>/', DachaUpdateView.as_view(), name='dacha_edit'),
+    path('profile/add_photo/<slug:slug>/', add_photo, name='add_photo'),
     path('profile/<slug:slug>/delete/', ObjectDeleteView.as_view(), name='object_delete'),
     path('profile/dacha/<slug:slug>/delete/', DachaDeleteView.as_view(), name='dacha_delete'),
     path('profile/', profile, name='profile'),

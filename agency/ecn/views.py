@@ -5,14 +5,14 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from ecn.models import *
 from ecn.slugify import words_to_slug
 
 from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm, \
-    ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm
+    ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm, PhotoAddForm
 
 
 def index(request):
@@ -222,20 +222,20 @@ class DachaUpdateView(LoginRequiredMixin, UpdateView):
     form_class = OutCityUpdateForm
 
 
-class ObjectDeleteView(DeleteView):
+class ObjectDeleteView(LoginRequiredMixin, DeleteView):
     model = InCityObject
     template_name = 'registration/object_confirm_delete.html'
     success_url = '/profile/'
 
 
-class DachaDeleteView(DeleteView):
+class DachaDeleteView(LoginRequiredMixin, DeleteView):
     model = OutCityObject
     template_name = 'registration/dacha_confirm_delete.html'
     success_url = '/profile/'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['incityobjects'] = InCityObject.objects.all()
+        context['outcityobjects'] = OutCityObject.objects.all()
         context['no_photo'] = Graphics.objects.get(description='нет фото')
         return context
 
@@ -255,3 +255,26 @@ class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         if not queryset:
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
+
+
+@login_required(login_url='/register/')
+def add_photo(request, slug):
+    obj = InCityObject.objects.get(slug=slug)
+    photo_list = Gallery.objects.filter(galleryLink=obj.pk)
+    if request.method == 'POST':
+        form = PhotoAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.is_published = True
+            comment.save()
+
+    else:
+        form = PhotoAddForm(initial=dict(galleryLink=obj.pk, is_published=True))
+
+    context = {
+        'form': form,
+        'photo_list': photo_list,
+        'obj': obj
+    }
+
+    return render(request, 'registration/add_photo.html', context=context)

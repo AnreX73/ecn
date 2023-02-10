@@ -7,7 +7,7 @@
 
     <div class="profile-wrapper ">
         <h1 class="reg-title" >Ваши регистрационные данные</h1>
-        <p class="user-info">Ваше аккаунт: {{ user.username}} </p>
+        <p class="user-info">Ваше аккаунт: {{ user.username}} (id:{{ user.pk }})</p>
         <p class="user-info">Зарегистрирован: {{ user.date_joined }}</p>
         <p class="user-info">Телефон для связи: {{ user.phone_number }}</p>
         <p class="user-info">Электронная почта: {{ user.email }}</p>
@@ -29,7 +29,7 @@
         <div class="profile-object-links-wrapper">
         <a href="{% url 'object_edit' obj.slug %}">редактировать</a>
         <a href="{% url 'object_delete' obj.slug %}">удалить</a>
-        <a href="{% url 'object_edit' obj.slug %}">добавить фото</a>
+        <a href="{% url 'add_photo' obj.slug %}">добавить фото</a>
         </div>
     </div>
 {% endfor %}

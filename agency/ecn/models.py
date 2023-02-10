@@ -538,3 +538,5 @@ class Contacts(models.Model):
         verbose_name = 'контактную информацию'
         verbose_name_plural = 'Контакты'
         ordering = ['id']
+
+

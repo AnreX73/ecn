@@ -6,7 +6,9 @@ from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
 from captcha.fields import CaptchaField
 
-from ecn.models import InCityObject, OutCityObject
+from ecn.models import InCityObject, OutCityObject, Gallery
+from imagekit.forms import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 User = get_user_model()
 
@@ -86,10 +88,11 @@ class InCityAddForm(forms.ModelForm):
     estate_agent = forms.ModelChoiceField(queryset=User.objects.all(),
                                           widget=forms.HiddenInput, label='')
     content = forms.CharField(widget=CKEditorWidget, label='Текстовое описание')
-    image = forms.ImageField(label='Основное фото',
-                             validators=[validators.FileExtensionValidator(allowed_extensions=('gif', 'jpg', 'png'))],
-                             error_messages={'invalid_extension': 'Этот формат не поддерживается'},
-                             widget=forms.widgets.FileInput)
+    image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
+                                label='Основное изображение',
+                                processors=[ResizeToFill(1200, 900)],
+                                format='JPEG',
+                                options={'quality': 70})
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -99,14 +102,19 @@ class InCityAddForm(forms.ModelForm):
 
     class Meta:
         model = InCityObject
-        fields = ('__all__')
+        fields = '__all__'
 
 
 class InCityUpdateForm(InCityAddForm):
-    image = forms.ImageField(label='Изменить основное фото',
-                             validators=[validators.FileExtensionValidator(allowed_extensions=('gif', 'jpg', 'png'))],
-                             error_messages={'invalid_extension': 'Этот формат не поддерживается'},
-                             widget=forms.widgets.FileInput)
+    image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
+                                label='Изменить изображение',
+                                processors=[ResizeToFill(1200, 900)],
+                                format='JPEG',
+                                options={'quality': 70},
+                                validators=[
+                                    validators.FileExtensionValidator(allowed_extensions=('gif', 'jpg', 'png'))],
+                                error_messages={'invalid_extension': 'Этот формат не поддерживается'},
+                                widget=forms.widgets.FileInput)
 
 
 class OutCityAddForm(InCityAddForm):
@@ -114,7 +122,7 @@ class OutCityAddForm(InCityAddForm):
 
     class Meta:
         model = OutCityObject
-        fields = ('__all__')
+        fields = '__all__'
 
 
 class OutCityUpdateForm(OutCityAddForm):
@@ -122,3 +130,23 @@ class OutCityUpdateForm(OutCityAddForm):
                              validators=[validators.FileExtensionValidator(allowed_extensions=('gif', 'jpg', 'png'))],
                              error_messages={'invalid_extension': 'Этот формат не поддерживается'},
                              widget=forms.widgets.FileInput)
+
+
+class PhotoAddForm(forms.ModelForm):
+    gallery_image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
+                                        label='Добавить  изображение',
+                                        processors=[ResizeToFill(1200, 900)],
+                                        format='JPEG',
+                                        options={'quality': 70},
+                                        validators=[
+                                            validators.FileExtensionValidator(
+                                                allowed_extensions=('gif', 'jpg', 'png'))],
+                                        error_messages={'invalid_extension': 'Этот формат не поддерживается'},
+                                        widget=forms.widgets.FileInput)
+    galleryLink = forms.ModelChoiceField(queryset=InCityObject.objects.all(),
+                                         widget=forms.HiddenInput, label='')
+    is_published = forms.CharField(widget=forms.HiddenInput, label='')
+
+    class Meta:
+        model = Gallery
+        fields = '__all__'
