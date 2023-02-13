@@ -4,20 +4,30 @@
 
 {% block content %}
  <h1 class="reg-title">Добавить фотографии объекта ->> {{ obj.title }} ->> {{ obj.get_sale_or_rent_display }} </h1>
-<form method='post' enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-errors">{{ forms.non_fields_errors }}</div>
-    {{ form.as_p }}
- <button type="submit" >Добавить объект</button>
-    </form>
+ <div class="grid-2-3-fractions add-photo-wrapper">
+   <div class="flex-column  add-photo-form-wrapper">
+      <form method='post' enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-errors">{{ forms.non_fields_errors }}</div>
+         {{ form.as_p }}
+         <button type="submit" >Добавить фото</button>
+         <hr style="width: 100%;"> 
+      </form>
+      <a  class="light-link-btn" href="{% url 'home' %}"> Выйти</a>
+   </div>
+   <div class="flex-column add-photo-photo-wrapper">
  <h1 class="reg-title">Загруженные фото </h1>
-{% for obj in photo_list %}
-  <div class="img-container">
+ <div class="grid-3-fraction add-photo-photos-wrapper">
+   {% for obj in photo_list %}
+  <div class="add-photo-img-container">
                 <img src="{{obj.gallery_image.url}}" alt="{{obj.title}}">
-      <p>{{obj.note}}</p>
+                <p>{{obj.note}}</p>
   </div>
+  
 
 {% endfor  %}
+</div>
+</div>
 
-
+</div>
 {% endblock content %}

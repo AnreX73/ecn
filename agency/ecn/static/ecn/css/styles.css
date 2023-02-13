@@ -102,6 +102,31 @@ h6 {
   7px 7px 20px 0px rgba(0,0,0,.1),
   4px 4px 5px 0px rgba(0,0,0,.1);
 }
+
+.grid-2-3-fractions{
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  justify-items: center;
+  text-align: center;
+}
+.grid-3-fraction{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  justify-items: center;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+.light-link-btn{
+  line-height: normal;
+  padding: 4px 8px;
+  background: var(--light-teal);
+  border: 1px dotted teal;
+  border-radius: 4px;
+  width: 150px; 
+  text-align: center;
+}
 body {
 font-family: 'Oswald', sans-serif;
 height:auto;
@@ -343,6 +368,22 @@ form button:hover, .btn-escape:hover{
 margin-top:10px;
 color:var(--wild-text);
 }
+/* добавление фото*/
+.add-photo-form-wrapper{
+ text-align: left;
+  margin-top: 15px;
+  line-height: 2.5rem;
+}
+.add-photo-photos-wrapper{
+padding: 10px;
+}
+.add-photo-img-container{
+  padding: 10px;
+}
+.add-photo-img-container > img{
+  width: 100%;
+}
+
 h2{
     font-size: 1.5rem;
   }
@@ -688,7 +729,6 @@ h2{
     border-bottom: 1px dotted teal;
     margin: 15px auto;
   }
-
 
   /*список квартир*/
   .list-main-title{

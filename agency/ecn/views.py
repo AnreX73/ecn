@@ -91,10 +91,10 @@ def searched_obj(request):
         form = InCitySearchForm(request.POST)
         if form.is_valid():
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-            selected_items = InCityObject.objects.filter(**obj_dic).filter(is_published=True)
+            selected_items = InCityObject.objects.filter(**obj_dic).filter(is_published=True).order_by('-time_create')
 
     else:
-        selected_items = InCityObject.objects.filter(sale_or_rent='s')
+        selected_items = InCityObject.objects.filter(sale_or_rent='s').order_by('-time_create')
         form = InCitySearchForm()
     context = {
         'title': 'Агенство ЕЦН - поиск',
@@ -278,3 +278,5 @@ def add_photo(request, slug):
     }
 
     return render(request, 'registration/add_photo.html', context=context)
+
+
