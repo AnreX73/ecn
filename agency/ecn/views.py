@@ -280,3 +280,8 @@ def add_photo(request, slug):
     return render(request, 'registration/add_photo.html', context=context)
 
 
+@login_required(login_url='/register/')
+def delete_photo(request, pk):
+    request.incityobject.gallery.remove(pk)
+    gallery = request.incityobject.gallery.all()
+    return render(request, 'registration/add_photo.html', {'gallery':gallery})

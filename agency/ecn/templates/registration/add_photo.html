@@ -17,11 +17,13 @@
    </div>
    <div class="flex-column add-photo-photo-wrapper">
  <h1 class="reg-title">Загруженные фото </h1>
- <div class="grid-3-fraction add-photo-photos-wrapper">
+ <div class="grid-3-fraction add-photo-photos-wrapper" id="photo-list">
    {% for obj in photo_list %}
-  <div class="add-photo-img-container">
+  <div class="add-photo-img-container" >
                 <img src="{{obj.gallery_image.url}}" alt="{{obj.title}}">
+                <span class="delete-photo-button" hx-delete="{% url 'delete_photo' obj.pk %}" hx-target="#photo-list" hx-confirm="Хотите удалить фото?"> X </span>
                 <p>{{obj.note}}</p>
+                
   </div>
   
 
@@ -30,4 +32,8 @@
 </div>
 
 </div>
+{{ gallery }}
+{% for gal in gallery %}
+{{ gal.id }}
+{% endfor %}
 {% endblock content %}

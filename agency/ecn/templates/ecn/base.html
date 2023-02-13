@@ -9,7 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" rel="stylesheet" href="{% static 'ecn/css/styles.css' %}"/>
     <link type="text/css" rel="stylesheet" href="{% static 'ecn/css/swiper-bundle.min.css' %}"/>
-  
+    
+ </head>
+ <body>
 {% show_header user %}
 <div class="help-div"></div>
 <div class="all_content_wrapper">
@@ -22,6 +24,9 @@
 
 <script type="text/javascript" src='{% static  "ecn/js/swiper-bundle.min.js" %}'></script>
 <script type="text/javascript" src='{% static  "ecn/js/main.js" %}'></script>
-
+<script type="text/javascript" src='{% static  "ecn/js/htmx.js" %}'></script>
+<script> document.body.addEventListener('htmx:configRequest', function(event) {
+    event.detail.headers['{X-CSRFToken}'] = '{{ csrf_token }}';
+    event.detail.parameters['{X-CSRFToken}'] = '{{ csrf_token }}'}); </script>
 </body>
 </html>
