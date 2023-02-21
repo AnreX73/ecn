@@ -55,7 +55,7 @@ class ChangeUserlnfoForm(forms.ModelForm):
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-input'}), )
     password = forms.CharField(label=_("password"), widget=forms.PasswordInput(attrs={'class': 'form-input'}), )
-    captcha = CaptchaField(label='Введите текст с картинки')
+    # captcha = CaptchaField(label='Введите текст с картинки')
 
 
 class UserPasswordResetForm(PasswordResetForm):
