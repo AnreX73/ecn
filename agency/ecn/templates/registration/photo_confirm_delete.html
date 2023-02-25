@@ -1,0 +1,17 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+
+{% block content %}
+<div class="obj-on-delete-wrapper">
+<h1 class="reg-title">Удалить фото</h1>
+
+<img src="{{obj.gallery_image.url}}" alt="{{obj.title}}">
+    <form method='post'>
+    {% csrf_token %}
+    <button class="btn-alert"type="submit" >Удалить</button>
+{{obj.pk}}
+    </form>
+    <a class="btn-escape" href=''>Пока не надо</a>
+</div>
+{% endblock content %}
