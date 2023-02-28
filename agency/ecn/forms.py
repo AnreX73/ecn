@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
 from django import forms
 from django.core import validators
+from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
 from captcha.fields import CaptchaField
@@ -142,10 +143,8 @@ class PhotoAddForm(forms.ModelForm):
                                         validators=[
                                             validators.FileExtensionValidator(
                                                 allowed_extensions=('gif', 'jpg', 'png'))],
-                                        error_messages={'invalid_extension': 'Этот формат не поддерживается'},
-                                        widget=forms.widgets.FileInput)
-    galleryLink = forms.ModelChoiceField(queryset=InCityObject.objects.all(),
-                                         widget=forms.HiddenInput, label='')
+                                        error_messages={'invalid_extension': 'Этот формат не поддерживается'})
+
     is_published = forms.CharField(widget=forms.HiddenInput, label='')
 
     class Meta:
@@ -153,5 +152,10 @@ class PhotoAddForm(forms.ModelForm):
         fields = '__all__'
 
 
-
-
+PhotoInlineFormSet = inlineformset_factory(
+    InCityObject,
+    Gallery,
+    form=PhotoAddForm,
+    fields='__all__',
+    extra=3
+)

@@ -1,20 +1,19 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView
-from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic.edit import UpdateView, DeleteView, CreateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from ecn.models import *
 from ecn.slugify import words_to_slug
 
 from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm, \
-    ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm, PhotoAddForm
+    ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm, PhotoAddForm, PhotoInlineFormSet
 
 
 def index(request):
@@ -286,17 +285,23 @@ def add_photo(request, slug):
 def delete_photo(request, pk):
     request.incityobject.gallery.remove(pk)
     gallery = request.incityobject.gallery.all()
-    return render(request, 'registration/add_photo.html', {'gallery':gallery})
+    return render(request, 'registration/add_photo.html', {'gallery': gallery})
 
 
 def manage_photos(request, slug):
     parent = get_object_or_404(InCityObject, slug=slug)
-    BookInlineFormSet = inlineformset_factory(InCityObject, Gallery, fields='__all__', extra=1)
+    parent_img = Gallery.objects.filter(galleryLink__id=parent.id)
+    formset = PhotoInlineFormSet
     if request.method == "POST":
-        formset = BookInlineFormSet(request.POST, request.FILES, instance=parent)
+        formset = formset(request.POST, request.FILES, instance=parent)
         if formset.is_valid():
             formset.save()
             return HttpResponseRedirect(parent.get_absolute_url())
     else:
-        formset = BookInlineFormSet(instance=parent)
-    return render(request, 'registration/manage_photos.html', {'formset': formset})
+        formset = formset(instance=parent)
+    context = {
+        'parent': parent,
+        'formset': formset,
+        'parent_img':parent_img
+    }
+    return render(request, 'registration/manage_photos.html', context=context)
