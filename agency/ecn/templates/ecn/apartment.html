@@ -15,9 +15,12 @@
   <div class="swiper-wrapper">
     <!-- Slides -->
     {% for gal in gallery %}
+    {% if gal.gallery_image %}
   <div class="swiper-slide"><img class="gallery-image" src="{{gal.gallery_image.url}}" alt="{{gal.note}}"></div>
-  {% empty %}
+  
+  {% else %}
   <div class="swiper-slide"><img class="gallery-image" src="{{no_photo.image.url}}" alt="{{no_photo.description}}"></div>
+  {% endif %}
   {% endfor%}
 
   </div>

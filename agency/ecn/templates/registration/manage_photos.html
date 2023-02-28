@@ -2,14 +2,13 @@
 {% load agency_tags %}
 
 {% block content %}
+<div class="all-manage-photo-container">
+<h1 class="reg-title">{{ parent.title }} / фотографии (максимум 10)</h1>
 
-{% for i in parent_img %}
-<img src="{{ i.gallery_image.url }}" alt="" srcset="" style="width:100px"></div>
-{% endfor %}
-<h1 class="reg-title">{{ parent.title }}</h1>
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ formset.management_form }}
+    <div class="add-photo-form-wrapper">
 {% if formset.non_form_errors %}
 <ul>
 {% for error in formset.non_form_errors %}
@@ -17,6 +16,7 @@
 {% endfor %}
 </ul>
 {% endif %}
+
 {% for form in formset %}
 
 {% for hidden in form.hidden_fields %}
@@ -29,7 +29,9 @@
 {% endfor %}
 </ul>
 {% endif %}
+<div class="add-photo-photos-wrapper">
 {% for field in form.visible_fields %}
+
 {% if field.errors %}
 
 <ul>
@@ -39,11 +41,23 @@
 </ul>
 {% endif %}
 
-<p>{{ field.label_tag }} <br>{{ field.value }}<br>
-{{ field.help_text }}</p>
+     {% for i in parent_img %}
+    {% if i.gallery_image and i.gallery_image == field.value  %}
+    <img src="{{i.gallery_image.url}}" alt="{{i.title}}" style="width:150px;">
+    {% endif %}
+    {% endfor %}
+
+<div>{{ field.label_tag }} <br>{{ field }}<br>
+{{ field.help_text }}</div>
+
 {% endfor %}
+</div>
 {% endfor %}
 
-    <button type="submit" >Добавить фото</button>
+
+    
+</div>
+<button  type="submit" > Внести изменения </button>
 </form>
+</div>
 {% endblock content %}

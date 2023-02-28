@@ -494,7 +494,7 @@ class Post(models.Model):
 # Галереи фото квартир
 class Gallery(models.Model):
     galleryLink = models.ForeignKey(InCityObject, on_delete=models.CASCADE, verbose_name='Ссылка на объект')
-    gallery_image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Фото')
+    gallery_image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, null=True, verbose_name='Фото')
     note = models.CharField(blank=True, max_length=100, verbose_name='примечание')
     is_published = models.BooleanField(default=True, verbose_name='Публикация')
 

@@ -136,16 +136,19 @@ class OutCityUpdateForm(OutCityAddForm):
 
 class PhotoAddForm(forms.ModelForm):
     gallery_image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
-                                        label='Добавить  изображение',
+                                        label='Изменить / добавить  изображение',
                                         processors=[ResizeToFill(1200, 900)],
                                         format='JPEG',
                                         options={'quality': 70},
                                         validators=[
                                             validators.FileExtensionValidator(
                                                 allowed_extensions=('gif', 'jpg', 'png'))],
-                                        error_messages={'invalid_extension': 'Этот формат не поддерживается'})
+                                        error_messages={'invalid_extension': 'Этот формат не поддерживается'},
+                                        required=False,
+                                        widget=forms.widgets.FileInput)
 
-    is_published = forms.CharField(widget=forms.HiddenInput, label='')
+    is_published = forms.CharField(widget=forms.HiddenInput, label='',required=False, initial=True)
+    note = forms.CharField(label='примечание (не обязательно)',required=False, widget=forms.TextInput(attrs={'class': 'form-input'}),)
 
     class Meta:
         model = Gallery
@@ -157,5 +160,6 @@ PhotoInlineFormSet = inlineformset_factory(
     Gallery,
     form=PhotoAddForm,
     fields='__all__',
-    extra=3
+    extra=3,
+    max_num=10
 )

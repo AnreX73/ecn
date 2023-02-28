@@ -369,13 +369,23 @@ margin-top:10px;
 color:var(--wild-text);
 }
 /* добавление фото*/
+.all-manage-photo-container{
+  text-align: center;
+  
+}
 .add-photo-form-wrapper{
- text-align: left;
+ text-align: center;
   margin-top: 15px;
   line-height: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  row-gap: 20px;
+  justify-items: center;
 }
 .add-photo-photos-wrapper{
 padding: 10px;
+box-shadow: var(--complex-shadow);
+
 }
 .add-photo-img-container{
   position: relative;
@@ -384,16 +394,8 @@ padding: 10px;
 .add-photo-img-container > img{
   width: 100%;
 }
-.delete-photo-button{
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  cursor: pointer;
-  color: white;
-  background: red;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
+
+
 
 h2{
     font-size: 1.5rem;
@@ -1092,7 +1094,7 @@ h2{
     padding: 15px 25px;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     background: transparent;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1150,7 +1152,6 @@ h2{
     transition:800ms ease all;
   }
   .search_btn{
-    font-size: 0.8rem;
     left: 150px;
     font-weight:bold;
     background: teal;

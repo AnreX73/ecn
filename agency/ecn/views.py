@@ -258,36 +258,9 @@ class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return get_object_or_404(queryset, pk=self.user_id)
 
 
-@login_required(login_url='/register/')
-def add_photo(request, slug):
-    obj = InCityObject.objects.get(slug=slug)
-    photo_list = Gallery.objects.filter(galleryLink=obj.pk)
-    if request.method == 'POST':
-        form = PhotoAddForm(request.POST, request.FILES)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.is_published = True
-            comment.save()
-
-    else:
-        form = PhotoAddForm(initial=dict(galleryLink=obj.pk, is_published=True))
-
-    context = {
-        'form': form,
-        'photo_list': photo_list,
-        'obj': obj
-    }
-
-    return render(request, 'registration/add_photo.html', context=context)
 
 
 @login_required(login_url='/register/')
-def delete_photo(request, pk):
-    request.incityobject.gallery.remove(pk)
-    gallery = request.incityobject.gallery.all()
-    return render(request, 'registration/add_photo.html', {'gallery': gallery})
-
-
 def manage_photos(request, slug):
     parent = get_object_or_404(InCityObject, slug=slug)
     parent_img = Gallery.objects.filter(galleryLink__id=parent.id)
@@ -296,12 +269,12 @@ def manage_photos(request, slug):
         formset = formset(request.POST, request.FILES, instance=parent)
         if formset.is_valid():
             formset.save()
-            return HttpResponseRedirect(parent.get_absolute_url())
+            return  redirect('profile')
     else:
         formset = formset(instance=parent)
     context = {
         'parent': parent,
         'formset': formset,
-        'parent_img':parent_img
+        'parent_img': parent_img
     }
     return render(request, 'registration/manage_photos.html', context=context)
