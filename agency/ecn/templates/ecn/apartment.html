@@ -7,7 +7,11 @@
 
 <h2 class="apartment-page-info">{{apartment.title}}</h2>
 <div class="img-price-container">
-<div class="apartment-page-info price-box">{{apartment.price}} <span class="price"></span></div>
+  {% if apartment.is_hot == True %}
+  <div class="apartment-page-info price-box">{{apartment.price}} <span class="price"></span></div>
+  {% else %}
+  <div class="not-hot-price apartment-page-info price-box ">{{apartment.price}} <span class="price"></span></div>
+  {% endif %}
 <div class="apartment-image-container">
   <!-- Slider main container -->
 <div class="swiper object-gallery">

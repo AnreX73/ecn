@@ -1,53 +1,13 @@
 
-{% for ap in selected_items %}
-            <a href="{{ap.get_absolute_url}}">
-            <div class="apartment-container">
-            <h2 class="apartment-title">{{ap.title}}</h2>
-                <div class="img-price-container">
-                <div class="price-container">
-               {{ap.price}}<span class="price"> </span>
-                </div>
-                {%if ap.is_hot %}
-                <div class="hot">Hot</div>
-                {%endif%}
-                {% if ap.image %}
-            <div class="img-container">
-                <img src="{{ap.image.url}}" alt="{{ap.title}}">
-            </div>
-            {% else %}
-            <img  style="max-width: 230px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
-            {% endif %}
-            <div class="apartment-info-wrapper">
-                {%if incity_id.title == 'Квартиры' or incity_id.title == 'Комнаты'  or incity_id.title == 'Дома' %}
-                <div class="apartment-info">район {{ap.city_region}}</div>
-                <div class="apartment-info">{{ap.object_adress}}</div>
-                <div class="apartment-info">{{ap.rooms}}</div>
-                <div class="apartment-info">{{ap.square}} кв.м.</div>
-                {%endif%}
-
-                {%if incity_id.title == 'Новостройки' %}
-                <div class="apartment-info">район {{ap.city_region}}</div>
-                <div class="apartment-info">{{ap.object_adress}}</div>
-                <div class="apartment-info">{{ap.rooms}}</div>
-                <div class="apartment-info">{{ap.square}} кв.м.</div>
-                <div class="apartment-info">Срок сдачи {{ap.year}} г.</div>
-                {%endif%}
-
-                {%if incity_id.title == 'Дачи' or incity_id.title == 'Коттеджи' or  incity_id.title == 'Земельные участки' or incity_id.title == 'Загородные дома' %}
-                <div class="apartment-info">{{ap.object_adress}}</div>
-                <div class="apartment-info">от города {{ap.city_distance}}</div>
-                <div class="apartment-info">участок {{ap.land_square}}</div>
-                {%if incity_id.title != 'Земельные участки' %}
-                <div class="apartment-info">площадь дома {{ap.square}} кв.м.</div>
-                {%endif%}
-                {%endif%}
-
-            </div>
-            
-            </div>
-            </div>
-            </a>
-            {% empty %}
-            <div class="apartment-contrainer"><h2>Нет объектов</h2></div>
+{% for obj in selected_items %}
+ {% if incity_id.title == 'Квартиры' or incity_id.title == 'Комнаты'  or incity_id.title == 'Дома в городе' %}
+    {% include 'ecn/inclusion/object_card.html'%}
+ {% elif incity_id.title == 'Дачи' or incity_id.title == 'Коттеджи' or  incity_id.title == 'Земельные участки' or incity_id.title == 'Загородные дома' %}
+    {% include 'ecn/inclusion/dacha_card.html'%}
+ {% else %}
+    {% include 'ecn/inclusion/new_ap_card.html'%}
+  {% endif %}  
+{% empty %}
+    <div class="apartment-contrainer"><h2>Нет объектов</h2></div>
 {% endfor%}
 

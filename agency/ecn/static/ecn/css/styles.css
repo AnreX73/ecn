@@ -425,7 +425,6 @@ h2{
     padding: 5px;
       margin: 0 auto;
       max-width: var(--content-size);
-      /* background:rgb(0, 128, 128, 0.03); */
       height: auto;
       display: flex;
       flex-direction: column;
@@ -709,9 +708,7 @@ h2{
     top: 0;
     border: 1px solid white;
     }
-    .not-hot-price{
-      background:teal;
-    }
+  
  .instance-object-info{
     text-align:left;
     line-height: 1.3rem;
@@ -973,6 +970,9 @@ h2{
     gap:10px 20px;
     justify-items:center;
 
+  }
+  .not-hot-price{
+    background:teal;
   }
 
 

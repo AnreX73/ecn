@@ -3,7 +3,7 @@
 <header>
 
 <a href='{% url "home" %}'><div class="header-items logo-box">  <img  src="{{logo.image.url}}" alt="{{logo.description}}" /></div> </a>
-<div class="header-items phone-box">
+<!-- <div class="header-items phone-box">
      <img  src="{{phone_icon.image.url}}" alt="{{phone_icon.title}}" />
      <div class="phones-wrapper">
         {% for cont in contacts %}
@@ -13,12 +13,12 @@
         {% endfor %}
      </div>
 
-</div>
+</div> -->
 <div class="header-items header-nav">
    <nav role="navigation">
    
       <ul>
-        <li><a href="">Продажа</a>
+        <li><a href="{% url 'searched_obj' %}">Продажа</a>
          <ul>
             {% for incity in in_city_object_type %}
             
