@@ -6,6 +6,9 @@
 <div class="apartment-page-container">
 
 <h2 class="apartment-page-info">{{apartment.title}}</h2>
+
+
+
 <div class="img-price-container">
   {% if apartment.is_hot == True %}
   <div class="apartment-page-info price-box">{{apartment.price}} <span class="price"></span></div>
@@ -38,11 +41,15 @@
   <!-- If we need scrollbar -->
   
 </div>
+<div class="estate_agent-wrapper">
+  <div class="agent">Специалист: {{apartment.estate_agent.first_name}}</div>
+  <div class="agent">тел.  {{apartment.estate_agent.phone_number}}</div>
+</div>
 </div>
 
 </div>
-<div class="agent">Специалист: {{apartment.estate_agent.first_name}}</div>
-<div class="agent">тел.  {{apartment.estate_agent.phone_number}}</div>
+
+
 <div class="apartment-table-wrapper">
 <table width="300" cellspacing="3" cellpadding="0">
     <tbody>

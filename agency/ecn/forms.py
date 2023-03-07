@@ -8,7 +8,7 @@ from ckeditor.widgets import CKEditorWidget
 from captcha.fields import CaptchaField
 
 from ecn import models
-from ecn.models import InCityObject, OutCityObject, Gallery
+from ecn.models import InCityObject, OutCityObject, Gallery, Gallery2
 from imagekit.forms import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
@@ -128,10 +128,15 @@ class OutCityAddForm(InCityAddForm):
 
 
 class OutCityUpdateForm(OutCityAddForm):
-    image = forms.ImageField(label='Изменить основное фото',
-                             validators=[validators.FileExtensionValidator(allowed_extensions=('gif', 'jpg', 'png'))],
-                             error_messages={'invalid_extension': 'Этот формат не поддерживается'},
-                             widget=forms.widgets.FileInput)
+    image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
+                                label='Изменить изображение',
+                                processors=[ResizeToFill(1200, 900)],
+                                format='JPEG',
+                                options={'quality': 70},
+                                validators=[
+                                    validators.FileExtensionValidator(allowed_extensions=('gif', 'jpg', 'png'))],
+                                error_messages={'invalid_extension': 'Этот формат не поддерживается'},
+                                widget=forms.widgets.FileInput)
 
 
 class PhotoAddForm(forms.ModelForm):
@@ -150,9 +155,7 @@ class PhotoAddForm(forms.ModelForm):
     is_published = forms.CharField(widget=forms.HiddenInput, label='',required=False, initial=True)
     note = forms.CharField(label='примечание (не обязательно)',required=False, widget=forms.TextInput(attrs={'class': 'form-input'}),)
 
-    class Meta:
-        model = Gallery
-        fields = '__all__'
+   
 
 
 PhotoInlineFormSet = inlineformset_factory(
@@ -160,6 +163,32 @@ PhotoInlineFormSet = inlineformset_factory(
     Gallery,
     form=PhotoAddForm,
     fields='__all__',
-    extra=3,
+    extra=9,
+    max_num=10
+)
+
+
+class PhotoAddForm2(forms.ModelForm):
+    gallery_image2 = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
+                                        label='Изменить / добавить  изображение',
+                                        processors=[ResizeToFill(1200, 900)],
+                                        format='JPEG',
+                                        options={'quality': 70},
+                                        validators=[
+                                            validators.FileExtensionValidator(
+                                                allowed_extensions=('gif', 'jpg', 'png'))],
+                                        error_messages={'invalid_extension': 'Этот формат не поддерживается'},
+                                        required=False,
+                                        widget=forms.widgets.FileInput)
+
+    is_published = forms.CharField(widget=forms.HiddenInput, label='',required=False, initial=True)
+    note2 = forms.CharField(label='примечание (не обязательно)',required=False, widget=forms.TextInput(attrs={'class': 'form-input'}),)
+
+PhotoInlineFormSet2 = inlineformset_factory(
+    OutCityObject,
+    Gallery2,
+    form=PhotoAddForm2,
+    fields='__all__',
+    extra=9,
     max_num=10
 )

@@ -33,7 +33,7 @@
           </ul>
 
         </li>
-        <li><a href="">Аренда</a>
+        <li><a href="{% url 'searched_obj'  %} ">Аренда</a>
           <ul>
             {% for incity in in_city_object_type %}
             {% if incity.title == 'Квартиры' or incity.title == 'Комнаты' %}

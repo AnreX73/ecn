@@ -13,7 +13,7 @@ from ecn.models import *
 from ecn.slugify import words_to_slug
 
 from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm, \
-    ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm, PhotoAddForm, PhotoInlineFormSet
+    ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm, PhotoInlineFormSet2, PhotoInlineFormSet
 
 
 def index(request):
@@ -278,3 +278,23 @@ def manage_photos(request, slug):
         'parent_img': parent_img
     }
     return render(request, 'registration/manage_photos.html', context=context)
+
+
+@login_required(login_url='/register/')
+def manage_out_city_photos(request, slug):
+    parent = get_object_or_404(OutCityObject, slug=slug)
+    parent_img = Gallery2.objects.filter(galleryLink2__id=parent.id)
+    formset = PhotoInlineFormSet2
+    if request.method == "POST":
+        formset = formset(request.POST, request.FILES, instance=parent)
+        if formset.is_valid():
+            formset.save()
+            return  redirect('profile')
+    else:
+        formset = formset(instance=parent)
+    context = {
+        'parent': parent,
+        'formset': formset,
+        'parent_img': parent_img
+    }
+    return render(request, 'registration/manage_out_city_photos.html', context=context)

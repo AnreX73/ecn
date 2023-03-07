@@ -42,7 +42,7 @@
     <div class="profile-object-links-wrapper">
         <a href="{% url 'dacha_edit' obj.slug %}">редактировать</a>
         <a href="{% url 'dacha_delete' obj.slug %}">удалить</a>
-        <a href="{% url 'manage_photos' obj.id %}">добавить фото</a>
+        <a href="{% url 'manage_out_city_photos' obj.slug %}">добавить фото</a>
         </div>
        {{obj.object_type.title}}
     </div>
@@ -50,11 +50,10 @@
 {% endfor %}
 </div>
 <hr>
-<div class="add-object-link">
-<a  href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a> 
-</div>
-<div class="add-object-link">
-    <a  href="{% url 'add_dacha' %}">ДОБАВИТЬ загородный объект</a> 
+
+<div class="profile-links-wrapper">
+<a  class="update-profile-link"  href="{% url 'add_object' %}">ДОБАВИТЬ ОБЪЕКТ</a> 
+<a class="update-profile-link"  href="{% url 'add_dacha' %}">ДОБАВИТЬ ЗАГОРОДНЫЙ ОБЪЕКТ</a> 
 </div>
 
 </div>
