@@ -7,7 +7,11 @@
 
 <h2 class="apartment-page-info">{{dacha.title}}</h2>
 <div class="img-price-container">
-<div class="apartment-page-info price-box">{{dacha.price}}<span class="price"> </span></div>
+  {% if apartment.is_hot == True %}
+  <div class="apartment-hot-price-container">{{dacha.price}} <span class="price"></span></div>
+  {% else %}
+  <div class="not-hot-price apartment-hot-price-container ">{{dacha.price}} <span class="price"></span></div>
+  {% endif %}
 <div class="apartment-image-container">
   <!-- Slider main container -->
 <div class="swiper object-gallery">
@@ -34,11 +38,14 @@
   <!-- If we need scrollbar -->
   
 </div>
+  <div class="estate_agent-wrapper">
+  <div class="agent">Специалист: {{dacha.estate_agent.first_name}}</div>
+  <div class="agent">тел.  {{dacha.estate_agent.phone_number}}</div>
+</div>
 </div>
 
 </div>
-  <div class="agent"> Cпециалист:  {{dacha.estate_agent.first_name}}</div>
-  <div class="agent">тел.  {{dacha.estate_agent.phone_number}}</div>
+
 <div class="apartment-table-wrapper">
 <table width="300" cellspacing="3" cellpadding="0">
     <tbody>

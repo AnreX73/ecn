@@ -5,19 +5,7 @@
 <h1 class="reg-title" >Это  Ваша страница , {{ user.first_name }} !</h1>
 <div class="all-profile-wrapper">
 
-    <div class="profile-wrapper ">
-        <h1 class="reg-title" >Ваши регистрационные данные</h1>
-        <p class="user-info">Ваше аккаунт: {{ user.username}} (id:{{ user.pk }})</p>
-        <p class="user-info">Зарегистрирован: {{ user.date_joined }}</p>
-        <p class="user-info">Телефон для связи: {{ user.phone_number }}</p>
-        <p class="user-info">Электронная почта: {{ user.email }}</p>
-            <hr>
-        <div class="profile-links-wrapper">
-            <a class="update-profile-link" href="{% url 'update_user_info' %}"> РЕДАКТИРОВАТЬ ДАННЫЕ</a>
-            <a class="logout-link" href="{% url 'logout' %}">ВЫЙТИ  </a>
-        </div>
-       
-    </div>
+
 
  <div class="profile-objects-container">
     <h1 class="reg-title" >Ваши объявления</h1>
@@ -44,7 +32,7 @@
         <a href="{% url 'dacha_delete' obj.slug %}">удалить</a>
         <a href="{% url 'manage_out_city_photos' obj.slug %}">добавить фото</a>
         </div>
-       {{obj.object_type.title}}
+      
     </div>
 
 {% endfor %}
@@ -57,7 +45,19 @@
 </div>
 
 </div>
+   <div class="profile-wrapper ">
+        <h1 class="reg-title" >Ваши регистрационные данные</h1>
+        <p class="user-info">Ваше аккаунт: {{ user.username}} (id:{{ user.pk }})</p>
+        <p class="user-info">Зарегистрирован: {{ user.date_joined }}</p>
+        <p class="user-info">Телефон для связи: {{ user.phone_number }}</p>
+        <p class="user-info">Электронная почта: {{ user.email }}</p>
+            <hr>
+        <div class="profile-links-wrapper">
+            <a class="update-profile-link" href="{% url 'update_user_info' %}"> РЕДАКТИРОВАТЬ ДАННЫЕ</a>
+            <a class="logout-link" href="{% url 'logout' %}">ВЫЙТИ  </a>
+        </div>
 
+    </div>
 </div>
 
 {% endblock content %}

@@ -422,8 +422,7 @@ class OutCityObject(models.Model):
                                     related_name='obj_type')
     object_adress = models.CharField(max_length=255, blank=True, verbose_name='адрес объекта')
     city_distance = models.CharField(max_length=255, blank=True, verbose_name='расстояние до города')
-    land_square = models.DecimalField(blank=True, max_digits=4, decimal_places=1, verbose_name='площадь участка',
-                                      help_text='в сотках, 2 знака после запятой')
+    land_square = models.CharField(blank=True, max_length=50, verbose_name='площадь участка')
     type_of_ownership = models.ForeignKey(TypeOfOwnership, on_delete=models.PROTECT, verbose_name='форма собственности')
     square = models.PositiveIntegerField(blank=True, verbose_name='площадь дома', help_text='в кв.м')
     year = models.CharField(max_length=25, blank=True, verbose_name='год постройки')
@@ -523,20 +522,80 @@ class Gallery2(models.Model):
         ordering = ['galleryLink2']
 
 
-# Контактная информация
-class Contacts(models.Model):
-    title = models.CharField(max_length=55, verbose_name='название')
-    image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Изображение')
-    description = models.CharField(max_length=255, blank=True, verbose_name='описание если есть')
-    extra_description = models.TextField(blank=True, verbose_name='описание дополнительное')
+class Commercial(models.Model):
+    title = models.CharField(blank=True, max_length=255, verbose_name='Заголовок')
+    image =  models.ImageField(upload_to='images/%Y/%m/%d', blank=True, null=True,  verbose_name='иллюстрация')
+    video =  models.FileField(upload_to='images/%Y/%m/%d', blank=True, null=True,  verbose_name='видео (если есть)')
+    post = RichTextField(blank=True, verbose_name='рекламная статья')
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+    time_update = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
+    is_published = models.BooleanField(default=True, verbose_name='Публикация')
+
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('show_commercial', kwargs={'pk': self.id})
+
+
+
+    class Meta:
+        verbose_name = 'Реклама'
+        verbose_name_plural = 'Рекламные статьи'
+        ordering = ['id']
+
+
+class CommercialObject(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
+    estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,verbose_name='агент по недвижимости',
+                                     help_text='специалист по объекту', related_name='com_agent')
+    post_link = models.ForeignKey(Commercial, on_delete=models.CASCADE, verbose_name='ссылка на статью',
+                                    related_name='commercial_link')
+    price = models.CharField(max_length=255, verbose_name='Цена')
+    image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, null=True, verbose_name='Основное изображение')
+    object_adress = models.CharField(max_length=255, blank=True, verbose_name='адрес объекта',
+                                     help_text='необязательно')
+    city_region = models.ForeignKey(InCityRegion, on_delete=models.PROTECT, verbose_name='район города',
+                                    related_name='region_of_city')
+    rooms = models.ForeignKey(RoomAmount, on_delete=models.PROTECT, verbose_name='количество комнат',
+                              related_name='rooms_amount')
+    square = models.PositiveIntegerField(blank=True, verbose_name='общая площадь кв.м')
+    live_square = models.PositiveIntegerField(blank=True, verbose_name='жилая площадь')
+    kitchen = models.PositiveIntegerField(blank=True, verbose_name='площадь кухни')
+    floor = models.PositiveIntegerField(blank=True, default=1, verbose_name='Этаж')
+    all_floor = models.PositiveIntegerField(blank=True, null=True, verbose_name='Этажность дома')
+    bathroom = models.ForeignKey(BathroomType, on_delete=models.PROTECT, verbose_name='санузел')
+    elevator = models.ForeignKey(ElevatorType, on_delete=models.PROTECT, verbose_name='лифт')
+    construction = models.ForeignKey(ObjectConstruction, on_delete=models.PROTECT, verbose_name='тип постройки')
+    year = models.CharField(max_length=25, blank=True, verbose_name='Год постройки / Сдачи')
+    content = RichTextField(blank=True, verbose_name='текстовое описание ')
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+    time_update = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
     is_published = models.BooleanField(default=True, verbose_name='Публикация')
 
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('show_obj', kwargs={'pk': self.id})
+
     class Meta:
-        verbose_name = 'контактную информацию'
-        verbose_name_plural = 'Контакты'
+        verbose_name = 'рекламный объект'
+        verbose_name_plural = 'Рекламные объекты'
         ordering = ['id']
 
 
+class GalleryComercial(models.Model):
+    gallery_com_link = models.ForeignKey(CommercialObject, on_delete=models.CASCADE, verbose_name='Ссылка на объект')
+    com_image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Фото')
+    note = models.CharField(blank=True, max_length=100, verbose_name='примечание')
+    is_published = models.BooleanField(default=True, verbose_name='Публикация')
+
+    def __str__(self):
+        return self.note
+
+    class Meta:
+        verbose_name = 'фото комерческого объекта'
+        verbose_name_plural = 'фото комерческих объектов'
+        ordering = ['gallery_com_link']

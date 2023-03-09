@@ -305,12 +305,32 @@ class PostAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
-@admin.register(Contacts)
-class ContactsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'gethtmlPhoto', 'description', 'extra_description', 'is_published')
-    list_display_links = ('id', 'description')
-    search_fields = ('description',)
+@admin.register(Commercial)
+class CommercialAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title')
+    search_fields = ('title',)
+    save_on_top = True
+
+
+
+class GalleryComercialAdmin(admin.TabularInline):
+    model = GalleryComercial
+    fields = ('com_image', 'gethtmlPhoto', 'note', 'is_published')
+    readonly_fields = ('gethtmlPhoto',)
+
+    def gethtmlPhoto(self, picture):
+        if picture.com_image:
+            return mark_safe(f"<img src='{picture.com_image.url}' width=75>")
+
+    gethtmlPhoto.short_description = 'миниатюра'
+
+class CommercialObjectAdmin(admin.ModelAdmin):
+    inlines = [GalleryComercialAdmin]
+    list_display = ('title', 'estate_agent', 'gethtmlPhoto', 'city_region', 'price', 'post_link', 'is_published')
+    list_display_links = ('title',)
+    search_fields = ('title', 'city_region','post_link')
     list_editable = ('is_published',)
+    list_filter = ('is_published', 'time_create','post_link')
     save_on_top = True
 
     def gethtmlPhoto(self, picture):
@@ -320,7 +340,14 @@ class ContactsAdmin(admin.ModelAdmin):
     gethtmlPhoto.short_description = 'миниатюра'
 
 
+
+
+
+
+
+
 admin.site.register(InCityObject, InCityObjectAdmin)
 admin.site.register(OutCityObject, OutCityObjectAdmin)
+admin.site.register(CommercialObject, CommercialObjectAdmin)
 
 admin.site.site_header = 'ЕЦН'
