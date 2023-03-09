@@ -852,7 +852,7 @@ h2{
     background: white;
     position: absolute;
     bottom:20px;
-    right: 100px;
+    right: 120px;
     padding: 0.5rem;
     border-radius: 4px;
     margin-top: 15px;
@@ -863,7 +863,10 @@ h2{
   .agent{
     color: teal;
   }
-  .price-box{
+ .img-price-container{
+  position: relative;
+ }
+  .apartment-hot-price-container{
     background:var(--wild-text);
     color:white;
     padding:10px;

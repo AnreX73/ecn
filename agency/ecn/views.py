@@ -143,6 +143,23 @@ class Register(View):
         return render(request, self.template_name, context)
 
 
+class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'registration/update_user_info.html'
+    form_class = ChangeUserlnfoForm
+    success_url = reverse_lazy('profile')
+    success_message = 'Данные пользователя изменены'
+
+    def setup(self, request, *args, **kwargs):
+        self.user_id = request.user.pk
+        return super().setup(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.user_id)
+
+
 class UserLogin(SuccessMessageMixin, LoginView):
     template_name = 'registration/user_login.html'
     form_class = UserLoginForm
@@ -166,15 +183,19 @@ def add_object(request):
     if request.method == 'POST':
         form = InCityAddForm(request.POST, request.FILES)
         if form.is_valid():
-            title = form.cleaned_data.get('title')
-            new_slug = words_to_slug(title)
-            comment = form.save(commit=False)
-            comment.is_published = True
-            comment.slug = new_slug
-            comment.is_hot = False
-            comment.save()
-
+            user_valid = form.cleaned_data.get('estate_agent')
+            if user_valid == request.user:
+                title = form.cleaned_data.get('title')
+                new_slug = words_to_slug(title)
+                comment = form.save(commit=False)
+                comment.is_published = True
+                comment.slug = new_slug
+                comment.is_hot = False
+                comment.save()
+            else:
+                return redirect('home')
             return redirect('profile')
+
 
     else:
         form = InCityAddForm(initial=dict(estate_agent=request.user))
@@ -241,25 +262,6 @@ class DachaDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 
-class UpdateUserInfo(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
-    model = User
-    template_name = 'registration/update_user_info.html'
-    form_class = ChangeUserlnfoForm
-    success_url = reverse_lazy('profile')
-    success_message = 'Данные пользователя изменены'
-
-    def setup(self, request, *args, **kwargs):
-        self.user_id = request.user.pk
-        return super().setup(request, *args, **kwargs)
-
-    def get_object(self, queryset=None):
-        if not queryset:
-            queryset = self.get_queryset()
-        return get_object_or_404(queryset, pk=self.user_id)
-
-
-
-
 @login_required(login_url='/register/')
 def manage_photos(request, slug):
     parent = get_object_or_404(InCityObject, slug=slug)
@@ -269,7 +271,7 @@ def manage_photos(request, slug):
         formset = formset(request.POST, request.FILES, instance=parent)
         if formset.is_valid():
             formset.save()
-            return  redirect('profile')
+            return redirect('profile')
     else:
         formset = formset(instance=parent)
     context = {
@@ -289,7 +291,7 @@ def manage_out_city_photos(request, slug):
         formset = formset(request.POST, request.FILES, instance=parent)
         if formset.is_valid():
             formset.save()
-            return  redirect('profile')
+            return redirect('profile')
     else:
         formset = formset(instance=parent)
     context = {

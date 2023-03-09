@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
 from django import forms
 from django.core import validators
+from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
@@ -102,6 +103,9 @@ class InCityAddForm(forms.ModelForm):
         self.fields['is_hot'].required = False
         self.fields['is_published'].required = False
 
+  
+        
+
     class Meta:
         model = InCityObject
         fields = '__all__'
@@ -110,7 +114,7 @@ class InCityAddForm(forms.ModelForm):
 class InCityUpdateForm(InCityAddForm):
     image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
                                 label='Изменить изображение',
-                                processors=[ResizeToFill(1200, 900)],
+                                processors=[ResizeToFill(1200, 800)],
                                 format='JPEG',
                                 options={'quality': 70},
                                 validators=[
@@ -152,10 +156,9 @@ class PhotoAddForm(forms.ModelForm):
                                         required=False,
                                         widget=forms.widgets.FileInput)
 
-    is_published = forms.CharField(widget=forms.HiddenInput, label='',required=False, initial=True)
-    note = forms.CharField(label='примечание (не обязательно)',required=False, widget=forms.TextInput(attrs={'class': 'form-input'}),)
-
-   
+    is_published = forms.CharField(widget=forms.HiddenInput, label='', required=False, initial=True)
+    note = forms.CharField(label='примечание (не обязательно)', required=False,
+                           widget=forms.TextInput(attrs={'class': 'form-input'}), )
 
 
 PhotoInlineFormSet = inlineformset_factory(
@@ -170,19 +173,21 @@ PhotoInlineFormSet = inlineformset_factory(
 
 class PhotoAddForm2(forms.ModelForm):
     gallery_image2 = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
-                                        label='Изменить / добавить  изображение',
-                                        processors=[ResizeToFill(1200, 900)],
-                                        format='JPEG',
-                                        options={'quality': 70},
-                                        validators=[
-                                            validators.FileExtensionValidator(
-                                                allowed_extensions=('gif', 'jpg', 'png'))],
-                                        error_messages={'invalid_extension': 'Этот формат не поддерживается'},
-                                        required=False,
-                                        widget=forms.widgets.FileInput)
+                                         label='Изменить / добавить  изображение',
+                                         processors=[ResizeToFill(1200, 900)],
+                                         format='JPEG',
+                                         options={'quality': 70},
+                                         validators=[
+                                             validators.FileExtensionValidator(
+                                                 allowed_extensions=('gif', 'jpg', 'png'))],
+                                         error_messages={'invalid_extension': 'Этот формат не поддерживается'},
+                                         required=False,
+                                         widget=forms.widgets.FileInput)
 
-    is_published = forms.CharField(widget=forms.HiddenInput, label='',required=False, initial=True)
-    note2 = forms.CharField(label='примечание (не обязательно)',required=False, widget=forms.TextInput(attrs={'class': 'form-input'}),)
+    is_published = forms.CharField(widget=forms.HiddenInput, label='', required=False, initial=True)
+    note2 = forms.CharField(label='примечание (не обязательно)', required=False,
+                            widget=forms.TextInput(attrs={'class': 'form-input'}), )
+
 
 PhotoInlineFormSet2 = inlineformset_factory(
     OutCityObject,
