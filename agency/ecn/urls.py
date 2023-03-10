@@ -4,7 +4,8 @@ from ecn.views import *
 
 urlpatterns = [
     path('', index, name='home'),
-    path('searched_obj/', searched_obj, name='searched_obj'),
+    path('searched_obj/<str:sale_or_rent>/', searched_obj, name='searched_obj'),
+    path('searched_obj/<int:city_region>/region/', searched_obj, name='searched_obj_region'),
     path('show_apartments/<slug:obj_type_slug>', show_apartments, name='show_apartments'),
     path('show_dachas/<slug:obj_type_slug>', show_dachas, name='show_dachas'),
     path('show_rent/<slug:obj_type_slug>', show_rent, name='show_rent'),

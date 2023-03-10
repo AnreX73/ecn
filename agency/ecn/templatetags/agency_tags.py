@@ -36,3 +36,8 @@ def show_apa(
         'incity_id': incity_id,
         'no_photo': Graphics.objects.get(description='нет фото')
     }
+
+
+# @register.inclusion_tag('ecn/inclusion/links_list.html')
+# def links_list():
+#     selected_link = 

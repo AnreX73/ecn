@@ -87,7 +87,7 @@ def show_dacha(request, dacha_slug):
     return render(request, 'ecn/dacha.html', context=context)
 
 
-def searched_obj(request):
+def searched_obj(request, *args, **kwargs):
     if request.method == 'POST':
         form = InCitySearchForm(request.POST)
         if form.is_valid():
@@ -95,8 +95,9 @@ def searched_obj(request):
             selected_items = InCityObject.objects.filter(**obj_dic).filter(is_published=True).order_by('-time_create')
 
     else:
-        selected_items = InCityObject.objects.filter(sale_or_rent='s').order_by('-time_create')
-        form = InCitySearchForm()
+        selected_items = InCityObject.objects.filter(*args, **kwargs).order_by('-time_create')
+        form = InCitySearchForm(initial=dict(*args, **kwargs))
+       
     context = {
         'title': 'Агенство ЕЦН - поиск',
         'form': form,

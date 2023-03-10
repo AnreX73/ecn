@@ -18,7 +18,7 @@
    <nav role="navigation">
    
       <ul>
-        <li><a href="{% url 'searched_obj' %}">Продажа</a>
+        <li><a href="{% url 'searched_obj' 's' %}">Продажа</a>
          <ul>
             {% for incity in in_city_object_type %}
             
@@ -33,7 +33,7 @@
           </ul>
 
         </li>
-        <li><a href="{% url 'searched_obj'  %} ">Аренда</a>
+        <li><a href="{% url 'searched_obj' 'r' %} ">Аренда</a>
           <ul>
             {% for incity in in_city_object_type %}
             {% if incity.title == 'Квартиры' or incity.title == 'Комнаты' %}
