@@ -16,7 +16,7 @@
 
 </div></a>
 {% endfor%}
-<a href="{% url 'searched_obj' %}"> <div class="logo-and-title search-link " >
+<a href="{% url 'searched_obj' 's' %}"> <div class="logo-and-title search-link " >
     <img src="{{search_icon.image.url}}" alt="{{search_icon.description}}">
     <span class="apartment-logo-title">{{search_icon.note|safe}}</span>
 </div></a>

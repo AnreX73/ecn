@@ -112,7 +112,7 @@ h6 {
 .grid-3-fraction{
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  justify-items: center;
+  
 }
 .flex-column{
   display: flex;
@@ -631,6 +631,20 @@ h2{
   .main-page-img-wrapper img{
     width:100%;
   }
+  /*полезные ссылки ссылки*/
+  .links-list-wrapper{
+    z-index: 10; 
+    gap:15px; 
+  }
+  .links-container{
+    line-height: 1.3rem;
+    text-align: left;
+    border: 1px solid rgb(212, 211, 211);
+    padding: 10px;
+    border-radius: 4px;
+    
+  }
+
   /*услуги на главной*/
 
   .services-title{

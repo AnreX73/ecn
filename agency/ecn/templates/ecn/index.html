@@ -1,8 +1,9 @@
 {% extends 'ecn/base.html' %}
+{% load agency_tags %}
 
 
 {% block content %}
-<a href="{% url 'searched_obj_region' 2 %}">ссылка</a>
+
 <div class="main-page-all-wrapper">
 
 <div class="slogan-img-wrapper">
@@ -18,6 +19,19 @@
 </div>
 
 
+<hr >
+<h1 class="reg-title">Полезные ссылки</h1>
+<div class="links-list-wrapper grid-3-fraction">
+    <div class="links-container">
+      {% links_list link='regions'%} 
+    </div>
+    <div class="links-container">
+      {% links_list %}
+    </div>
+    <div class="links-container">
+
+    </div>
+</div>
 <hr >
 
 <h2  style="padding-top: 100px; margin-top: -100px;" class="services-title" id="services">Услуги агенства</h2>
