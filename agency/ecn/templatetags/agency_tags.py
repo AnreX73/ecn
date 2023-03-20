@@ -40,14 +40,32 @@ def show_apa(
 
 @register.inclusion_tag('ecn/inclusion/links_list.html')
 def links_list(link='rooms'):
-    if link == 'rooms':
-        list_links = RoomAmount.objects.all().values('id','title')
-        view_name = 'searched_obj_rooms'
-         
+    if link == 'obj_type':
+        list_links = InCityObjectType.objects.all().values('id','title')
+        view_name = 'searched_object_type'
+        s_o_r = 's'
+                 
     elif link == 'regions':
         list_links = InCityRegion.objects.all().values('id','title')
         view_name = 'searched_obj_region'
+        s_o_r = 's'
+
+    elif link == 'rent_rooms':
+        list_links = RoomAmount.objects.all().values('id','title')
+        view_name = 'searched_obj_rooms'
+        s_o_r = 'r'
+                 
+    elif link == 'rent_regions':
+        list_links = InCityRegion.objects.all().values('id','title')
+        view_name = 'searched_obj_region'
+        s_o_r = 'r'
+    else:
+        list_links = RoomAmount.objects.all().values('id','title')
+        view_name = 'searched_obj_rooms'
+        s_o_r = 's'
+        
     return{
         'view_name':view_name,
-        'list_links': list_links
+        'list_links': list_links,
+        'sale_or_rent' : s_o_r
     } 

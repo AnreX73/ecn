@@ -20,16 +20,37 @@
 
 
 <hr >
-<h1 class="reg-title">Полезные ссылки</h1>
-<div class="links-list-wrapper grid-3-fraction">
+<h2 class="services-title">Полезные ссылки</h1>
+<div class="links-list-wrapper grid-4-fraction">
+    <div class="links-wrapper">
+        <h3 class="link-list-title">Тип объекта/ продажа </h3>
+       
     <div class="links-container">
-      {% links_list link='regions'%} 
+        {% links_list link='obj_type'%} 
+        <a href="{% url 'show_dachas' 'dacha'  %} ">Загородная недвижимость</a>
     </div>
+    </div>
+    <div class="links-wrapper">
+        <h3 class="link-list-title">Районы / продажа </h3>
+        
+    <div class="links-container grid-2-fraction">
+      {% links_list link='regions' %} 
+    </div>
+    </div>
+    <div class="links-wrapper">
+        <h3 class="link-list-title">Вторичное жилье </h3>
+        
     <div class="links-container">
       {% links_list %}
     </div>
+    </div>
+    
+    <div class="links-wrapper">
+        <h3 class="link-list-title">Квартиры / аренда </h3>
+        
     <div class="links-container">
-
+        {% links_list 'rent_rooms' %}
+    </div>
     </div>
 </div>
 <hr >

@@ -114,6 +114,17 @@ h6 {
   grid-template-columns: repeat(3,1fr);
   
 }
+.grid-2-fraction{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  
+}
+
+.grid-4-fraction{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  
+}
 .flex-column{
   display: flex;
   flex-direction: column;
@@ -637,13 +648,18 @@ h2{
     gap:15px; 
   }
   .links-container{
-    line-height: 1.3rem;
-    text-align: left;
-    border: 1px solid rgb(212, 211, 211);
+    line-height: 1.5rem; 
     padding: 10px;
+    justify-items: center; 
+    border: 1px solid rgb(212, 211, 211);
+    margin-top: 10px;
     border-radius: 4px;
-    
+
   }
+  .link-list-title{
+    color: teal;
+  }
+
 
   /*услуги на главной*/
 
@@ -761,6 +777,7 @@ h2{
     border-bottom: 1px dotted teal;
     margin: 15px auto;
   }
+
 
   /*список квартир*/
   .list-main-title{
