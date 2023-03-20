@@ -82,6 +82,7 @@ class InCitySearchForm(forms.ModelForm):
     class Meta:
         model = InCityObject
         fields = ('sale_or_rent', 'object_type', 'city_region', 'rooms')
+        
 
 
 class OutCitySearchForm(forms.ModelForm):

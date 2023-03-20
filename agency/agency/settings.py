@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'ckeditor',
     'ckeditor_uploader',
+    "debug_toolbar",
     'ecn.apps.EcnConfig',
 ]
 
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 AUTH_USER_MODEL = 'ecn.User'
