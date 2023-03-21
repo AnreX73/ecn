@@ -325,6 +325,9 @@ border: 1px dotted teal;
     align-items:center;
     justify-items: left;
 }
+.form-fields > label{
+  justify-self: flex-end;
+}
 
 
 /*Поля форм */
@@ -647,19 +650,27 @@ h2{
     z-index: 10; 
     gap:15px; 
   }
-  .links-container{
-    line-height: 1.5rem; 
+  .links-container{ 
     padding: 10px;
     justify-items: center; 
     border: 1px solid rgb(212, 211, 211);
     margin-top: 10px;
     border-radius: 4px;
-
   }
   .link-list-title{
     color: teal;
   }
-
+.link-list-item{
+  padding: 6px; 
+}
+.link-list-item > a{
+  transition: 300ms ease-in-out all;
+}
+.link-list-item:hover > a{
+  color: teal;
+  font-size: 1.2rem;
+  transition: 300ms ease-in-out all;
+}
 
   /*услуги на главной*/
 
@@ -947,7 +958,6 @@ h2{
     grid-template-columns:repeat(4,1fr);
     gap:10px 20px;
     justify-items:center;
-
   }
   .not-hot-price{
     background:teal;
