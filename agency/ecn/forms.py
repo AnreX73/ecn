@@ -84,6 +84,21 @@ class InCitySearchForm(forms.ModelForm):
         fields = ('sale_or_rent', 'object_type', 'city_region', 'rooms')
 
 
+class OutCitySearchForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['city_distance'].empty_label = 'любая удаленность'
+        self.fields['object_type'].empty_label = 'все предложения'
+        self.fields['land_square'].empty_label = 'любое'
+        self.fields['land_square'].required = False
+        self.fields['city_distance'].required = False
+        self.fields['object_type'].required = False
+
+    class Meta:
+        model = OutCityObject
+        fields = ('object_type', 'price', 'city_distance', 'land_square')
+
+
 class InCityAddForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput, label='')
     is_hot = forms.CharField(widget=forms.HiddenInput, label='')
@@ -102,9 +117,6 @@ class InCityAddForm(forms.ModelForm):
         self.fields['slug'].required = False
         self.fields['is_hot'].required = False
         self.fields['is_published'].required = False
-
-  
-        
 
     class Meta:
         model = InCityObject
@@ -151,7 +163,7 @@ class PhotoAddForm(forms.ModelForm):
                                         options={'quality': 70},
                                         validators=[
                                             validators.FileExtensionValidator(
-                                                allowed_extensions=('gif', 'jpg', 'png'))],
+                                                allowed_extensions=('gif', 'jpg', 'jpeg', 'png'))],
                                         error_messages={'invalid_extension': 'Этот формат не поддерживается'},
                                         required=False,
                                         widget=forms.widgets.FileInput)
@@ -179,7 +191,7 @@ class PhotoAddForm2(forms.ModelForm):
                                          options={'quality': 70},
                                          validators=[
                                              validators.FileExtensionValidator(
-                                                 allowed_extensions=('gif', 'jpg', 'png'))],
+                                                 allowed_extensions=('gif', 'jpg', 'jpeg', 'png'))],
                                          error_messages={'invalid_extension': 'Этот формат не поддерживается'},
                                          required=False,
                                          widget=forms.widgets.FileInput)

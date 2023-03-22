@@ -178,6 +178,14 @@ class TypeOfOwnershipAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+@admin.register(DistanceToCity)
+class DistanceToCityAdmin(admin.ModelAdmin):
+    list_display = ('id', 'distance')
+    list_display_links = ('id', 'distance')
+    search_fields = ('distance',)
+    save_on_top = True
+
+
 @admin.register(Electricity)
 class ElectricityAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')

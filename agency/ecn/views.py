@@ -13,7 +13,8 @@ from ecn.models import *
 from ecn.slugify import words_to_slug
 
 from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm, \
-    ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm, PhotoInlineFormSet2, PhotoInlineFormSet
+    ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm, PhotoInlineFormSet2, PhotoInlineFormSet, \
+    OutCitySearchForm
 
 
 def index(request):
@@ -30,19 +31,6 @@ def index(request):
     return render(request, 'ecn/index.html', context=context)
 
 
-def show_apartments(request, obj_type_slug):
-    apartments_type = get_object_or_404(InCityObjectType, slug=obj_type_slug)
-    unselected_links = InCityObjectType.objects.exclude(slug=obj_type_slug)
-
-    context = {
-        'apartments_type': apartments_type,
-        'unselected_links': unselected_links,
-        'search_icon': Graphics.objects.get(description='иконка поиска'),
-
-    }
-    return render(request, 'ecn/show_apartments.html', context=context)
-
-
 def show_dachas(request, obj_type_slug):
     dachas_type = get_object_or_404(OutCityObjectType, slug=obj_type_slug)
     unselected_links = OutCityObjectType.objects.exclude(slug=obj_type_slug)
@@ -52,17 +40,6 @@ def show_dachas(request, obj_type_slug):
 
     }
     return render(request, 'ecn/show_dachas.html', context=context)
-
-
-def show_rent(request, obj_type_slug):
-    rent_obj_type = get_object_or_404(InCityObjectType, slug=obj_type_slug)
-    unselected_links = InCityObjectType.objects.exclude(slug=obj_type_slug)
-    context = {
-        'rent_obj_type': rent_obj_type,
-        'unselected_links': unselected_links,
-
-    }
-    return render(request, 'ecn/show_rent.html', context=context)
 
 
 def show_apartment(request, apartment_slug):
@@ -87,7 +64,7 @@ def show_dacha(request, dacha_slug):
     return render(request, 'ecn/dacha.html', context=context)
 
 
-def searched_obj(request,**kwargs):
+def searched_obj(request, **kwargs):
     if request.method == 'POST':
         form = InCitySearchForm(request.POST)
         if form.is_valid():
@@ -97,9 +74,7 @@ def searched_obj(request,**kwargs):
     else:
         selected_items = InCityObject.objects.filter(**kwargs).order_by('-time_create')
         form = InCitySearchForm(initial=dict(**kwargs))
-        select = form.initial.items()
-        print(select)
-              
+
     context = {
         'title': 'Агенство ЕЦН - поиск',
         'form': form,
@@ -107,6 +82,26 @@ def searched_obj(request,**kwargs):
         'no_photo': Graphics.objects.get(description='нет фото'),
     }
     return render(request, 'ecn/searched_obj.html', context=context)
+
+
+def searched_dacha(request, **kwargs):
+    if request.method == 'POST':
+        form = OutCitySearchForm(request.POST)
+        if form.is_valid():
+            obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
+            selected_items = OutCityObject.objects.filter(**obj_dic).filter(is_published=True).order_by('-time_create')
+
+    else:
+        selected_items = OutCityObject.objects.filter(**kwargs).order_by('-time_create')
+        form = OutCitySearchForm(initial=dict(**kwargs))
+
+    context = {
+        'title': 'Агенство ЕЦН - поиск',
+        'form': form,
+        'selected_items': selected_items,
+        'no_photo': Graphics.objects.get(description='нет фото'),
+    }
+    return render(request, 'ecn/searched_dacha.html', context=context)
 
 
 @login_required(login_url='/register/')

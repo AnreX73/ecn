@@ -13,9 +13,9 @@
     <p>{{obj.square}} кв.м </p>
     <p> сдача {{obj.year}} </p>
     {% if obj.is_hot == True %}
-    <div class="hot-price-container">{{obj.price}} <span class="price"> </span></div>
+    <div class="hot-price-container">{{obj.nice_price}} <span class="price"> </span></div>
     {% else %}
-    <div class="hot-price-container not-hot-price">{{obj.price}} <span class="price"> </span></div>
+    <div class="hot-price-container not-hot-price">{{obj.nice_price}} <span class="price"> </span></div>
     {% endif %}
     {% if obj.sale_or_rent == 'r' %}
     <div class="rent-container">{{obj.get_sale_or_rent_display}} </div>

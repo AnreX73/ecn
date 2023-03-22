@@ -72,9 +72,9 @@ class MetroStation(models.Model):
 
 # Количество комнат
 class RoomAmount(models.Model):
-    room_amount = models.PositiveIntegerField(unique=True, default=1, verbose_name='Кол-во комнат цифрами')
+    room_amount = models.PositiveIntegerField(unique=True, verbose_name='Кол-во комнат цифрами')
     title = models.CharField(max_length=25, verbose_name='Количество комнат словами')
-    slug = models.SlugField(max_length=150, default='no_slug', db_index=True, verbose_name='URL')
+    slug = models.SlugField(max_length=150, db_index=True, verbose_name='URL')
 
     def __str__(self):
         return self.title
@@ -164,7 +164,7 @@ class InCityObject(models.Model):
     estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, default=1, blank=True,
                                      verbose_name='агент по недвижимости',
                                      help_text='специалист по объекту', related_name='realtor')
-    price = models.CharField(max_length=255, verbose_name='Цена')
+    price = models.PositiveIntegerField(blank=True, default=0, null=True, verbose_name='Цена')
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Основное изображение')
     sale_or_rent = models.CharField(max_length=25, choices=SALE_OR_RENT, default='s', verbose_name='Продажа или аренда')
     is_hot = models.BooleanField(default=False, verbose_name='горячий вариант', help_text='если хотите видеть на '
@@ -202,6 +202,11 @@ class InCityObject(models.Model):
     def get_absolute_url(self):
         return reverse('show_apartment', kwargs={'apartment_slug': self.slug})
 
+    def nice_price(self):
+        price = self.price
+        nice_price = '{0:,}'.format(price).replace(',', '`')
+        return nice_price
+
     class Meta:
         verbose_name = 'объект'
         verbose_name_plural = 'объект в городе'
@@ -224,6 +229,19 @@ class OutCityObjectType(models.Model):
     class Meta:
         verbose_name = 'Тип загородного объекта'
         verbose_name_plural = 'Тип загородного объекта'
+        ordering = ['id']
+
+
+# расстояние до города
+class DistanceToCity(models.Model):
+    distance = models.CharField(max_length=255, null=True, verbose_name='Расстояние до города')
+
+    def __str__(self):
+        return self.distance
+
+    class Meta:
+        verbose_name = 'Расстояние до города'
+        verbose_name_plural = 'Расстояние до города'
         ordering = ['id']
 
 
@@ -415,14 +433,15 @@ class OutCityObject(models.Model):
     slug = models.SlugField(unique=True, max_length=150, db_index=True, verbose_name='URL')
     estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='агент по недвижимости',
                                      help_text='специалист по объекту', related_name='estate_agent')
-    price = models.CharField(max_length=255, verbose_name='Цена')
+    price = models.PositiveIntegerField(blank=True, default=0, null=True, verbose_name='Цена')
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Основное изображение')
     is_hot = models.BooleanField(default=False, verbose_name='горячий вариант')
     object_type = models.ForeignKey(OutCityObjectType, on_delete=models.PROTECT, verbose_name='тип объекта',
                                     related_name='obj_type')
     object_adress = models.CharField(max_length=255, blank=True, verbose_name='адрес объекта')
-    city_distance = models.CharField(max_length=255, blank=True, verbose_name='расстояние до города')
-    land_square = models.CharField(blank=True, max_length=50, verbose_name='площадь участка')
+    city_distance = models.ForeignKey(DistanceToCity, on_delete=models.PROTECT, null=True,
+                                      verbose_name='расстояние до города')
+    land_square = models.PositiveIntegerField(blank=True, verbose_name='площадь участка')
     type_of_ownership = models.ForeignKey(TypeOfOwnership, on_delete=models.PROTECT, verbose_name='форма собственности')
     square = models.PositiveIntegerField(blank=True, verbose_name='площадь дома', help_text='в кв.м')
     year = models.CharField(max_length=25, blank=True, verbose_name='год постройки')
@@ -453,6 +472,11 @@ class OutCityObject(models.Model):
 
     def get_absolute_url(self):
         return reverse('show_dacha', kwargs={'dacha_slug': self.slug})
+
+    def nice_price(self):
+        price = self.price
+        nice_price = '{0:,}'.format(price).replace(',', '`')
+        return nice_price
 
     class Meta:
         verbose_name = 'Загородный объект'
@@ -524,21 +548,18 @@ class Gallery2(models.Model):
 
 class Commercial(models.Model):
     title = models.CharField(blank=True, max_length=255, verbose_name='Заголовок')
-    image =  models.ImageField(upload_to='images/%Y/%m/%d', blank=True, null=True,  verbose_name='иллюстрация')
-    video =  models.FileField(upload_to='images/%Y/%m/%d', blank=True, null=True,  verbose_name='видео (если есть)')
+    image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, null=True, verbose_name='иллюстрация')
+    video = models.FileField(upload_to='images/%Y/%m/%d', blank=True, null=True, verbose_name='видео (если есть)')
     post = RichTextField(blank=True, verbose_name='рекламная статья')
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
     is_published = models.BooleanField(default=True, verbose_name='Публикация')
-
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('show_commercial', kwargs={'pk': self.id})
-
-
 
     class Meta:
         verbose_name = 'Реклама'
@@ -548,11 +569,11 @@ class Commercial(models.Model):
 
 class CommercialObject(models.Model):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
-    estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,verbose_name='агент по недвижимости',
+    estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, verbose_name='агент по недвижимости',
                                      help_text='специалист по объекту', related_name='com_agent')
     post_link = models.ForeignKey(Commercial, on_delete=models.CASCADE, verbose_name='ссылка на статью',
-                                    related_name='commercial_link')
-    price = models.CharField(max_length=255, verbose_name='Цена')
+                                  related_name='commercial_link')
+    price = models.PositiveIntegerField(blank=True, default=0, null=True, verbose_name='Цена')
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, null=True, verbose_name='Основное изображение')
     object_adress = models.CharField(max_length=255, blank=True, verbose_name='адрес объекта',
                                      help_text='необязательно')
@@ -579,6 +600,11 @@ class CommercialObject(models.Model):
 
     def get_absolute_url(self):
         return reverse('show_obj', kwargs={'pk': self.id})
+
+    def nice_price(self):
+        price = self.price
+        nice_price = '{0:,}'.format(price).replace(',', '`')
+        return nice_price
 
     class Meta:
         verbose_name = 'рекламный объект'

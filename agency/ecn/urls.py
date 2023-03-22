@@ -8,9 +8,8 @@ urlpatterns = [
     path('searched_obj/region/<str:sale_or_rent>/<int:city_region>/', searched_obj, name='searched_obj_region'),
     path('searched_obj/obj_type/<str:sale_or_rent>/<int:object_type>/', searched_obj, name='searched_object_type'),
     path('searched_obj/rooms/<str:sale_or_rent>/<int:rooms>/', searched_obj, name='searched_obj_rooms'),
-    path('show_apartments/<slug:obj_type_slug>', show_apartments, name='show_apartments'),
+    path('searched_dacha/', searched_dacha, name='searched_dacha'),
     path('show_dachas/<slug:obj_type_slug>', show_dachas, name='show_dachas'),
-    path('show_rent/<slug:obj_type_slug>', show_rent, name='show_rent'),
     path('show_apartment/<slug:apartment_slug>', show_apartment, name='show_apartment'),
     path('show_dacha/<slug:dacha_slug>', show_dacha, name='show_dacha'),
 

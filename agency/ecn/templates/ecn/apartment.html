@@ -11,9 +11,9 @@
 
 <div class="img-price-container">
   {% if apartment.is_hot == True %}
-  <div class="apartment-hot-price-container">{{apartment.price}} <span class="price"></span></div>
+  <div class="apartment-hot-price-container">{{apartment.nice_price}} <span class="price"></span></div>
   {% else %}
-  <div class="not-hot-price apartment-hot-price-container ">{{apartment.price}} <span class="price"></span></div>
+  <div class="not-hot-price apartment-hot-price-container ">{{apartment.nice_price}} <span class="price"></span></div>
   {% endif %}
 <div class="apartment-image-container">
   <!-- Slider main container -->
