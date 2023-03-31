@@ -90,14 +90,22 @@ class OutCitySearchForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['city_distance'].empty_label = 'любая удаленность'
         self.fields['object_type'].empty_label = 'все предложения'
-        self.fields['land_square'].empty_label = 'любое'
         self.fields['land_square'].required = False
         self.fields['city_distance'].required = False
         self.fields['object_type'].required = False
+        self.fields['price'].required = False
+    land_square = forms.IntegerField(help_text='в сотках', min_value=0,label='Площадь участка не менее', widget=forms.widgets.NumberInput(attrs={'placeholder': 'в сотках'}))
+
 
     class Meta:
         model = OutCityObject
         fields = ('object_type', 'price', 'city_distance', 'land_square')
+        labels = {
+            'price': 'Цена не более',
+            }
+        
+        
+       
 
 
 class InCityAddForm(forms.ModelForm):

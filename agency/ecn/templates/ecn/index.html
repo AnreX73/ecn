@@ -27,7 +27,7 @@
        
     <div class="links-container">
         {% links_list link='obj_type'%}
-        <div class="link-list-item"><a href="{% url 'show_dachas' 'dacha'  %} ">Дачи</a></div>
+        <div class="link-list-item"><a href="{% url 'searched_dacha'   %} ">Дачи, Участки</a></div>
         
         
     </div>
@@ -54,13 +54,7 @@
         {% links_list 'rent_rooms' %}
     </div>
     </div>
-    <div class="links-wrapper">
-        <h3 class="link-list-title">Аренда жилья </h3>
-
-    <div class="links-container">
-        {% links_list 'dacha' %}
-    </div>
-    </div>
+   
 </div>
 <hr >
 
