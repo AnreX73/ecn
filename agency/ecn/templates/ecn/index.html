@@ -87,7 +87,7 @@
     {% for obj in hot_out_city_obj %}
     <div class="hot-object-wrapper">
         {% include 'ecn/inclusion/dacha_card.html'%}
-         <a class="hot-more-link" href="{{obj.object_type.get_absolute_url}}"><p class="hot-more-link">Все {{ obj.object_type.title }} --></p></a>
+         <a class="hot-more-link" href="{% url 'searched_dacha_type'  obj.object_type.id %}"><p class="hot-more-link">Все {{ obj.object_type.title }} --></p></a>
 
     </div>
     {% endfor %}

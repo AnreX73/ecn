@@ -88,7 +88,9 @@ def searched_dacha(request, **kwargs):
     if request.method == 'POST':
         form = OutCitySearchForm(request.POST)
         if form.is_valid():
+            print(form.cleaned_data)
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
+            print(obj_dic)
             selected_items = OutCityObject.objects.filter(**obj_dic).filter(is_published=True).order_by('-time_create')
 
     else:
