@@ -164,7 +164,7 @@ class InCityObject(models.Model):
     estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, default=1, blank=True,
                                      verbose_name='агент по недвижимости',
                                      help_text='специалист по объекту', related_name='realtor')
-    price = models.PositiveIntegerField(blank=True, default=0, null=True, verbose_name='Цена')
+    price = models.PositiveIntegerField(null=True, verbose_name='Цена')
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Основное изображение')
     sale_or_rent = models.CharField(max_length=25, choices=SALE_OR_RENT, default='s', verbose_name='Продажа или аренда')
     is_hot = models.BooleanField(default=False, verbose_name='горячий вариант', help_text='если хотите видеть на '
@@ -433,7 +433,7 @@ class OutCityObject(models.Model):
     slug = models.SlugField(unique=True, max_length=150, db_index=True, verbose_name='URL')
     estate_agent = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='агент по недвижимости',
                                      help_text='специалист по объекту', related_name='estate_agent')
-    price = models.PositiveIntegerField(blank=True, default=0, null=True, verbose_name='Цена')
+    price = models.PositiveIntegerField(null=True, verbose_name='Цена')
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True, verbose_name='Основное изображение')
     is_hot = models.BooleanField(default=False, verbose_name='горячий вариант')
     object_type = models.ForeignKey(OutCityObjectType, on_delete=models.PROTECT, verbose_name='тип объекта',

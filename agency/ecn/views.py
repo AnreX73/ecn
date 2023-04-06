@@ -88,10 +88,25 @@ def searched_dacha(request, **kwargs):
     if request.method == 'POST':
         form = OutCitySearchForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            if form.cleaned_data['price']:
+                price_filter = form.cleaned_data['price']
+            else:
+                price_filter = 1000000000
+            if form.cleaned_data['city_distance']:
+                distance_filter = form.cleaned_data['city_distance'].pk - 1
+            else:
+                distance_filter = 10
+            if form.cleaned_data['land_square']:
+                land_square_filter = form.cleaned_data['land_square']
+            else:
+                land_square_filter = 10000000
+
+            print(land_square_filter)
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
             print(obj_dic)
-            selected_items = OutCityObject.objects.filter(**obj_dic).filter(is_published=True).order_by('-time_create')
+            selected_items = OutCityObject.objects.filter(land_square__gte=land_square_filter,
+                                                          price__lte=price_filter).filter(is_published=True).order_by(
+                '-time_create')
 
     else:
         selected_items = OutCityObject.objects.filter(**kwargs).order_by('-time_create')
