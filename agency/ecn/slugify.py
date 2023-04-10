@@ -17,6 +17,8 @@ def words_to_slug(words):
             slug += 'yo'
         elif w in " !?;:.,":
             slug += '-'
+        elif w in '"' :
+            slug += '-'
         else:
             slug += w
     while slug.count('--'):

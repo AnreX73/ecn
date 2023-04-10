@@ -78,10 +78,12 @@ class InCitySearchForm(forms.ModelForm):
         self.fields['rooms'].required = False
         self.fields['city_region'].required = False
         self.fields['object_type'].required = False
+        self.fields['price'].required = False
+    price = forms.IntegerField( min_value=0,label='Цена', widget=forms.widgets.NumberInput(attrs={'placeholder': 'не больше','class': 'form-input'}))
 
     class Meta:
         model = InCityObject
-        fields = ('sale_or_rent', 'object_type', 'city_region', 'rooms')
+        fields = ('sale_or_rent', 'object_type','price', 'city_region', 'rooms')
         
 
 
@@ -89,20 +91,18 @@ class OutCitySearchForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['city_distance'].empty_label = 'любая удаленность'
-        self.fields['object_type'].empty_label = 'все предложения'
         self.fields['land_square'].required = False
         self.fields['city_distance'].required = False
         self.fields['object_type'].required = False
         self.fields['price'].required = False
-    land_square = forms.IntegerField(help_text='в сотках', min_value=0,label='Площадь участка не менее', widget=forms.widgets.NumberInput(attrs={'placeholder': 'в сотках'}))
+    land_square = forms.IntegerField( min_value=0,label='Площадь участка', widget=forms.widgets.NumberInput(attrs={'placeholder': 'не менее (в сотках)','class': 'form-input'}))
+    price = forms.IntegerField( min_value=0,label='Цена', widget=forms.widgets.NumberInput(attrs={'placeholder': 'не больше','class': 'form-input'}))
 
 
     class Meta:
         model = OutCityObject
         fields = ('object_type', 'price', 'city_distance', 'land_square')
-        labels = {
-            'price': 'Цена не более',
-            }
+        
         
         
        

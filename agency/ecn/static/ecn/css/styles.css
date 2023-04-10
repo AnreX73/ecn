@@ -340,6 +340,7 @@ padding: 2px 3px;
 border: 1px dotted teal;
 border-radius: 4px;
 min-width: 200px;
+min-height: 35px;
 font-family: 'Oswald', sans-serif;
 font-size:1rem;
 }
@@ -967,7 +968,7 @@ h2{
   .form-fields-wrapper{
     margin-top: 20px;
     display: grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(5,1fr);
     gap:10px 20px;
     justify-items:center;
   }

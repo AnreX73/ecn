@@ -31,17 +31,6 @@ def index(request):
     return render(request, 'ecn/index.html', context=context)
 
 
-def show_dachas(request, obj_type_slug):
-    dachas_type = get_object_or_404(OutCityObjectType, slug=obj_type_slug)
-    unselected_links = OutCityObjectType.objects.exclude(slug=obj_type_slug)
-    context = {
-        'dachas_type': dachas_type,
-        'unselected_links': unselected_links,
-
-    }
-    return render(request, 'ecn/show_dachas.html', context=context)
-
-
 def show_apartment(request, apartment_slug):
     apartment = get_object_or_404(InCityObject, slug=apartment_slug)
     apartment_id = apartment.id
@@ -68,8 +57,13 @@ def searched_obj(request, **kwargs):
     if request.method == 'POST':
         form = InCitySearchForm(request.POST)
         if form.is_valid():
+            if form.cleaned_data['price']:
+                price_filter = form.cleaned_data['price']
+            else:
+                price_filter = 1000000000
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-            selected_items = InCityObject.objects.filter(**obj_dic).filter(is_published=True).order_by('-time_create')
+            selected_items = InCityObject.objects.filter(**obj_dic).filter(price__lte=price_filter).filter(
+                is_published=True).order_by('-time_create')
 
     else:
         selected_items = InCityObject.objects.filter(**kwargs).order_by('-time_create')
@@ -88,23 +82,26 @@ def searched_dacha(request, **kwargs):
     if request.method == 'POST':
         form = OutCitySearchForm(request.POST)
         if form.is_valid():
+            if form.cleaned_data['object_type']:
+                object_filter = form.cleaned_data['object_type']
+            else:
+                object_filter = None
             if form.cleaned_data['price']:
                 price_filter = form.cleaned_data['price']
             else:
                 price_filter = 1000000000
             if form.cleaned_data['city_distance']:
-                distance_filter = form.cleaned_data['city_distance'].pk - 1
+                distance_filter = form.cleaned_data['city_distance'].pk
             else:
                 distance_filter = 10
             if form.cleaned_data['land_square']:
                 land_square_filter = form.cleaned_data['land_square']
             else:
-                land_square_filter = 10000000
+                land_square_filter = 0
 
-            print(land_square_filter)
-            obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-            print(obj_dic)
-            selected_items = OutCityObject.objects.filter(land_square__gte=land_square_filter,
+            selected_items = OutCityObject.objects.filter(object_type=object_filter,
+                                                          land_square__gte=land_square_filter,
+                                                          city_distance__lte=distance_filter,
                                                           price__lte=price_filter).filter(is_published=True).order_by(
                 '-time_create')
 
