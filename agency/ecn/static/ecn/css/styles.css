@@ -803,73 +803,12 @@ h2{
   }
 
 
-  /*список квартир*/
-  .list-main-title{
-    color: teal;
-    font-weight: bold;
-    font-size: 2.5rem;
-  }
-  .list-main-title span{
-    font-size: 2rem;
-  }
-  .apartments-links-wrapper{
-    display:flex;
-    align-items: center;
-    padding: 10px;
-    margin-bottom:20px;
-  }
-  .logo-and-title{
-    display: flex;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-shadow:var(--complex-shadow);
-    border-radius: 4px;
-    min-width: 150px;
-
-  }
-  .logo-and-title :nth-child(2){
-    align-self:end ;
-  }
-  .unselected{
-    opacity: 0.5;
-    box-shadow:none;
-  }
-  .search-link{
-    box-shadow:none;
-  }
-  .search-link:hover{
-    border-bottom: 1px dotted teal;
-    transition: 300ms ease-in-out all;
-  }
-  .unselected  h2{
-    font-size: 1rem;
-  }
-
-  /*страница списка объектов*/
-  .all-list-page-wrapper{
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-  .list-wrapper {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-  }
-  /* контейнер списка  объектов */
-  .apartments-container{
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  column-gap:10px;
-  row-gap: 30px;
-  justify-items: center;
-  align-items: center;
-  /* padding: 25px; */
-
-  }
+ 
   /* контейнер одиночной страницы объекта */
   .apartment-all-page-container{
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 4fr 2fr;
+    justify-items: center;
   }
   .apartment-page-container{
     text-align: center;
@@ -880,7 +819,7 @@ h2{
   /* контейнер фотогалерии объекта */
   .apartment-image-container{
     position: relative;
-    max-width: 1000px;
+    max-width: 900px;
     padding: 15px;
   }
   @media (max-width: 1024px) {
@@ -895,14 +834,14 @@ h2{
   }
   /* контейнер информации об объекте в двух таблицах */
   .apartment-table-wrapper{
-    max-width: 600px;
+    max-width: 900px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
   }
   .apartment-description{
     padding: 10px;
-    max-width: 600px;
+    max-width: 800px;
     text-align: justify;
     font-size: 1.2rem;
     line-height:1.2;
@@ -911,7 +850,7 @@ h2{
     background: white;
     position: absolute;
     bottom:20px;
-    right: 120px;
+    right: 70px;
     padding: 0.5rem;
     border-radius: 4px;
     margin-top: 15px;
@@ -957,7 +896,24 @@ h2{
     height: 100%;
     object-fit:contain;
   }
+  .apartment-page-extra{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    width: 100%;
+    padding: 15px;
+  }
+  .extra-services-title{
+    margin-bottom: 10px;
+  }
+  .extra-link-list-title{
+    margin-top: 15px;
+  }
 
+.extra-links-container{
+  min-width: 100%;
+  text-align: center;
+}
 
   /*оболочка поиска*/
   .all-searched-wrapper{
@@ -977,7 +933,7 @@ h2{
   }
 
 
-  /*стили формы поска*/
+  /*стили формы поска и списка объектов*/
   .search-form {
     box-shadow: var(--complex-shadow);
     padding: 15px;

@@ -140,7 +140,7 @@ class GalleryAdmin2(admin.TabularInline):
 class OutCityObjectAdmin(admin.ModelAdmin):
     inlines = [GalleryAdmin2]
     list_display = (
-        'id', 'title', 'gethtmlPhoto', 'object_adress', 'land_square', 'price', 'is_published')
+        'id', 'title', 'gethtmlPhoto','estate_agent', 'object_adress', 'land_square', 'price', 'is_published')
     list_display_links = ('id', 'title')
     search_fields = ('title', 'land_square',)
     list_editable = ('is_published',)

@@ -20,11 +20,15 @@
 
 </div> 
 
-{{rooms.title}}
+
  <div class="searched-wrapper">
     
 {% for obj in selected_items %}
-{% include 'ecn/inclusion/object_card.html' %}
+{% if obj.object_type|stringformat:"s" == "Новостройки" %}
+    {% include 'ecn/inclusion/new_ap_card.html' %}
+{% else %}
+    {% include 'ecn/inclusion/object_card.html' %}
+{% endif %}
 {% empty %}
 <div class="non-searched"><h2>Нет объектов</h2></div>
 {% endfor%}

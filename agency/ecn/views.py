@@ -58,11 +58,11 @@ def searched_obj(request, **kwargs):
         form = InCitySearchForm(request.POST)
         if form.is_valid():
             if form.cleaned_data['price']:
-                price_filter = form.cleaned_data['price']
+                price_filter = form.cleaned_data.pop('price')
             else:
                 price_filter = 1000000000
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-            selected_items = InCityObject.objects.filter(**obj_dic).filter(price__lte=price_filter).filter(
+            selected_items = InCityObject.objects.filter(price__lte=price_filter).filter(**obj_dic).filter(
                 is_published=True).order_by('-time_create')
 
     else:
