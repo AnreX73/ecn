@@ -18,7 +18,6 @@ def show_header(user='user'):
     }
 
 
-
 @register.inclusion_tag('ecn/inclusion/links_list.html')
 def links_list(link='rooms'):
     if link == 'obj_type':
