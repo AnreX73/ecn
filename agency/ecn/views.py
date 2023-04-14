@@ -22,7 +22,7 @@ def index(request):
         'title': 'Агенство ЕЦН',
         'main_page_img': Graphics.objects.get(description='изображение на главную'),
         'main_page_slogan': Graphics.objects.get(description='Слоган'),
-        'hot_city_obj': InCityObject.objects.filter(is_hot=True).filter(sale_or_rent='s').order_by('-time_create'),
+        'hot_city_obj': InCityObject.objects.filter(is_hot=True).filter(sale_or_rent='s').select_related('rooms', 'city_region', 'object_type').order_by('-time_create'),
         'hot_out_city_obj': OutCityObject.objects.filter(is_hot=True).order_by('-time_create'),
         'hot_title': Graphics.objects.get(description='горячая кнопка на главной'),
         'no_photo': Graphics.objects.get(description='нет фото'),
@@ -66,7 +66,7 @@ def searched_obj(request, **kwargs):
                 is_published=True).order_by('-time_create')
 
     else:
-        selected_items = InCityObject.objects.filter(**kwargs).order_by('-time_create')
+        selected_items = InCityObject.objects.filter(**kwargs).select_related('city_region','rooms','object_type').order_by('-time_create')
         form = InCitySearchForm(initial=dict(**kwargs))
 
     context = {

@@ -934,6 +934,22 @@ h2{
 
 
   /*стили формы поска и списка объектов*/
+  .link-tabs{
+    text-align: left;
+    color: teal;
+    font-size: 1.3rem;
+    
+  }
+  .link-tabs::after{
+    content: "\1F83B";
+    color: teal;
+    font-size: 2.5rem;
+    vertical-align: middle;
+    
+    
+  }
+  
+
   .search-form {
     box-shadow: var(--complex-shadow);
     padding: 15px;
