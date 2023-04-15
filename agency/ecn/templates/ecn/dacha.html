@@ -158,6 +158,13 @@
   <h2 class="services-title extra-services-title">Полезные ссылки</h1>
 
   <h3 class="link-list-title">Объекты по типам</h3> 
+  <div class="links-container extra-links-container">
+    {% for link in quick_links %}
+    <div class="link-list-item"><a href="{% url 'searched_dacha_type' link.id %}">{{ link.title }}</a></div>
+    {% endfor %}
+  </div>
+  <h3 class="link-list-title extra-link-list-title">Растояние до города</h3> 
+  
 </div>
 </div>
 

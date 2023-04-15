@@ -934,19 +934,38 @@ h2{
 
 
   /*стили формы поска и списка объектов*/
+  .in-out-city-tabs{
+    display: flex;
+    
+    align-items: center;
+  }
   .link-tabs{
     text-align: left;
     color: teal;
-    font-size: 1.3rem;
-    
+    font-size: 1.3rem; 
+    border-top: 1px dotted teal;
+    border-left: 1px dotted teal;
+    border-right: 1px dotted teal;
+    padding: 5px 10px ;
+    border-radius: 4px;
   }
+
   .link-tabs::after{
     content: "\1F83B";
     color: teal;
     font-size: 2.5rem;
-    vertical-align: middle;
-    
-    
+    vertical-align: middle; 
+  }
+  .link-tabs-passive{
+    text-align: left;
+    opacity: 0.7;
+    margin-left: 20px;
+  }
+  .link-tabs-passive::after{
+    content: "\27A7";
+    color: var(--wild-text);
+    font-size: 2rem;
+    vertical-align: middle; 
   }
   
 

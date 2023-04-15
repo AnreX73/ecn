@@ -48,7 +48,9 @@ def show_dacha(request, dacha_slug):
     context = {
         'dacha': dacha,
         'gallery': Gallery2.objects.filter(galleryLink2_id=dacha_id),
-        'no_photo': Graphics.objects.get(description='нет фото')
+        'no_photo': Graphics.objects.get(description='нет фото'),
+        'quick_links':OutCityObjectType.objects.all(),
+        'distance_links':DistanceToCity.objects.all()
     }
     return render(request, 'ecn/dacha.html', context=context)
 

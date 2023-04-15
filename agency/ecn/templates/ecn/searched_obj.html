@@ -7,8 +7,11 @@
  <div class="forms-wrapper"> 
 <form action=" "class="search-form" method="POST" name="searched" >
     {% csrf_token %}
-    
+    <div class="in-out-city-tabs">
         <div class="link-tabs">Поиск квартиры, комнаты </div> 
+        <a href="{% url 'searched_dacha_type'  1 %} "><div class="link-tabs-passive">Дачи, Участки</div></a> 
+    </div>
+        
     
     <div class="form-fields-wrapper">
         <div class="form-fields"><label class="form-label" for="{{form.sale_or_rent.id_for_label}}">{{form.sale_or_rent.label}} </label>  {{ form.sale_or_rent}}<span class="form-errors">{{ form.errors }}</span> </div>
