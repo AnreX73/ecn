@@ -96,17 +96,9 @@ class ResizeToFill(object):
         self.upscale = upscale
 
     def process(self, img):
-        from pilkit.processors.crop import Crop
-        img = ResizeToCover(self.width, self.height,
-                            upscale=self.upscale).process(img)
-        print(img.width, img.height)
-        if img.width < img.height:
-            self.width, self.height = img.height, self.width
-            print(self.width, self.height)
-        new_image = Crop(self.width, self.height,
-                         anchor=self.anchor).process(img)
-        print(self.width, self.height)
-        print(new_image.width, new_image.height)
+        new_image = ResizeToCover(self.width, self.height,
+                                  upscale=self.upscale).process(img)
+
         return new_image
 
 

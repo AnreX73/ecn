@@ -50,51 +50,51 @@
 <table width="400" cellspacing="3" cellpadding="0">
     <tbody>
       <tr>
-        <th>Адрес</td>
+        <th>Адрес</th>
         <td>{{dacha.object_adress}}</td>
       </tr>
       <tr>
-        <th>Расстояние до города</td>
+        <th>Расстояние до города</th>
         <td>{{dacha.city_distance}}</td>
       </tr>
       <tr>
-        <th>Площадь участка</td>
+        <th>Площадь участка</th>
         <td>{{dacha.land_square}} соток</td>
       </tr>
       <tr>
-        <th>Форма собственности</td>
+        <th>Форма собственности</th>
         <td>{{dacha.type_of_ownership}}</td>
       </tr>
       <tr>
-        <th>Площадь дома</td>
+        <th>Площадь дома</th>
         <td>{{dacha.square}} кв.м</td>
       </tr>
       <tr>
-        <th>Год постройки</td>
+        <th>Год постройки</th>
         <td>{{dacha.year}}</td>
       </tr>
       <tr>
-        <th>Материалы стен</td>
+        <th>Материалы стен</th>
         <td>{{dacha.construction}}</td>
       </tr>
       <tr>
-        <th>Состояние</td>
+        <th>Состояние</th>
         <td>{{dacha.state}}</td>
       </tr>
       <tr>
-        <th>Туалет</td>
+        <th>Туалет</th>
         <td>{{dacha.bathroom}}</td>
       </tr>
       <tr>
-        <th>Электричество</td>
+        <th>Электричество</th>
         <td>{{dacha.electricity}}</td>
       </tr>
       <tr>
-        <th>Газ</td>
+        <th>Газ</th>
         <td>{{dacha.gas }}</td>
       </tr>
       <tr>
-        <th>Вода</td>
+        <th>Вода</th>
         <td>{{dacha.water}}</td>
       </tr>
       
@@ -103,47 +103,47 @@
   <table width="400"  cellspacing="3" cellpadding="0">
     <tbody>
         <tr>
-            <th>Баня</td>
+            <th>Баня</th>
             <td>{{dacha.bath}}</td>
           </tr>
       <tr>
-        <th>Гараж</td>
+        <th>Гараж</th>
         <td>{{dacha.garage}}</td>
       </tr>
       <tr>
-        <th>Посадки</td>
+        <th>Посадки</th>
         <td>{{dacha.landings}}</td>
       </tr>
       <tr>
-        <th>Теплица</td>
+        <th>Теплица</th>
         <td>{{dacha.greenhouse}}</td>
       </tr>
       <tr>
-        <th>Охрана</td>
+        <th>Охрана</th>
         <td>{{dacha.security}}</td>
       </tr>
       <tr>
-        <th>Асфальтовая дорога</td>
+        <th>Асфальтовая дорога</th>
         <td>{{dacha.good_road}}</td>
       </tr>
       <tr>
-        <th>Доступ зимой</td>
+        <th>Доступ зимой</th>
         <td>{{dacha.winter_access}}</td>
       </tr>
       <tr>
-        <th>Магазин рядом</td>
+        <th>Магазин рядом</th>
         <td>{{dacha.shop_nearly}}</td>
       </tr>
       <tr>
-        <th>Водоем рядом</td>
+        <th>Водоем рядом</th>
         <td>{{dacha.water_nearly }}</td>
       </tr>
       <tr>
-        <th>Лес рядом</td>
+        <th>Лес рядом</th>
         <td>{{dacha.forest_nearly }}</td>
       </tr>
       <tr>
-        <th>Транспорт</td>
+        <th>Транспорт</th>
         <td>{{dacha.transport_distance}}</td>
       </tr>
       
@@ -155,7 +155,7 @@
 </div>
 </div>
 <div class="apartment-page-extra">
-  <h2 class="services-title extra-services-title">Полезные ссылки</h1>
+  <h2 class="services-title extra-services-title">Полезные ссылки</h2>
 
   <h3 class="link-list-title">Объекты по типам</h3> 
   <div class="links-container extra-links-container">
@@ -163,7 +163,12 @@
     <div class="link-list-item"><a href="{% url 'searched_dacha_type' link.id %}">{{ link.title }}</a></div>
     {% endfor %}
   </div>
-  <h3 class="link-list-title extra-link-list-title">Растояние до города</h3> 
+  <h3 class="link-list-title extra-link-list-title">Растояние до города</h3>
+  <div class="links-container extra-links-container">
+    {% for link in distance_links %}
+    <div class="link-list-item"><a href="{% url 'searched_distance' link.id %}">{{ link.distance }}</a></div>
+    {% endfor %}
+  </div>
   
 </div>
 </div>
