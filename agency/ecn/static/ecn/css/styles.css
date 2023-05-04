@@ -883,6 +883,7 @@ h2{
   .object-gallery .swiper-button-prev::after,.object-gallery .swiper-button-next::after{
     font-size: 30px ;
     color:var(--wild-text);
+    text-shadow:2px 2px 2px white;
   }
 
   .object-gallery .swiper-pagination-bullet{

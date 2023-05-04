@@ -88,7 +88,7 @@
       
       <tr>
         <th>Балкон</th>
-        <th>{{apartment.balcony}}</th>
+        <td>{{apartment.balcony}}</td>
       </tr>
     </tbody>
   </table>
@@ -96,11 +96,11 @@
     <tbody>
       <tr>
         <th>Планировка</th>
-        <th>{{apartment.rooms_layout}}</th>
+        <td>{{apartment.rooms_layout}}</td>
       </tr>
         <tr>
             <th>Этаж</th>
-            <th>{{apartment.floor}}</th>
+            <td>{{apartment.floor}}</td>
           </tr>
       <tr>
         <th>Этажность дома</th>
@@ -135,7 +135,7 @@
 </div>
 </div>
 <div class="apartment-page-extra">
-  <h2 class="services-title extra-services-title">Полезные ссылки</h1>
+  <h2 class="services-title extra-services-title">Полезные ссылки</h2>
 
   <h3 class="link-list-title">Объекты по типам</h3>     
   <div class="links-container extra-links-container">
@@ -159,9 +159,9 @@
     <div class="links-container extra-links-container">
         {% links_list 'rent_rooms' %}
     </div>
-
+  <a href="{% url 'home'%}"><h3 class="link-list-title extra-link-list-title">На главную</h3></a>
     </div>
 </div>
-</div>
+
 
 {% endblock content %}

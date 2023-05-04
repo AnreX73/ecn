@@ -8,7 +8,7 @@
 <form action=" "class="search-form" method="POST" name="searched" >
     {% csrf_token %}
     <div class="in-out-city-tabs">
-        <div class="link-tabs">Дачи, Участки</div> 
+        <div class="link-tabs">Поиск дачи, Участки</div>
         <a href="{% url 'searched_obj' sale_or_rent='s' %} "><div class="link-tabs-passive">Поиск квартиры, комнаты </div></a> 
     </div>
     <div class="form-fields-wrapper">
