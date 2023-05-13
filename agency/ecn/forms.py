@@ -7,8 +7,9 @@ from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
 from captcha.fields import CaptchaField
+from pilkit.processors import ResizeToFill
 
-from ecn import models
+
 from ecn.models import InCityObject, OutCityObject, Gallery, Gallery2
 from imagekit.forms import ProcessedImageField
 
@@ -106,91 +107,6 @@ class OutCitySearchForm(forms.ModelForm):
     class Meta:
         model = OutCityObject
         fields = ('object_type', 'price', 'city_distance', 'land_square')
-
-
-class Resize(object):
-    """
-    Resizes an image to the specified width and height.
-
-    """
-
-    def __init__(self, width, height, upscale=True):
-        """
-        :param width: The target width, in pixels.
-        :param height: The target height, in pixels.
-        :param upscale: Should the image be enlarged if smaller than the dimensions?
-
-        """
-        self.width = width
-        self.height = height
-        self.upscale = upscale
-
-    def process(self, img):
-        if self.upscale or (self.width < img.size[0] and self.height < img.size[1]):
-            img = img.convert('RGBA')
-            img = img.resize((self.width, self.height), Image.ANTIALIAS)
-        return img
-
-
-class ResizeToCover(object):
-    """
-    Resizes the image to the smallest possible size that will entirely cover the
-    provided dimensions. You probably won't be using this processor directly,
-    but it's used internally by ``ResizeToFill`` and ``SmartResize``.
-
-    """
-
-    def __init__(self, width, height, upscale=True):
-        """
-        :param width: The target width, in pixels.
-        :param height: The target height, in pixels.
-
-        """
-        self.width, self.height = width, height
-        self.upscale = upscale
-
-    def process(self, img):
-        original_width, original_height = img.size
-
-        if original_width < original_height:
-            self.width, self.height = self.height, self.width
-            print(self.width, self.height, original_width, original_height)
-
-        ratio = max(float(self.width) / original_width,
-                    float(self.height) / original_height)
-        new_width, new_height = (int(round(original_width * ratio)),
-                                 int(round(original_height * ratio)))
-        print(new_width, new_height)
-        img = Resize(new_width, new_height, upscale=self.upscale).process(img)
-        print(img.width, img.height)
-        return img
-
-
-class ResizeToFill(object):
-    """
-    Resizes an image, cropping it to the exact specified width and height.
-
-    """
-
-    def __init__(self, width=None, height=None, anchor=None, upscale=True):
-        """
-        :param width: The target width, in pixels.
-        :param height: The target height, in pixels.
-        :param anchor: Specifies which part of the image should be retained
-            when cropping.
-        :param upscale: Should the image be enlarged if smaller than the dimensions?
-
-        """
-        self.width = width
-        self.height = height
-        self.anchor = anchor
-        self.upscale = upscale
-
-    def process(self, img):
-        new_image = ResizeToCover(self.width, self.height,
-                                  upscale=self.upscale).process(img)
-        print('resize', new_image.width, new_image.height)
-        return new_image
 
 
 class InCityAddForm(forms.ModelForm):

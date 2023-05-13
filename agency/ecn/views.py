@@ -212,8 +212,6 @@ def add_object(request):
             else:
                 return redirect('home')
             return redirect('profile')
-
-
     else:
         form = InCityAddForm(initial=dict(estate_agent=request.user))
 
