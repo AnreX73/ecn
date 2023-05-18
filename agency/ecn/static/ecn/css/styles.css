@@ -443,13 +443,7 @@ h2{
     text-align: left;
     background: rgb(0, 128, 128,0.1);
   }
-  /*знак рубля*/
-  .price {
-    font-family: 'PT Sans', serif;
-    }
-  .price:after {
-      content: "\20BD";
-  }
+
   /*общая оболочка*/
   .all-content-wrapper{
       padding: 5px;
@@ -750,21 +744,36 @@ h2{
     gap: 15px;
     border: 1px solid rgb(212, 211, 211);
     align-items: center;
+    justify-items:center;
   }
 .instance-object:hover{
     box-shadow:var(--complex-shadow);
     background-color: var(--light-teal);
     transition: 300ms ease-in-out all;
   }
+
+       /*знак рубля*/
+  .price {
+    font-family: 'PT Sans', serif;
+
+    }
+  .price:after {
+      content: "\20BD";
+  }
+  .not-hot-price{
+    background:teal;
+  }
+
   .hot-price-container{
     background:var(--wild-text);
     color:white;
-    padding:10px;
+    padding:7px;
     position:absolute;
     border-radius:4px;
-    left: 0;
-    top: 0;
+    right: 0;
+    bottom: 0;
     border: 1px solid white;
+    font-size: 1rem;
     }
   
  .instance-object-info{
@@ -847,16 +856,17 @@ h2{
     line-height:1.2;
   }
   .estate_agent-wrapper{
-    background: white;
+    background: #fff;
     position: absolute;
-    bottom:20px;
-    right: 70px;
+    bottom:1%;
+    right: 5%;
     padding: 0.5rem;
     border-radius: 4px;
     margin-top: 15px;
     font-size: 1.2rem;
     line-height: 1.3rem;
     z-index: 13;
+    border: 1px dotted teal;
   }
   .agent{
     color: teal;
@@ -864,6 +874,7 @@ h2{
  .img-price-container{
   position: relative;
  }
+
   .apartment-hot-price-container{
     background:var(--wild-text);
     color:white;
@@ -873,6 +884,7 @@ h2{
     top: 10px;
     z-index:2;
     border: 1px solid white;
+
   }
   /* swiper */
   .object-gallery{
@@ -896,6 +908,20 @@ h2{
     max-width: 100%;
     height: 100%;
     object-fit:contain;
+  }
+  .slide-container{
+    position: relative;
+  }
+  .gallery-notes{
+    max-width: 150px;
+    position: absolute;
+    background: #fff;
+    padding: 7px;
+    
+    right: 5%;
+    top: 1%;   
+    border: 1px dotted teal;
+    border-radius: 4px;
   }
   .apartment-page-extra{
     display: flex;
@@ -929,9 +955,7 @@ h2{
     gap:10px 20px;
     justify-items:center;
   }
-  .not-hot-price{
-    background:teal;
-  }
+
 
 
   /*стили формы поска и списка объектов*/

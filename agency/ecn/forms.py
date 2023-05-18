@@ -7,8 +7,7 @@ from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
 from captcha.fields import CaptchaField
-from pilkit.processors import ResizeToFill
-
+from pilkit.processors import ResizeToFill, ResizeToCover
 
 from ecn.models import InCityObject, OutCityObject, Gallery, Gallery2
 from imagekit.forms import ProcessedImageField
@@ -118,7 +117,7 @@ class InCityAddForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget, label='Текстовое описание')
     image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
                                 label='Основное изображение',
-                                processors=[ResizeToFill(1200, 900)],
+                                processors=[ResizeToCover(1200, 900)],
                                 format='JPEG',
                                 options={'quality': 70})
 
@@ -136,7 +135,7 @@ class InCityAddForm(forms.ModelForm):
 class InCityUpdateForm(InCityAddForm):
     image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
                                 label='Изменить изображение',
-                                processors=[ResizeToFill(1200, 900)],
+                                processors=[ResizeToCover(1200, 900)],
                                 format='JPEG',
                                 options={'quality': 70},
                                 validators=[
@@ -156,7 +155,7 @@ class OutCityAddForm(InCityAddForm):
 class OutCityUpdateForm(OutCityAddForm):
     image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
                                 label='Изменить изображение',
-                                processors=[ResizeToFill(1200, 900)],
+                                processors=[ResizeToCover(1200, 900)],
                                 format='JPEG',
                                 options={'quality': 70},
                                 validators=[
@@ -168,7 +167,7 @@ class OutCityUpdateForm(OutCityAddForm):
 class PhotoAddForm(forms.ModelForm):
     gallery_image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
                                         label='Изменить / добавить  изображение',
-                                        processors=[ResizeToFill(1200, 900)],
+                                        processors=[ResizeToCover(1200, 900)],
                                         format='JPEG',
                                         options={'quality': 70},
                                         validators=[

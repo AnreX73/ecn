@@ -37,7 +37,9 @@ def index(request):
 def show_apartment(request, apartment_slug):
     apartment = get_object_or_404(InCityObject, slug=apartment_slug)
     apartment_id = apartment.id
+    image = apartment.image
     context = {
+        'image': image,
         'apartment': apartment,
         'gallery': Gallery.objects.filter(galleryLink_id=apartment_id),
         'no_photo': Graphics.objects.get(description='нет фото')
@@ -48,12 +50,14 @@ def show_apartment(request, apartment_slug):
 def show_dacha(request, dacha_slug):
     dacha = get_object_or_404(OutCityObject, slug=dacha_slug)
     dacha_id = dacha.id
+    image = dacha.image
     context = {
+        'image': image,
         'dacha': dacha,
         'gallery': Gallery2.objects.filter(galleryLink2_id=dacha_id),
         'no_photo': Graphics.objects.get(description='нет фото'),
         'quick_links': OutCityObjectType.objects.all(),
-        'distance_links': DistanceToCity.objects.all()
+
     }
     return render(request, 'ecn/dacha.html', context=context)
 

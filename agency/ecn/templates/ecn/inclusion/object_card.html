@@ -1,9 +1,9 @@
     <a href="{{obj.get_absolute_url}}">
         <div class="instance-object">
         {% if obj.image %}
-        <img style="max-width: 150px;" src="{{obj.image.url}}" alt="{{obj.title}}">
+        <img style="max-width: 150px;max-height: 100px;" src="{{obj.image.url}}" alt="{{obj.title}}">
         {% else %}
-        <img  style="max-width: 150px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
+        <img  style="max-width: 150px;max-height: 100px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
         {% endif %}
         <div class="instance-object-info">
         <p class="instance-object-title">{{obj.title}} </p>
