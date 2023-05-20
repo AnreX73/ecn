@@ -81,7 +81,7 @@ class InCitySearchForm(forms.ModelForm):
         self.fields['object_type'].required = False
         self.fields['price'].required = False
 
-    price = forms.IntegerField(min_value=0, label='Цена', widget=forms.widgets.NumberInput(
+    price = forms.IntegerField(min_value=0, label='Цена', widget=forms.widgets.TextInput(
         attrs={'placeholder': 'не больше', 'class': 'form-input'}))
 
     class Meta:
@@ -109,6 +109,22 @@ class OutCitySearchForm(forms.ModelForm):
 
 
 class InCityAddForm(forms.ModelForm):
+    title = forms.CharField(label='Заголовок', widget=forms.widgets.TextInput(
+        attrs={'placeholder': 'краткое название', 'class': 'form-input'}))
+    price = forms.IntegerField(label='Цена', widget=forms.widgets.NumberInput(
+        attrs={'placeholder': 'только цифры(без пробелов)', 'class': 'form-input'}))
+    object_adress = forms.CharField(label='Адрес', widget=forms.widgets.TextInput(
+        attrs={'placeholder': 'кратко (улица, номер дома)', 'class': 'form-input'}))
+    metro_distance = forms.CharField(label='Расстояние до метро', widget=forms.widgets.TextInput(
+        attrs={'placeholder': 'кратко', 'class': 'form-input'}))
+    rooms_layout = forms.CharField(label='Планировка', widget=forms.widgets.TextInput(
+        attrs={'placeholder': 'смежная, изолированая и проч.', 'class': 'form-input'}))
+    square = forms.IntegerField(label='Общая площадь', widget=forms.widgets.NumberInput(
+        attrs={'placeholder': 'только цифры(без пробелов)', 'class': 'form-input'}))
+    live_square = forms.IntegerField(label='Жилая площадь', widget=forms.widgets.NumberInput(
+        attrs={'placeholder': 'только цифры(без пробелов)', 'class': 'form-input'}))
+    kitchen = forms.IntegerField(label='Площадь кухни', widget=forms.widgets.NumberInput(
+        attrs={'placeholder': 'только цифры(без пробелов)', 'class': 'form-input'}))
     slug = forms.CharField(widget=forms.HiddenInput, label='')
     is_hot = forms.CharField(widget=forms.HiddenInput, label='')
     is_published = forms.CharField(widget=forms.HiddenInput, label='')
@@ -145,7 +161,10 @@ class InCityUpdateForm(InCityAddForm):
 
 
 class OutCityAddForm(InCityAddForm):
-    land_square = forms.CharField(label='Участок в сотках')
+    land_square = forms.IntegerField(label='Площадь участка', widget=forms.widgets.NumberInput(
+        attrs={'placeholder': 'в сотках(только цифры)', 'class': 'form-input'}))
+    square = forms.IntegerField(label='Площадь дома', widget=forms.widgets.NumberInput(
+        attrs={'placeholder': 'если он есть', 'class': 'form-input'}))
 
     class Meta:
         model = OutCityObject
