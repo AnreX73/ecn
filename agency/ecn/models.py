@@ -88,6 +88,18 @@ class RoomAmount(models.Model):
         ordering = ['id']
 
 
+class RoomsLayout(models.Model):
+    rooms_layout = models.CharField(max_length=55, verbose_name='Планировка')
+
+    def __str__(self):
+        return self.rooms_layout
+
+    class Meta:
+        verbose_name = 'Планировка'
+        verbose_name_plural = 'Вид планировки'
+        ordering = ['id']
+
+
 # Санузел
 class BathroomType(models.Model):
     title = models.CharField(max_length=100, verbose_name='Тип санузла')
@@ -182,7 +194,7 @@ class InCityObject(models.Model):
     square = models.PositiveIntegerField(blank=True, verbose_name='общая площадь кв.м')
     live_square = models.PositiveIntegerField(blank=True, verbose_name='жилая площадь')
     kitchen = models.PositiveIntegerField(blank=True, verbose_name='площадь кухни')
-    rooms_layout = models.CharField(max_length=255, blank=True, verbose_name='планировка')
+    rooms_layout = models.ForeignKey(RoomsLayout, default=0, on_delete=models.PROTECT, verbose_name='планировка')
     balcony = models.ForeignKey(Balcony, default=2, on_delete=models.PROTECT, verbose_name='балкон')
     floor = models.PositiveIntegerField(blank=True, default=1, verbose_name='Этаж')
     all_floor = models.PositiveIntegerField(blank=True, null=True, verbose_name='Этажность дома')

@@ -489,34 +489,17 @@ h2{
     max-height: 60px;
     object-fit: contain;
     }
-    /*значок телефона в шапке*/
-  header .phone-box{
-    justify-self: left;
-    grid-column: 2 / span 3;
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    justify-items: center;
-    align-items: center;
-    gap: 10px;
-  }
-  header .phone-box :nth-child(1){
-    justify-self: flex-end;
-  }
-  /*контейнер для номеров телефона в шапке*/
-  header .phones-wrapper{
-    justify-self: flex-start;
-  }
-  /* телефоны в шапке*/
-  header .header-phone{
-    padding: 3px;
-  }
+    
   /*элементы навигации главной страницы*/
   .header-nav{
     grid-column: 8 / span 5;
+    
     /* display: grid;
     grid-template-columns: repeat(5,1fr); */
   }
-
+.nav-header-links{
+  font-size: 1rem;
+}
   /*| Navigation |*/
 
   nav{
@@ -657,6 +640,7 @@ h2{
     z-index: 10; 
     gap:15px; 
   }
+
   .links-container{ 
     padding: 10px;
     justify-items: center; 
@@ -693,6 +677,7 @@ h2{
   gap: 10px;
   padding: 10px;
   }
+
   .service-item{
     border: 1px solid rgb(212, 211, 211);
     padding: 10px;
@@ -715,7 +700,7 @@ h2{
   }
   .service-item-content{
     text-align: justify;
-
+    
 
   }
   /*hot объекты на главной*/
@@ -729,6 +714,7 @@ h2{
     gap: 10px;
     justify-items: center;
   }
+
   .hot-title{
     color: var(--wild-text);
   }
@@ -1186,9 +1172,73 @@ h2{
   left: 290px;
   
 }
+.mini-button-container{
+  display: none;
+}
+.mini-custom-btn{
+  padding: 5px 10px;
+  background: var(--wild-text);
+  color: #fff;
+  border-radius: 4px;
+}
+.mini-custom-btn:hover{
+box-shadow: var(--complex-shadow);
+}
+.mini-search-btn{
+  background: teal;
+}
 footer{
   text-align: center;
   padding: 15px;
   background: var(--light-teal);
   
+}
+
+@media (max-width: 1199px) {
+  .links-list-wrapper, .services-wrapper, .hot-objects-list{
+    grid-template-columns: repeat(2,1fr);
+    max-width: 766px;
+    margin: 0 auto;
+  }
+  .nav-header-links{
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 767px) {
+  .links-list-wrapper, .services-wrapper, .hot-objects-list{
+    grid-template-columns: 1fr;
+    max-width: 766px;
+    margin: 0 auto;
+    
+  }
+  header{
+    padding: 3px;
+  }
+  .mini-button-container{
+    display: block;
+  }
+  .main-page-slogan{
+    display: none;
+  }
+  .header-nav{
+    grid-column: 5 / span 7;
+  }
+  .main-page-img-wrapper img, .custom-btn{
+    display: none;
+  }
+  header .logo-box {
+    grid-column: span 1;
+    padding: 3px;
+  }
+  .logo-box img{
+    max-height: 50px;
+    object-fit: contain;
+    }
+ 
+}
+@media (max-width: 560px) {
+  .header-nav{
+    grid-column: 2 / span 10;
+  }
+
 }

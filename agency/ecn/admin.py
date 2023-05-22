@@ -55,6 +55,14 @@ class RoomAmountAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+@admin.register(RoomsLayout)
+class RoomsLayoutAdmin(admin.ModelAdmin):
+    list_display = ('id', 'rooms_layout')
+    list_display_links = ('id', 'rooms_layout')
+    search_fields = ('rooms_layout',)
+    save_on_top = True
+
+
 @admin.register(BathroomType)
 class BathroomTypeAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
@@ -114,7 +122,7 @@ class InCityObjectAdmin(admin.ModelAdmin):
     list_display_links = ('sale_or_rent', 'title')
     search_fields = ('title', 'rooms', 'city_region',)
     list_editable = ('is_published',)
-    list_filter = ('is_published', 'time_create','estate_agent')
+    list_filter = ('is_published', 'time_create', 'estate_agent')
     prepopulated_fields = {'slug': ('title',)}
     save_on_top = True
 
@@ -140,7 +148,7 @@ class GalleryAdmin2(admin.TabularInline):
 class OutCityObjectAdmin(admin.ModelAdmin):
     inlines = [GalleryAdmin2]
     list_display = (
-        'id', 'title', 'gethtmlPhoto','estate_agent', 'object_adress', 'land_square', 'price', 'is_published')
+        'id', 'title', 'gethtmlPhoto', 'estate_agent', 'object_adress', 'land_square', 'price', 'is_published')
     list_display_links = ('id', 'title')
     search_fields = ('title', 'land_square',)
     list_editable = ('is_published',)
@@ -320,7 +328,6 @@ class CommercialAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
-
 class GalleryComercialAdmin(admin.TabularInline):
     model = GalleryComercial
     fields = ('com_image', 'gethtmlPhoto', 'note', 'is_published')
@@ -332,13 +339,14 @@ class GalleryComercialAdmin(admin.TabularInline):
 
     gethtmlPhoto.short_description = 'миниатюра'
 
+
 class CommercialObjectAdmin(admin.ModelAdmin):
     inlines = [GalleryComercialAdmin]
     list_display = ('title', 'estate_agent', 'gethtmlPhoto', 'city_region', 'price', 'post_link', 'is_published')
     list_display_links = ('title',)
-    search_fields = ('title', 'city_region','post_link')
+    search_fields = ('title', 'city_region', 'post_link')
     list_editable = ('is_published',)
-    list_filter = ('is_published', 'time_create','post_link')
+    list_filter = ('is_published', 'time_create', 'post_link')
     save_on_top = True
 
     def gethtmlPhoto(self, picture):
@@ -346,12 +354,6 @@ class CommercialObjectAdmin(admin.ModelAdmin):
             return mark_safe(f"<img src='{picture.image.url}' width=50>")
 
     gethtmlPhoto.short_description = 'миниатюра'
-
-
-
-
-
-
 
 
 admin.site.register(InCityObject, InCityObjectAdmin)

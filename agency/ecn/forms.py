@@ -9,7 +9,7 @@ from ckeditor.widgets import CKEditorWidget
 from captcha.fields import CaptchaField
 from pilkit.processors import ResizeToFill, ResizeToCover
 
-from ecn.models import InCityObject, OutCityObject, Gallery, Gallery2
+from ecn.models import InCityObject, OutCityObject, Gallery, Gallery2, RoomsLayout
 from imagekit.forms import ProcessedImageField
 
 from pilkit.lib import Image
@@ -117,8 +117,8 @@ class InCityAddForm(forms.ModelForm):
         attrs={'placeholder': 'кратко (улица, номер дома)', 'class': 'form-input'}))
     metro_distance = forms.CharField(label='Расстояние до метро', widget=forms.widgets.TextInput(
         attrs={'placeholder': 'кратко', 'class': 'form-input'}))
-    rooms_layout = forms.CharField(label='Планировка', widget=forms.widgets.TextInput(
-        attrs={'placeholder': 'смежная, изолированая и проч.', 'class': 'form-input'}))
+    rooms_layout = forms.ModelChoiceField(queryset=RoomsLayout.objects.all(),
+                                          label='Планировка')
     square = forms.IntegerField(label='Общая площадь', widget=forms.widgets.NumberInput(
         attrs={'placeholder': 'только цифры(без пробелов)', 'class': 'form-input'}))
     live_square = forms.IntegerField(label='Жилая площадь', widget=forms.widgets.NumberInput(
@@ -160,11 +160,36 @@ class InCityUpdateForm(InCityAddForm):
                                 widget=forms.widgets.FileInput)
 
 
-class OutCityAddForm(InCityAddForm):
+class OutCityAddForm(forms.ModelForm):
+    title = forms.CharField(label='Заголовок', widget=forms.widgets.TextInput(
+        attrs={'placeholder': 'краткое название', 'class': 'form-input'}))
+    price = forms.IntegerField(label='Цена', widget=forms.widgets.NumberInput(
+        attrs={'placeholder': 'только цифры(без пробелов)', 'class': 'form-input'}))
+    object_adress = forms.CharField(label='Адрес', widget=forms.widgets.TextInput(
+        attrs={'placeholder': 'кратко (улица, номер дома)', 'class': 'form-input'}))
     land_square = forms.IntegerField(label='Площадь участка', widget=forms.widgets.NumberInput(
         attrs={'placeholder': 'в сотках(только цифры)', 'class': 'form-input'}))
+    transport_distance = forms.CharField(label='Расстояние до метро', widget=forms.widgets.TextInput(
+    attrs={'placeholder': 'кратко', 'class': 'form-input'}))
     square = forms.IntegerField(label='Площадь дома', widget=forms.widgets.NumberInput(
         attrs={'placeholder': 'если он есть', 'class': 'form-input'}))
+    slug = forms.CharField(widget=forms.HiddenInput, label='')
+    is_hot = forms.CharField(widget=forms.HiddenInput, label='')
+    is_published = forms.CharField(widget=forms.HiddenInput, label='')
+    estate_agent = forms.ModelChoiceField(queryset=User.objects.all(),
+                                          widget=forms.HiddenInput, label='')
+    content = forms.CharField(widget=CKEditorWidget, label='Текстовое описание')
+    image = ProcessedImageField(spec_id='ecn:media:ecn_thumbnail',
+                                label='Основное изображение',
+                                processors=[ResizeToCover(1200, 900)],
+                                format='JPEG',
+                                options={'quality': 70})
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['slug'].required = False
+        self.fields['is_hot'].required = False
+        self.fields['is_published'].required = False
 
     class Meta:
         model = OutCityObject

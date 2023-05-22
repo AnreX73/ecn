@@ -3,21 +3,11 @@
 <header>
 
 <a href='{% url "home" %}'><div class="header-items logo-box">  <img  src="{{logo.image.url}}" alt="{{logo.description}}" /></div> </a>
-<!-- <div class="header-items phone-box">
-     <img  src="{{phone_icon.image.url}}" alt="{{phone_icon.title}}" />
-     <div class="phones-wrapper">
-        {% for cont in contacts %}
-        <div class="header-phone">
-        {{cont.description}}
-        </div>
-        {% endfor %}
-     </div>
 
-</div> -->
 <div class="header-items header-nav">
    <nav role="navigation">
    
-      <ul>
+      <ul class="nav-header-links">
         <li><a href="{% url 'searched_obj' 's' %}">Продажа</a>
          <ul>
             {% for incity in in_city_object_type %}
@@ -43,13 +33,10 @@
           </ul>
         </li>
         <li><a href='{% url "home" %}#services'>услуги</a></li>
-        {% if not user.is_authenticated %}
-        <li><a href='{% url "register" %}'>РЕГИСТРАЦИЯ</a></li>
-        {% endif %}
+       
         {% if user.is_authenticated %}
         <a href="{% url 'profile' %}"><li style="color:teal;">{{ user }}</li></a>
-        {% else %}
-        <li><a href='{% url "user_login" %}'>ВХОД</a></li>
+        
         {% endif %}
         
         
