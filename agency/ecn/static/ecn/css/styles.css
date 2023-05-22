@@ -324,13 +324,11 @@ border: 1px dotted teal;
 /* Контейнер Поля формы с лейблом*/
 .form-fields{
     display:grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: 1fr;
     align-items:center;
-    justify-items: left;
+    justify-items: center;
 }
-.form-fields > label{
-  justify-self: flex-end;
-}
+
 
 
 /*Поля форм */
@@ -342,7 +340,7 @@ border-radius: 4px;
 min-width: 200px;
 min-height: 35px;
 font-family: 'Oswald', sans-serif;
-font-size:1rem;
+font-size: 1rem;
 }
 
 #id_land_square, #id_price{
@@ -431,18 +429,7 @@ h2{
     font-size: 1.5rem;
   }
   /*стили таблиц*/
-  td, th{
-    padding: 5px;
-    border-radius: 4px;
-  }
-  th{
-    text-align: left;
-    background: rgb(0, 128, 128,0.2);
-  }
-  td{
-    text-align: left;
-    background: rgb(0, 128, 128,0.1);
-  }
+
 
   /*общая оболочка*/
   .all-content-wrapper{
@@ -754,7 +741,7 @@ h2{
     padding:7px;
     position:absolute;
     border-radius:4px;
-    right: 0;
+    left: 0;
     bottom: 0;
     border: 1px solid white;
     font-size: 1rem;
@@ -818,11 +805,7 @@ h2{
     max-width: 900px;
     padding: 15px;
   }
-  @media (max-width: 1024px) {
-    .apartment-image-container{
-      max-width: 700px;
-    }
-  }
+
   /* фотогалерея объекта */
   .apartment-image-container img{
    width: 100%;
@@ -834,6 +817,21 @@ h2{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
+  }
+  .apartment-table-wrapper table{
+    width: 400px;
+  }
+  td, th{
+    padding: 5px;
+    border-radius: 4px;
+  }
+  th{
+    text-align: left;
+    background: rgb(0, 128, 128,0.2);
+  }
+  td{
+    text-align: left;
+    background: rgb(0, 128, 128,0.1);
   }
   .apartment-description{
     padding: 10px;
@@ -991,23 +989,11 @@ h2{
   }
 
 
-  .search-form li {
-    display: grid;
-    grid-template-columns:repeat(2,1fr);
-    align-items: center;
-    box-sizing: border-box;
-    font-size: 1.1rem;
-    color: teal;
-    justify-items:center;
-  }
-  .search-form li:hover {
-    color: var(--wild-text);
-    transition: 300ms ease-in-out all;
-  }
+
 
   .search-form select{
     padding: 5px;
-    margin: 5px;
+    margin: 1px;
     border-radius: 4px;
     border: 1px solid rgb(204, 238, 238);
     width: 150px;
@@ -1203,13 +1189,49 @@ footer{
   .nav-header-links{
     font-size: 0.9rem;
   }
+  .searched-wrapper{
+    grid-template-columns: repeat(2,1fr); 
+  }
+  .form-input, .add-form-wrapper input, .add-form-wrapper select, .add-form-wrapper textarea{
+    min-width: 140px;
+    min-height: 30px;
+  }
+  .form-fields-wrapper{
+    gap:0;
+  }
+  .search-form {
+    padding: 5px;
+  }
+  .search-form select{
+    width: 140px;
+  }
+  .apartment-all-page-container{
+    grid-template-columns: 1fr;
+  }
+  .apartment-page-extra{
+    display: none;
+  }
+ 
+}
+@media (max-width: 1023px) {
+  .apartment-image-container{
+    max-width: 700px;
+  }
+  .apartment-table-wrapper table{
+    width: 340px;
+    font-size: 1rem;
+  }
 }
 @media (max-width: 767px) {
-  .links-list-wrapper, .services-wrapper, .hot-objects-list{
-    grid-template-columns: 1fr;
+  .links-list-wrapper, .services-wrapper{
+    grid-template-columns: 1fr 1fr;
     max-width: 766px;
     margin: 0 auto;
     
+  }
+ 
+  .hot-objects-list{
+    grid-template-columns:  1fr; 
   }
   header{
     padding: 3px;
@@ -1234,11 +1256,45 @@ footer{
     max-height: 50px;
     object-fit: contain;
     }
+  nav ul li a {
+    display:block; /* Настраиваем оформление пунктов меню */
+    padding: 3px 5px;
+    }
+    .form-fields-wrapper{
+      grid-template-columns: 1fr;
+    }
+    .form-fields{
+      margin-top: 5px;
+      grid-template-columns: repeat(2,1fr);
+    }
+    .form-fields label{
+      justify-self: flex-end;
+      margin-right: 5px;
+    }
+    .searched-wrapper{
+      grid-template-columns: 1fr; 
+    }
  
 }
-@media (max-width: 560px) {
+@media (max-width: 479px) {
   .header-nav{
     grid-column: 2 / span 10;
   }
+  header{
+    gap: 5px;
+    padding: 0px;
+    
+  }
+  .header-item{
+    margin-left:10px;
+    }
+  .header-item-user{
+    margin-left:15px;
+    }
+  .instance-object{
+    min-height: 120px;
+    min-width: 330px;
+    padding: 5px;
+  } 
 
 }

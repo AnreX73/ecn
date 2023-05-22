@@ -170,7 +170,7 @@ class OutCityAddForm(forms.ModelForm):
     land_square = forms.IntegerField(label='Площадь участка', widget=forms.widgets.NumberInput(
         attrs={'placeholder': 'в сотках(только цифры)', 'class': 'form-input'}))
     transport_distance = forms.CharField(label='Расстояние до метро', widget=forms.widgets.TextInput(
-    attrs={'placeholder': 'кратко', 'class': 'form-input'}))
+        attrs={'placeholder': 'кратко', 'class': 'form-input'}))
     square = forms.IntegerField(label='Площадь дома', widget=forms.widgets.NumberInput(
         attrs={'placeholder': 'если он есть', 'class': 'form-input'}))
     slug = forms.CharField(widget=forms.HiddenInput, label='')
