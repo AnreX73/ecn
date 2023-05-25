@@ -866,7 +866,7 @@ h2{
     padding:10px;
     position:absolute;
     border-radius:4px;
-    top: 10px;
+    top: 1%;
     z-index:2;
     border: 1px solid white;
 
@@ -1180,7 +1180,22 @@ footer{
   
 }
 
+.stop-mobile{
+  display: none;
+}
+
+
 @media (max-width: 1199px) {
+  .reg-title{
+    font-size: 1.2rem;
+  }
+  .logout-link, .update-profile-link{
+    font-size:0.9rem;
+    background:none;
+    transition: 400ms ease all;
+    min-width: 130px; 
+    max-width: 200px; 
+  }
   .links-list-wrapper, .services-wrapper, .hot-objects-list{
     grid-template-columns: repeat(2,1fr);
     max-width: 766px;
@@ -1211,25 +1226,61 @@ footer{
   .apartment-page-extra{
     display: none;
   }
- 
 }
+
+
 @media (max-width: 1023px) {
+  .stop-mobile{
+    display: block;
+  }
+  .all-profile-wrapper, .all-form-wrapper, .all-manage-photo-container{
+    display: none;
+  }
   .apartment-image-container{
     max-width: 700px;
+    padding: 5px;
+  }
+  .apartment-hot-price-container{
+    top: 5%;
+  }
+  .estate_agent-wrapper{
+    bottom: 7%;
   }
   .apartment-table-wrapper table{
     width: 340px;
     font-size: 1rem;
   }
+  .service-item{
+    border: 1px solid rgb(212, 211, 211);
+    padding: 5px;
+    border-radius: 4px;  
+  }
+  .service-item:hover{
+    transform: translateX(0) scaleY(1.1) scaleX(1.1);
+    background:#fff;
+    box-shadow:var(--complex-shadow);   
+  }
+  .services-wrapper :nth-child(4):hover{
+    transform: translateX(0) scaleY(1.1) scaleX(1.1);
+  }
+  .service-item-title{
+    font-size: 1.1rem;
+    color: teal;
+    margin-bottom: 5px;
+  }
+  .service-item-content{
+    text-align: left;
 }
+
+}
+
+
 @media (max-width: 767px) {
   .links-list-wrapper, .services-wrapper{
     grid-template-columns: 1fr 1fr;
     max-width: 766px;
-    margin: 0 auto;
-    
+    margin: 0 auto;  
   }
- 
   .hot-objects-list{
     grid-template-columns:  1fr; 
   }
@@ -1274,9 +1325,40 @@ footer{
     .searched-wrapper{
       grid-template-columns: 1fr; 
     }
- 
+    .apartment-image-container{
+      max-width: 460px;
+      padding: 5px;
+    }
+    .apartment-image-container img{
+      width: 100%;
+      height:100%;
+      object-fit: contain;
+     }
+     .object-gallery{
+      width: 100%;
+      max-height: 400px;
+    }
+     .apartment-hot-price-container{
+      top: 1%;
+    }
+    .estate_agent-wrapper{
+      bottom: 3%;
+    }
+    .apartment-table-wrapper table{
+      width: 200px;
+      font-size: 0.9rem;
+    }
+    td, th{
+      padding: 3px;  
+    }
 }
+
+
 @media (max-width: 479px) {
+  .links-list-wrapper, .services-wrapper{
+    grid-template-columns:  1fr;   
+  }
+ 
   .header-nav{
     grid-column: 2 / span 10;
   }
@@ -1296,5 +1378,33 @@ footer{
     min-width: 330px;
     padding: 5px;
   } 
+  .apartment-image-container{
+    max-width: 320px;
+    padding: 3px;
+  }
+  .apartment-image-container img{
+    width: 100%;
+    height:100%;
+    object-fit: contain;
+   }
+   .object-gallery{
+    width: 100%;
+    max-height: 300px;
+  }
+   .apartment-hot-price-container{
+    top: 1%;
+  }
+  .estate_agent-wrapper{
+    font-size: 1rem;
+    bottom: 3%;
+  }
+  .apartment-table-wrapper{
+    grid-template-columns: 1fr;
+    
+  }
+  .apartment-table-wrapper table{
+    width: 300px;
+    font-size: 1rem;
+  }
 
 }

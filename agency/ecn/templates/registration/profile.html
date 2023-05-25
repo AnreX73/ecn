@@ -3,10 +3,11 @@
 
 {% block content %}
 <h1 class="reg-title" >Это  Ваша страница , {{ user.first_name }} !</h1>
+<div class="stop-mobile">
+    <h1 class="reg-title" style="color:red;" >Но редактирование  на мобильных устройствах НЕВОЗМОЖНО!</h1> 
+    <a class="logout-link" href="{% url 'logout' %}">ВЫЙТИ  </a> 
+</div>
 <div class="all-profile-wrapper">
-
-
-
  <div class="profile-objects-container">
     <h1 class="reg-title" >Ваши объявления</h1>
 

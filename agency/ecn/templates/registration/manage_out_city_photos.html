@@ -2,6 +2,10 @@
 {% load agency_tags %}
 
 {% block content %}
+<div class="stop-mobile">
+    <h1 class="reg-title" style="color:red;" >Редактирование  на мобильных устройствах НЕВОЗМОЖНО!</h1> 
+    <a class="logout-link" href="{% url 'logout' %}">ВЫЙТИ  </a> 
+  </div>
 <div class="all-manage-photo-container">
 <h1 class="reg-title">{{ parent.title }} / фотографии (максимум 10)</h1>
 

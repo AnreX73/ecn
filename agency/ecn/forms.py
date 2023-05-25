@@ -81,8 +81,8 @@ class InCitySearchForm(forms.ModelForm):
         self.fields['object_type'].required = False
         self.fields['price'].required = False
 
-    price = forms.IntegerField(min_value=0, label='Цена', widget=forms.widgets.TextInput(
-        attrs={'placeholder': 'не больше', 'class': 'form-input'}))
+    price = forms.IntegerField(min_value=0, label='Цена не выше', widget=forms.widgets.TextInput(
+        attrs={'placeholder': 'цифры(без пробелов)', 'class': 'form-input'}))
 
     class Meta:
         model = InCityObject
@@ -100,8 +100,8 @@ class OutCitySearchForm(forms.ModelForm):
 
     land_square = forms.IntegerField(min_value=0, label='Площадь участка', widget=forms.widgets.NumberInput(
         attrs={'placeholder': 'не менее (в сотках)', 'class': 'form-input'}))
-    price = forms.IntegerField(min_value=0, label='Цена', widget=forms.widgets.NumberInput(
-        attrs={'placeholder': 'не больше', 'class': 'form-input'}))
+    price = forms.IntegerField(min_value=0, label='Цена не выше', widget=forms.widgets.NumberInput(
+        attrs={'placeholder': 'цифры(без пробелов)', 'class': 'form-input'}))
 
     class Meta:
         model = OutCityObject
@@ -169,7 +169,7 @@ class OutCityAddForm(forms.ModelForm):
         attrs={'placeholder': 'кратко (улица, номер дома)', 'class': 'form-input'}))
     land_square = forms.IntegerField(label='Площадь участка', widget=forms.widgets.NumberInput(
         attrs={'placeholder': 'в сотках(только цифры)', 'class': 'form-input'}))
-    transport_distance = forms.CharField(label='Расстояние до метро', widget=forms.widgets.TextInput(
+    transport_distance = forms.CharField(label='Расстояние до транспорта', widget=forms.widgets.TextInput(
         attrs={'placeholder': 'кратко', 'class': 'form-input'}))
     square = forms.IntegerField(label='Площадь дома', widget=forms.widgets.NumberInput(
         attrs={'placeholder': 'если он есть', 'class': 'form-input'}))
