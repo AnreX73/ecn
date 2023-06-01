@@ -150,10 +150,10 @@ INTERNAL_IPS = [
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
-'default': {
-'toolbar': 'Full',
-'width': 'auto',
-'height':'60%'
-},
+    'default': {
+        'toolbar': 'Full',
+        'width': 'auto',
+        'height': '60%'
+    },
 }
 CAPTCHA_BACKGROUND_COLOR = 'rgb(238, 255, 255)'
